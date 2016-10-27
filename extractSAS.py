@@ -12,7 +12,7 @@
 #####
 
 peakChannelNum = 4 #channel number of assembly with peak power/flow
-rhoLimits = '[-0.5,0.5]' #range of reactivity to be plotted, ($), no spaces allowed
+rhoLimits = '[-0.25,0.25]' #range of reactivity to be plotted, ($), no spaces allowed
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 
 
@@ -277,7 +277,8 @@ matlabCommand = ''
 for command in matlabCommands:
     matlabCommand = matlabCommand+command
 
-command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand]
+command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running locally
+#command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running on savio
 
 print('plotting...')
 
