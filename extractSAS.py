@@ -277,8 +277,8 @@ matlabCommand = ''
 for command in matlabCommands:
     matlabCommand = matlabCommand+command
 
-command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running locally
-#command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running on savio
+#command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running locally
+command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running on savio
 
 print('plotting...')
 
