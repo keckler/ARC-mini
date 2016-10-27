@@ -277,7 +277,7 @@ matlabCommand = ''
 for command in matlabCommands:
     matlabCommand = matlabCommand+command
 
-command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand]
+command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand]
 
 print('plotting...')
 
