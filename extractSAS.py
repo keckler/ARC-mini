@@ -12,7 +12,7 @@
 #####
 
 peakChannelNum = 4 #channel number of assembly with peak power/flow
-rhoLimits = '[-0.25,0.25]' #range of reactivity to be plotted, ($), no spaces allowed
+rhoLimits = '[-0.35,0.35]' #range of reactivity to be plotted, ($), no spaces allowed
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 
 
@@ -106,8 +106,8 @@ for line in fs:
                 if nextLine[19:20] == str(peakChannelNum): #if peak channel, save info
                     saturation.append(float(nextLine[110:118]))
                     fuelPeak.append(float(nextLine[28:36]))
-                    cladPeak.append(float(nextLine[53:60]))
-                    coolantPeak.append(float(nextLine[77:84]))
+                    cladPeak.append(float(nextLine[52:60]))
+                    coolantPeak.append(float(nextLine[76:84]))
                     chanFlag = 1
                 else: #if peak channel not on this line, skip to next
                     nextLine = fs.next()
