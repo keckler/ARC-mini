@@ -1,0 +1,49 @@
+#!/bin/bash                                                                                                                                                                       
+
+# -----------------------------------------------------------------------------                                                                                                   
+# job options                                                                                                                                                                     
+# -----------------------------------------------------------------------------                                                                                                   
+
+# job name                                                                                                                                                                        
+#SBATCH --job-name=mini                                                                                                                                                        
+
+# output name                                                                                                                                                                     
+#SBATCH --output=mini.log                                                                                                                                                      
+
+# wall time, in minutes                                                                                                                                                           
+#SBATCH --time=5                                                                                                                                                             
+
+# -----------------------------------------------------------------------------                                                                                                   
+# SLURM options                                                                                                                                                                   
+# -----------------------------------------------------------------------------                                                                                                   
+# for a full list of partition, quality of service, and account options, type:                                                                                                    
+# sacctmgr -p show associations user=$USER                                                                                                                                        
+
+# account                                                                                                                                                                         
+# #SBATCH --account=co_nuclear                                                                                                                                                   
+#SBATCH --account=fc_neutronics
+
+# partition                                                                                                                                                                       
+#SBATCH --partition=savio                                                                                                                                                         
+
+# quality of service                                                                                                                                                              
+# #SBATCH --qos=nuclear_normal                                                                                                                                                   
+#SBATCH --qos=savio_normal
+
+# number of nodes                                                                                                                                                                 
+#SBATCH --nodes=1                                                                                                                                                                 
+
+# number of tasks on each node, savio has 20 cores per node, savio2 has 24                                                                                                        
+#SBATCH --ntasks-per-node=20                                                                                                                                                      
+
+# email me                                                                                                                                                                        
+# SBATCH --mail-type=all                                                                                                                                                           
+
+# email address                                                                                                                                                                   
+#SBATCH --mail-user=keckler@berkeley.edu                                                                                                                                          
+
+# -----------------------------------------------------------------------------                                                                                                   
+# job execution                                                                                                                                                                   
+# -----------------------------------------------------------------------------                                                                                                   
+~/bin/mini-5.1/mini-5.1-Linux.x < /global/home/users/ckeckler/docs/mini/ARC-mini/metal/ULOF/ABR.TW08Aug.Metal.Startup.2007-07.PRIMAR.PLOF5sec-redacted.inp_ULOF.inp > mini.out
+/global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py mini.out
