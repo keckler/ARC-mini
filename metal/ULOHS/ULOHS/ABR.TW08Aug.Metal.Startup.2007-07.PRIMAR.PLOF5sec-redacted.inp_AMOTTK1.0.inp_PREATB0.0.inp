@@ -1929,17 +1929,6 @@ INPMR4     3     1     0
   1289     1   500        ISST15
 #                   STRATIFIED COMPRESSIBLE VOLUMES
   1313     1     0        NSTRCV
-  1313     1     2        NSTRCV
-  1314     2     2     5  ICVSTR
-  1317     2     1     2  ISTRVT
-  1320     2     1     1  NUMWAL
-  1323     2     1     2  IFSTWL
-  1326     2     0     0  IWLHRZ
-  1335     2    10    10  NVDWL
-  1344     2     5     5  NLNDWL
-  1353     2     3     0  ICV2WL
-  1362     1     0        IDBSTR
-  1363     1    30        ISTDBS
 #                   DEBUG PRINTS
    507     1     0                                                       IDBPR4
    508     1     0                                                       IDBP4N
