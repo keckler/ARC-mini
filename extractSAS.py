@@ -11,8 +11,8 @@
 #user input
 #####
 
-peakChannelNum = 4 #channel number of assembly with peak power/flow
-rhoLimits = '[-0.35,0.35]' #range of reactivity to be plotted, ($), no spaces allowed
+peakChannelNum = 1 #channel number of assembly with peak power/flow
+rhoLimits = '[-0.25,0.25]' #range of reactivity to be plotted, ($), no spaces allowed
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 
 
