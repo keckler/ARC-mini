@@ -109,6 +109,8 @@ for line in fs:
             del tempStep[0:-1]
             del tempTime[0:-1]
             del IHXflow[0:-1]
+            del IHXintermediateInlet[0:-1]
+            del IHXintermediateOutlet[0:-1]
             tempTime[0] = 0.0
         elif line.split()[0] == 'MAXIMUM' and line.split()[1] == 'TEMPERATURES': #if at table of max temps, go through following lines to find peak channel info
             nextLine = fs.next()
@@ -181,6 +183,19 @@ for line in fs:
             else: #if not first instance, record normalized flow
                 nextLine = fs.next() #skip line
                 IHXflow.append(float(nextLine.split()[7]))
+        elif line[0:20] == ' IHX TEMPERATURES, K' and int(line.split()[-1]) == IHXintermediateSide: #get temps at inlet and outlet of IHX intermediate side (tube side)
+            nextLine = fs.next() #skip 4 lines
+            nextLine = fs.next()
+            nextLine = fs.next()
+            nextLine = fs.next()
+            IHXintermediateInlet.append(float(nextLine.split()[4]))
+            IHXnodeFlag = 0
+            while IHXnodeFlag == 0: #go through table until reaching end
+                previousLine = nextLine
+                nextLine = fs.next()
+                if nextLine == '\n': #if its empty, the previous line has outlet coolant temp
+                    IHXintermediateOutlet.append(float(previousLine.split()[2]))
+                    IHXnodeFlag = 1
         else: #not of interest
             pass
     except (KeyError, ValueError, IndexError): #if the line is shit
