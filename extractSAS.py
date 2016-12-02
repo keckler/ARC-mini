@@ -14,6 +14,8 @@
 peakChannelNum = 1 #channel number of assembly with peak power/flow
 rhoLimits = '[-0.25,0.25]' #range of reactivity to be plotted, ($), no spaces allowed
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
+IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
+IHXpump = 2 #element number of intermediate pump
 
 
 #####
@@ -47,7 +49,7 @@ coolant = [] #[$]
 structureAxialExpansion = [] #[$]
 controlSystem = [] #[$]
 
-#temperature parameters
+#primary loop parameters
 tempStep = [] #time steps in temperature table
 tempTime = [] #times in temperature tables [s]
 saturation = [] #[K]
@@ -60,9 +62,15 @@ coolantOutlet = [] #[K]
 fuelAve = [] #[K]
 cladAve = [] #[K]
 
+#intermediate loop parameters
+IHXintermediateInlet = [] #[K]
+IHXintermediateOutlet = [] #[K]
+IHXflow = [] #[normalized]
+
 #put all entries into tables
 rhoTab = [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
-tempTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
+primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
+intermediateTab = [IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
 
 
 #####
@@ -95,9 +103,10 @@ for line in fs:
         elif line[0:34] == '                    MAIN TIME STEP': #get temps at steps
             tempStep.append(int(line.split()[3]))
             tempTime.append(float(line.split()[9][0:-4]+'E'+line.split()[9][-3:])) #convert stupid scientific notation (1.6D+04) to standard (1.6E+04)
-        elif line[0:24] == ' FINISHED NULL TRANSIENT': #alter tempTab to remove null transient info
+        elif line[0:24] == ' FINISHED NULL TRANSIENT': #alter primaryTab to remove null transient info
             del tempStep[0:-1]
             del tempTime[0:-1]
+            del IHXflow[0:-1]
             tempTime[0] = 0.0
         elif line.split()[0] == 'MAXIMUM' and line.split()[1] == 'TEMPERATURES': #if at table of max temps, go through following lines to find peak channel info
             nextLine = fs.next()
@@ -163,6 +172,13 @@ for line in fs:
                     fuelFlag = 1
                 else: #move to next line to find table
                     nextLine = fs.next()
+        elif line[0:36] == '                               PUMPS': #get intermediate loop flow rate from pump info
+            nextLine = fs.next() #skip a line
+            if nextLine == ' PUMP       FLOW                  HEAD                  SPEED               PUMP TORQUE     MOTOR TORQUE     HYDRAULIC EFFICIENCY': #if its first instance, skip it
+                pass
+            else: #if not first instance, record normalized flow
+                nextLine = fs.next() #skip line
+                IHXflow.append(float(nextLine.split()[7]))
         else: #not of interest
             pass
     except (KeyError, ValueError, IndexError): #if the line is shit
@@ -202,7 +218,7 @@ fr.close()
 ft.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve NaN\n')
 i = 0
 for stp in tempStep:
-    for entry in tempTab[1:]: #not including step number
+    for entry in primaryTab[1:]: #not including step number
         ft.write(str(entry[i])+' ')
     ft.write('\n')
     i = i + 1
@@ -218,11 +234,11 @@ ft.close()
 matlabCommands = ["rhoTab=readtable('"+runDir+"/rho.txt','Delimiter','space','ReadVariableNames',1);" #read in rho table
                   'rhoTab=table2array(rhoTab);' #convert table to array
                   'rhoTab=rhoTab(:,1:end-1);' #get rid of last column, which is NaN
-                  "tempTab=readtable('"+runDir+"/temp.txt','Delimiter','space','ReadVariableNames',1);"#read in temp table
-                  'tempTab=table2array(tempTab);' #convert table to array
-                  'tempTab=tempTab(:,1:end-1);' #get rid of last column, which is NaN
-                  'tempTab(:,2:5)=tempTab(:,2:5)-273.15;tempTab(:,7:end)=tempTab(:,7:end)-273.15;' #convert temps from K to C
-                  "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',tempTab(:,1),tempTab(:,6),'-.');" #make plot of long term power behavior
+                  "primaryTab=readtable('"+runDir+"/temp.txt','Delimiter','space','ReadVariableNames',1);"#read in temp table
+                  'primaryTab=table2array(primaryTab);' #convert table to array
+                  'primaryTab=primaryTab(:,1:end-1);' #get rid of last column, which is NaN
+                  'primaryTab(:,2:5)=primaryTab(:,2:5)-273.15;primaryTab(:,7:end)=primaryTab(:,7:end)-273.15;' #convert temps from K to C
+                  "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.');" #make plot of long term power behavior
                   'axis([0,rhoTab(end,1),1E-3,2]);'
                   "xlabel('time,(s)');"
                   "ylabel('normalizedPower/Flow');"
@@ -230,7 +246,7 @@ matlabCommands = ["rhoTab=readtable('"+runDir+"/rho.txt','Delimiter','space','Re
                   "grid(ax,'on');"
                   "legend('totalPower','decayPower','flowRate,peakChannel');"
                   "print('powerPlotLong','-dtiffn');"
-                  "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',tempTab(:,1),tempTab(:,6),'-.');" #make plot of short term power behavior
+                  "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.');" #make plot of short term power behavior
                   'axis([0,'+str(shortTimeLimit)+',1E-3,2]);'
                   "xlabel('time,(s)');"
                   "ylabel('normalizedPower/Flow');"
@@ -255,14 +271,14 @@ matlabCommands = ["rhoTab=readtable('"+runDir+"/rho.txt','Delimiter','space','Re
                   "grid(ax,'on');"
                   "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem');"
                   "print('rhoPlotShort','-dtiff');"
-                  "plot(tempTab(:,1),tempTab(:,2),tempTab(:,1),tempTab(:,3),tempTab(:,1),tempTab(:,4),tempTab(:,1),tempTab(:,5),tempTab(:,1),tempTab(:,7),'--',tempTab(:,1),tempTab(:,8),'--',tempTab(:,1),tempTab(:,9),'-.',tempTab(:,1),tempTab(:,10),'-.');" #make plot of long term temp behavior
+                  "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.');" #make plot of long term temp behavior
                   "xlabel('time,(s)');"
                   "ylabel('temperature,(C)');"
                   'ax=gca;'
                   "grid(ax,'on');"
                   "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve');"
                   "print('tempPlotLong','-dtiff');"
-                  "plot(tempTab(:,1),tempTab(:,2),tempTab(:,1),tempTab(:,3),tempTab(:,1),tempTab(:,4),tempTab(:,1),tempTab(:,5),tempTab(:,1),tempTab(:,7),'--',tempTab(:,1),tempTab(:,8),'--',tempTab(:,1),tempTab(:,9),'-.',tempTab(:,1),tempTab(:,10),'-.');" #make plot of short term temp behavior
+                  "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.');" #make plot of short term temp behavior
                   "xlabel('time,(s)');"
                   "ylabel('temperature,(C)');"
                   'xlim([0,'+str(shortTimeLimit)+']);'
@@ -277,8 +293,8 @@ matlabCommand = ''
 for command in matlabCommands:
     matlabCommand = matlabCommand+command
 
-#command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running locally
-command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running on savio
+command = ['/Applications/MATLAB_R2014b.app/bin/matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running locally
+#command = ['matlab', '-nodesktop', '-nosplash', '-nodisplay', '-r', matlabCommand] #for running on savio
 
 print('plotting...')
 
