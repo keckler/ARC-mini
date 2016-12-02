@@ -49,7 +49,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "ylabel('temperature,(C)');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet','IHXoutlet');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide');"
                       "print('tempPlotLong','-dtiff');"
                       "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of short term temp behavior
                       "xlabel('time,(s)');"
@@ -57,7 +57,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet','IHXoutlet');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide');"
                       "print('tempPlotShort','-dtiff');"
                       'quit;'] #quit matlab
     
