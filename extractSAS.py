@@ -74,7 +74,7 @@ IHXflow = [] #[normalized]
 #put all entries into tables
 rhoTab = [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
 primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
-intermediateTab = [IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
+intermediateTab = [tempStep, tempTime, IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
 
 
 #####
@@ -178,16 +178,20 @@ print('printing temporary files...\n')
 #make tmp
 runDir = getcwd()
 fr = open('rho.txt', 'w')
-ft = open('temp.txt', 'w')
+fp = open('temp.txt', 'w')
+fi = open('intermediate.txt', 'w')
 
 #print reactivity tables
 modules.printReactivityTables(fr, rhoStep, rhoTab)
 fr.close()
 
-#print temperature tables
-modules.printTempTables(ft, tempStep, primaryTab)
-ft.close()
+#print primary tables
+modules.printPrimaryTables(fp, tempStep, primaryTab)
+fp.close()
 
+#print intermediate tables
+modules.printIntermediateTables(fi, tempStep, intermediateTab)
+fi.close()
 
 #####
 #make matlab produce plots

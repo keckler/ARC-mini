@@ -7,21 +7,25 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       'primaryTab=table2array(primaryTab);' #convert table to array
                       'primaryTab=primaryTab(:,1:end-1);' #get rid of last column, which is NaN
                       'primaryTab(:,2:5)=primaryTab(:,2:5)-273.15;primaryTab(:,7:end)=primaryTab(:,7:end)-273.15;' #convert temps from K to C
-                      "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.');" #make plot of long term power behavior
+                      "intermediateTab=readtable('"+runDir+"/intermediate.txt','Delimiter','space','ReadVariableNames',1);" #read in intermediate table
+                      'intermediateTab=table2array(intermediateTab);' #convert table to array
+                      'intermediateTab=intermediateTab(:,1:end-1);' #get rid of last column, which is NaN
+                      'intermediateTab(:,2:3)=intermediateTab(:,2:3)-273.15;' #convert temps from K to C
+                      "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of long term power behavior
                       'axis([0,rhoTab(end,1),1E-3,2]);'
                       "xlabel('time,(s)');"
                       "ylabel('normalizedPower/Flow');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('totalPower','decayPower','flowRate,peakChannel');"
+                      "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop');"
                       "print('powerPlotLong','-dtiffn');"
-                      "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.');" #make plot of short term power behavior
+                      "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of short term power behavior
                       'axis([0,'+str(shortTimeLimit)+',1E-3,2]);'
                       "xlabel('time,(s)');"
                       "ylabel('normalizedPower/Flow');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('totalPower','decayPower','flowRate,peakChannel');"
+                      "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop');"
                       "print('powerPlotShort','-dtiff');"
                       "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of long term reactivity component behavior
                       'ylim('+rhoLimits+');'
@@ -40,20 +44,20 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem');"
                       "print('rhoPlotShort','-dtiff');"
-                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.');" #make plot of long term temp behavior
+                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of long term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet','IHXoutlet');"
                       "print('tempPlotLong','-dtiff');"
-                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.');" #make plot of short term temp behavior
+                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of short term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet','IHXoutlet');"
                       "print('tempPlotShort','-dtiff');"
                       'quit;'] #quit matlab
     

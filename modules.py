@@ -56,6 +56,7 @@ def deleteTmpFiles():
 
     remove('./rho.txt')
     remove('./temp.txt')
+    remove('./intermediate.txt')
 
     return
 
@@ -88,6 +89,37 @@ def nodeTemps(nextLine, fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp):
 
     return [fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp]
 
+def printIntermediateTables(fi, tempStep, intermediateTab):
+    ############################################################################
+    ###prints temporary table of intermediate circuit parameters for MATLAB 
+    ###plotting
+    ############################################################################
+
+    fi.write('time IHXinlet IHXoutlet IHXflow NaN\n')
+    i = 0
+    for stp in tempStep:
+        for entry in intermediateTab[1:]: #not including step number
+            fi.write(str(entry[i])+' ')
+        fi.write('\n')
+        i = i + 1
+
+    return
+
+def printPrimaryTables(fp, tempStep, primaryTab):
+    ############################################################################
+    ###prints temporary table of primary circuit parameters for MATLAB plotting
+    ############################################################################
+
+    fp.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve NaN\n')
+    i = 0
+    for stp in tempStep:
+        for entry in primaryTab[1:]: #not including step number
+            fp.write(str(entry[i])+' ')
+        fp.write('\n')
+        i = i + 1
+
+    return
+
 def printReactivityTables(fr, rhoStep, rhoTab):
     ############################################################################
     ###prints temporary table of reactivity components for MATLAB plotting
@@ -100,18 +132,6 @@ def printReactivityTables(fr, rhoStep, rhoTab):
         fr.write('\n')
 
     return
-
-def printTempTables(ft, tempStep, primaryTab):
-
-    ft.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve NaN\n')
-    i = 0
-    for stp in tempStep:
-        for entry in primaryTab[1:]: #not including step number
-            ft.write(str(entry[i])+' ')
-        ft.write('\n')
-        i = i + 1
-
-    return    
 
 def removeSteadyState(tempStep, tempTime, IHXflow, IHXintermediateInlet, IHXintermediateOutlet):
     ############################################################################
