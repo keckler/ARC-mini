@@ -170,9 +170,7 @@ fs.close()
 
 #find min and max rho components if not specified by user
 if rhoLimits == '[]':
-    rhoMax = max(max(rhoTab[4:]))
-    rhoMin = min(min(rhoTab[4:]))
-    rhoLimits = '['+str(rhoMin)+','+str(rhoMax)+']'
+    rhoLimits = modules.findRhoLimits(rhoTab)
 
 
 #####

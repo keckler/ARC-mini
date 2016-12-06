@@ -60,6 +60,27 @@ def deleteTmpFiles():
 
     return
 
+def findRhoLimits(rhoTab):
+    ############################################################################
+    ###finds smallest and largest values of reactivity for use in setting plot
+    ###limits
+    ############################################################################
+
+    #initialize rhoMax and rhoMin to small, but realistic values
+    rhoMax = 0.1
+    rhoMin = -0.1
+
+    for component in rhoTab[4:]:
+        for value in component:
+            if value > rhoMax:
+                rhoMax = value
+            elif value < rhoMin:
+                rhoMin = value
+
+    rhoLimits = '['+str(rhoMin)+','+str(rhoMax)+']'
+
+    return rhoLimits
+
 def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem):
     ############################################################################
     ###extracts reactivity coefficients for a given step and puts them into 
