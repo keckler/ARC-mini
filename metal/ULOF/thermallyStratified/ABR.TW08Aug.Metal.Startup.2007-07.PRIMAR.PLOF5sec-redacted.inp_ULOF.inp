@@ -2373,10 +2373,10 @@ PMR4IN    18     1     0
   2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
   2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
   2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
-  2223     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,1)
-  2233     4 0.          11.0        12.         100000.     AMOTTK(11-14,1)
-  2243     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,2)
-  2253     4 0.          11.0        12.         100000.     AMOTTK(11-14,2)
+  2223     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,1)
+  2233     4 0.          11.0        11.1        100000.     AMOTTK(11-14,1)
+  2243     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,2)
+  2253     4 0.          11.0        11.1        100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
   2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP
