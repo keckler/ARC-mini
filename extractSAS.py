@@ -16,8 +16,8 @@ rhoLimits = '[]' #range of reactivity to be plotted, ($), no spaces allowed, lea
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
 IHXpump = 2 #element number of intermediate pump
-matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
-#matlabExe = 'matlab' #for running on savio
+#matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
+matlabExe = 'matlab' #for running on savio
 
 
 #####
