@@ -2373,10 +2373,10 @@
     2373:     2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER    
     2374:     2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROT ...
     2375:     2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROT ...
-    2376:     2223     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,1)          
-    2377:     2233     4 0.          11.0        12.         100000.     AMOTTK(11-14,1)        
-    2378:     2243     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,2)          
-    2379:     2253     4 0.          11.0        12.         100000.     AMOTTK(11-14,2)        
+    2376:     2223     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,1)          
+    2377:     2233     4 0.          11.0        11.1        100000.     AMOTTK(11-14,1)        
+    2378:     2243     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,2)          
+    2379:     2253     4 0.          11.0        11.1        100000.     AMOTTK(11-14,2)        
     2380:     2463     1 9.8                                             GRAVTY                 
     2381:   #                 steam generator table                                             
     2382:     2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP     
@@ -2817,9 +2817,7 @@
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26000
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26100
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26200
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26300
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26400
-0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP  26482 AT TIME   26281.5231
+0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP  26255 AT TIME   26054.3474
 ====> ERROR (TSTHRM.F90:421) <====
 ====================================================================================================================================
 
