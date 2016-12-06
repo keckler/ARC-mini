@@ -172,7 +172,7 @@ fs.close()
 if rhoLimits == '[]':
     rhoMax = max(max(rhoTab[4:]))
     rhoMin = min(min(rhoTab[4:]))
-    rhoLimits = str([rhoMin,rhoMax])
+    rhoLimits = '['+str(rhoMin)+','+str(rhoMax)+']'
 
 
 #####
