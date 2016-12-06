@@ -12,7 +12,7 @@
 #####
 
 peakChannelNum = 1 #channel number of assembly with peak power/flow
-rhoLimits = '[-0.25,0.25]' #range of reactivity to be plotted, ($), no spaces allowed
+rhoLimits = '[]' #range of reactivity to be plotted, ($), no spaces allowed, leave as '[]' if you want code to decide
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
 IHXpump = 2 #element number of intermediate pump
@@ -167,6 +167,12 @@ fs.close()
 
 #alter table to include SS temps (approximating SS by values at first step)
 [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve] = modules.addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve)
+
+#find min and max rho components if not specified by user
+if rhoLimits == '[]':
+    rhoMax = max(max(rhoTab[4:]))
+    rhoMin = min(min(rhoTab[4:]))
+    rhoLimits = str([rhoMin,rhoMax])
 
 
 #####
