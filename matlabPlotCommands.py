@@ -63,16 +63,16 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
                       "print('tempPlotShort','-dtiff');"
                       "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
-                      "xlabel('delayedNeutronProductionRate,(1/s)');"
-                      "ylabel('time,(s)');"
+                      "ylabel('delayedNeutronProductionRate,(1/s)');"
+                      "xlabel('time,(s)');"
                       'ax=gca;'
                       "grid(ax,'on');"
                       "legend('group1','group2','group3','group4','group5','group6');"
                       "print('precursorPlotLong','-dtiff');"
                       "savefig('precursorPlotLong');"
                       "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
-                      "xlabel('delayedNeutronProductionRate,(1/s)');"
-                      "ylabel('time,(s)');"
+                      "ylabel('delayedNeutronProductionRate,(1/s)');"
+                      "xlabel('time,(s)');"
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ax=gca;'
                       "grid(ax,'on');"
