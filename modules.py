@@ -1,4 +1,4 @@
-def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve):
+def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab):
     ############################################################################
     ###approximate SS values by their first transient value
     ############################################################################
@@ -9,7 +9,10 @@ def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve
     fuelAve[:0] = fuelAve[0:1]
     cladAve[:0] = cladAve[0:1]
 
-    return [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
+    for group in precursorTab[1:]:
+        group[:0] = group[0:1]
+
+    return [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab]
 
 def aveFuelCladTemp(fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp, fuelAve, cladAve):
     ############################################################################
@@ -57,6 +60,7 @@ def deleteTmpFiles():
     remove('./rho.txt')
     remove('./temp.txt')
     remove('./intermediate.txt')
+    remove('./precursor.txt')
 
     return
 
@@ -122,6 +126,21 @@ def printIntermediateTables(fi, tempStep, intermediateTab):
         for entry in intermediateTab[1:]: #not including step number
             fi.write(str(entry[i])+' ')
         fi.write('\n')
+        i = i + 1
+
+    return
+
+def printPrecursorTables(fpr, tempStep, precursorTab):
+    ############################################################################
+    ###prints temporary table of precursor concentrations for MATLAB plotting
+    ############################################################################
+
+    fpr.write('time group1 group2 group3 group4 group5 group6 NaN\n')
+    i = 0
+    for stp in tempStep:
+        for entry in precursorTab:
+            fpr.write(str(entry[i])+' ')
+        fpr.write('\n')
         i = i + 1
 
     return

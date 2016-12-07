@@ -16,8 +16,9 @@ rhoLimits = '[]' #range of reactivity to be plotted, ($), no spaces allowed, lea
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
 IHXpump = 2 #element number of intermediate pump
-#matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
-matlabExe = 'matlab' #for running on savio
+precursorDecayConstants = [1.3377E-2, 3.1026E-2, 1.1763E-1, 3.0917E-1, 8.8605E-1, 2.9416E0]
+matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
+#matlabExe = 'matlab' #for running on savio
 
 
 #####
@@ -71,10 +72,19 @@ IHXintermediateInlet = [] #[K]
 IHXintermediateOutlet = [] #[K]
 IHXflow = [] #[normalized]
 
+#delayed neutron precursor decay rates
+group1 = []
+group2 = []
+group3 = []
+group4 = []
+group5 = []
+group6 = []
+
 #put all entries into tables
 rhoTab = [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
 primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
 intermediateTab = [tempStep, tempTime, IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
+precursorTab = [tempTime, group1, group2, group3, group4, group5, group6]
 
 
 #####
@@ -158,6 +168,15 @@ for line in fs:
                 if nextLine == '\n': #if its empty, the previous line has outlet coolant temp
                     IHXintermediateOutlet.append(float(previousLine.split()[2]))
                     IHXnodeFlag = 1
+        elif line[0:40] == '            NUMBER         CONCENTRATION': #get delayed neutron precursor concentrations and multiply by decay constant
+            i = 1 #iterate for group
+            for group in precursorTab[1:]:
+                nextLine = fs.next()
+                if nextLine[27:28] == '-': #if value is negative, set it to zero
+                    group.append(0.0)
+                else:
+                    group.append(float(nextLine.split()[1][0:7]+'E'+nextLine.split()[1][8:])*precursorDecayConstants[i-1])
+                i = i + 1
         else: #not of interest
             pass
     except (KeyError, ValueError, IndexError): #if the line is shit
@@ -166,12 +185,11 @@ for line in fs:
 fs.close()
 
 #alter table to include SS temps (approximating SS by values at first step)
-[flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve] = modules.addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve)
+[flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab] = modules.addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab)
 
 #find min and max rho components if not specified by user
 if rhoLimits == '[]':
     rhoLimits = modules.findRhoLimits(rhoTab)
-
 
 #####
 #print to temporary file
@@ -184,6 +202,7 @@ runDir = getcwd()
 fr = open('rho.txt', 'w')
 fp = open('temp.txt', 'w')
 fi = open('intermediate.txt', 'w')
+fpr = open('precursor.txt', 'w')
 
 #print reactivity tables
 modules.printReactivityTables(fr, rhoStep, rhoTab)
@@ -196,6 +215,11 @@ fp.close()
 #print intermediate tables
 modules.printIntermediateTables(fi, tempStep, intermediateTab)
 fi.close()
+
+#print precursor tables
+modules.printPrecursorTables(fpr, tempStep, precursorTab)
+fpr.close()
+
 
 #####
 #make matlab produce plots

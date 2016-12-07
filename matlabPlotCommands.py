@@ -11,6 +11,9 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       'intermediateTab=table2array(intermediateTab);' #convert table to array
                       'intermediateTab=intermediateTab(:,1:end-1);' #get rid of last column, which is NaN
                       'intermediateTab(:,2:3)=intermediateTab(:,2:3)-273.15;' #convert temps from K to C
+                      "precursorTab=readtable('"+runDir+"/precursor.txt','Delimiter','space','ReadVariableNames',1);" #read in precursor table
+                      'precursorTab=table2array(precursorTab);' #convert table to array
+                      'precursorTab=precursorTab(:,1:end-1);' #get rid of last column, which is NaN
                       "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of long term power behavior
                       'axis([0,rhoTab(end,1),1E-3,2]);'
                       "xlabel('time,(s)');"
@@ -59,6 +62,23 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
                       "print('tempPlotShort','-dtiff');"
+                      "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
+                      "xlabel('delayedNeutronProductionRate,(1/s)');"
+                      "ylabel('time,(s)');"
+                      'ax=gca;'
+                      "grid(ax,'on');"
+                      "legend('group1','group2','group3','group4','group5','group6');"
+                      "print('precursorPlotLong','-dtiff');"
+                      "savefig('precursorPlotLong');"
+                      "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
+                      "xlabel('delayedNeutronProductionRate,(1/s)');"
+                      "ylabel('time,(s)');"
+                      'xlim([0,'+str(shortTimeLimit)+']);'
+                      'ax=gca;'
+                      "grid(ax,'on');"
+                      "legend('group1','group2','group3','group4','group5','group6');"
+                      "print('precursorPlotShort','-dtiff');"
+                      "savefig('precursorPlotShort');"
                       'quit;'] #quit matlab
     
     #concatenate all commands together
