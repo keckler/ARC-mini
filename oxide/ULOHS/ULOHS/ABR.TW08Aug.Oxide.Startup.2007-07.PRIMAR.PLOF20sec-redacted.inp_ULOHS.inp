@@ -25,6 +25,17 @@
 #        Aug 08 Metal PLOF deck 8/8
 #     10) Reduced print/plot freuencies BLK 3 890+892 + other changes
 #         for 50000sec transient
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+# obtained by Chris Keckler from Tom Fanning
+# Dec 8 2016 - 
+#     1. IPO changed to 10 for purposes of extracting data
+#     2. PREATB changed to have no CR insertion
+#     3. NSTRCV changed to have no stratified volumes, associated input
+#        commented accordingly
+#     4. AMOTTK changed to have both pumps continue operating at nominal speed
+#        through entire transient
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
