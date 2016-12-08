@@ -50,6 +50,29 @@ def channelPeakValues(nextLine, saturation, fuelPeak, cladPeak, coolantPeak):
 
     return [saturation, fuelPeak, cladPeak, coolantPeak, chanFlag]
 
+def deleteGlobalPlots():
+    ############################################################################
+    ###moves plots not specific to each channel into a global folder
+    ############################################################################
+
+    from os import remove
+
+    remove('powerPlotLong.tif')
+    remove('powerPlotShort.tif')
+    remove('rhoPlotLong.tif')
+    remove('rhoPlotShort.tif')
+    remove('precursorPlotLong.tif')
+    remove('precursorPlotShort.tif')
+
+    remove('powerPlotLong.fig')
+    remove('powerPlotShort.fig')
+    remove('rhoPlotLong.fig')
+    remove('rhoPlotShort.fig')
+    remove('precursorPlotLong.fig')
+    remove('precursorPlotShort.fig')
+
+    return
+
 def deleteTmpFiles():
     ############################################################################
     ###deletes temporary files used for matlab plotting
@@ -106,6 +129,29 @@ def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, 
     controlSystem.append(float(line[131:138])) #[$]
 
     return [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
+
+def moveGlobalPlots():
+    ############################################################################
+    ###moves plots not specific to each channel into a global folder
+    ############################################################################
+
+    from shutil import move
+
+    move('powerPlotLong.tif','../globalPlots/')
+    move('powerPlotShort.tif','../globalPlots/')
+    move('rhoPlotLong.tif','../globalPlots/')
+    move('rhoPlotShort.tif','../globalPlots/')
+    move('precursorPlotLong.tif','../globalPlots/')
+    move('precursorPlotShort.tif','../globalPlots/')
+
+    move('powerPlotLong.fig','../globalFigs/')
+    move('powerPlotShort.fig','../globalFigs/')
+    move('rhoPlotLong.fig','../globalFigs/')
+    move('rhoPlotShort.fig','../globalFigs/')
+    move('precursorPlotLong.fig','../globalFigs/')
+    move('precursorPlotShort.fig','../globalFigs/')
+
+    return
 
 def nodeTemps(nextLine, fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp):
     fuelNodeMidHeight.append(float(nextLine.split()[0]))
