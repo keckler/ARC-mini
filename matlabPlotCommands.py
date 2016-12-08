@@ -31,7 +31,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
                       "print('powerPlotShort','-dtiff');"
-                      "savefig(powerPlotShort');"
+                      "savefig('powerPlotShort');"
                       "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of long term reactivity component behavior
                       'ylim('+rhoLimits+');'
                       "xlabel('time,(s)');"
