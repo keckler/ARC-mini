@@ -22,6 +22,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
                       "print('powerPlotLong','-dtiffn');"
+                      "savefig('powerPlotLong');"
                       "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of short term power behavior
                       'axis([0,'+str(shortTimeLimit)+',1E-3,2]);'
                       "xlabel('time,(s)');"
@@ -30,6 +31,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
                       "print('powerPlotShort','-dtiff');"
+                      "savefig(powerPlotShort');"
                       "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of long term reactivity component behavior
                       'ylim('+rhoLimits+');'
                       "xlabel('time,(s)');"
@@ -38,6 +40,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem','Location','eastoutside');"
                       "print('rhoPlotLong','-dtiff');"
+                      "savefig('rhoPlotLong');"
                       "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of short term reactivity component behavior
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ylim('+rhoLimits+');'
@@ -47,6 +50,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem','Location','eastoutside');"
                       "print('rhoPlotShort','-dtiff');"
+                      "savefig('rhoPlotShort');"
                       "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of long term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
@@ -54,6 +58,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
                       "print('tempPlotLong','-dtiff');"
+                      "savefig('tempPlotLong');"
                       "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of short term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
@@ -62,6 +67,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "grid(ax,'on');"
                       "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
                       "print('tempPlotShort','-dtiff');"
+                      "savefig('tempPlotShort');"
                       "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
                       "ylabel('delayedNeutronProductionRate,(1/s)');"
                       "xlabel('time,(s)');"
