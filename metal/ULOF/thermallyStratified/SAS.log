@@ -2530,30 +2530,31 @@
     2530:      109     1     1            MSTPL1                                                
     2531:      110     1    20            MSTPL2                                                
     2532:      111     1    40            MSTPL3                                                
-    2533:       -1                                                                              
-    2534:   OPCIN     11     1     1                                                            
-    2535:        5     1 .5               DT0                                                   
-    2536:        7     1 500.             TIMAX                                                 
-    2537:        7     1 1000.            TIMAX                                                 
-    2538:        7     1 50000.           TIMAX                                                 
-    2539:       13     1 .5               DTP0                                                  
-    2540:       14     1 1.               DTPMAX                                                
-    2541:       95     4 .5          1.          1.          1.          DTMIN                  
-    2542:      105     4 20.         200.        5000.       10000.      TDTMIN                 
-    2543:       -1                                                                              
-    2544:   POWINA    12     1     1                                                            
-    2545:       29     5 0.            0.0         0.0         0.0         0.0       PREATB     
-    2546:       34     5   0.0         0.0         0.0         0.0         0.0                  
-    2547:       39     5   0.0         0.0         0.0         0.0         0.0                  
-    2548:       44     5   0.0         0.0         0.0         0.0         0.0                  
-    2549:       49     5 0.          2.          3.          4.          6.          PREATM     
-    2550:       54     5 12.         22.         42.         102.        202.                   
-    2551:       59     5 402.        1002.       2002.       4002.       10002.                 
-    2552:       64     5 20002.      40002.      100002.     200002.     400002.                
-    2553:       -1                                                                              
-    2554:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
-    2555:   ######## ####### ####### ####### ####### ####### ####### ####### ####### #######    
-    2556:   ENDJOB    -1                                                                        
+    2533:       56     1     1            JREEXT                                                
+    2534:       -1                                                                              
+    2535:   OPCIN     11     1     1                                                            
+    2536:        5     1 .5               DT0                                                   
+    2537:        7     1 500.             TIMAX                                                 
+    2538:        7     1 1000.            TIMAX                                                 
+    2539:        7     1 50000.           TIMAX                                                 
+    2540:       13     1 .5               DTP0                                                  
+    2541:       14     1 1.               DTPMAX                                                
+    2542:       95     4 .5          1.          1.          1.          DTMIN                  
+    2543:      105     4 20.         200.        5000.       10000.      TDTMIN                 
+    2544:       -1                                                                              
+    2545:   POWINA    12     1     1                                                            
+    2546:       29     5 0.            0.0         0.0         0.0         0.0       PREATB     
+    2547:       34     5   0.0         0.0         0.0         0.0         0.0                  
+    2548:       39     5   0.0         0.0         0.0         0.0         0.0                  
+    2549:       44     5   0.0         0.0         0.0         0.0         0.0                  
+    2550:       49     5 0.          2.          3.          4.          6.          PREATM     
+    2551:       54     5 12.         22.         42.         102.        202.                   
+    2552:       59     5 402.        1002.       2002.       4002.       10002.                 
+    2553:       64     5 20002.      40002.      100002.     200002.     400002.                
+    2554:       -1                                                                              
+    2555:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
+    2556:   ######## ####### ####### ####### ####### ####### ####### ####### ####### #######    
+    2557:   ENDJOB    -1                                                                        
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 0
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 100
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 200
@@ -2817,7 +2818,10 @@
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26000
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26100
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26200
-0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP  26255 AT TIME   26054.3474
+ RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26300
+ RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26400
+ RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 26500
+0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP  26514 AT TIME   26313.4677
 ====> ERROR (TSTHRM.F90:421) <====
 ====================================================================================================================================
 
