@@ -2530,6 +2530,7 @@ INPCOM     1     1     1
    109     1     1            MSTPL1
    110     1    20            MSTPL2
    111     1    40            MSTPL3 
+    56     1     1            JREEXT
     -1
 OPCIN     11     1     1
      5     1 .5               DT0     
