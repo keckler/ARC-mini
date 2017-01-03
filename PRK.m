@@ -1,7 +1,7 @@
 clear all;
 
 %get netReactivity from metal ULOF case
-h = openfig('~/Documents/work/ARC/mini/metal/ULOF/thermallyStratified/globalFigs/rhoPlotLong.fig','invisible');
+h = openfig('/global/home/users/ckeckler/docs/mini/ARC-mini/metal/ULOF/thermallyStratified/globalFigs/rhoPlotLong.fig','invisible');
 dataObjs = get(get(h,'Children'),'Children'); %get line data for net reactivity line
 time = get(dataObjs{2}(9),'XData');
 netReactivity = get(dataObjs{2}(9),'YData');
@@ -58,3 +58,4 @@ end
 
 figure;
 semilogy(t,phi);
+savefig('PRKpower')
