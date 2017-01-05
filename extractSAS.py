@@ -57,7 +57,8 @@ for channel in channelNums:
     rhoStep = []
     rhoTime = [] #[s]
     power = [] #normalized
-    decayPower = [] #normalized
+    decayPower = [] #fraction of normalized total power
+    fissionPower = [] #fraction of normalized total power
     netReactivity = [] #[$]
     CRDL = [] #[$]
     radExpansion = [] #[$]
@@ -95,7 +96,7 @@ for channel in channelNums:
     group6 = []
     
     #put all entries into tables
-    rhoTab = [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
+    rhoTab = [rhoStep, rhoTime, power, decayPower, fissionPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
     primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
     intermediateTab = [tempStep, tempTime, IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
     precursorTab = [tempTime, group1, group2, group3, group4, group5, group6]
@@ -115,7 +116,7 @@ for channel in channelNums:
     for line in fs:
         try:
             if line[0:3] == ' ++': #get reactivity at steps
-                rhoTab = modules.getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem)
+                rhoTab = modules.getStepReactivity(line, rhoStep, rhoTime, power, decayPower, fissionPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem)
             elif line[0:34] == '                    MAIN TIME STEP': #get times at steps
                 [tempStep, tempTime] = modules.tempStepTime(line, tempStep, tempTime)
             elif line[0:24] == ' FINISHED NULL TRANSIENT': #alter primaryTab to remove null transient info
