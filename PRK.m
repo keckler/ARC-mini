@@ -53,6 +53,7 @@ while i < length(phi) - 1
         j = j + 1;
     end
     
+    display(i)
     i = i + 1;
 end
 
