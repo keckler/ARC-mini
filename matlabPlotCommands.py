@@ -14,25 +14,25 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "precursorTab=readtable('"+runDir+"/precursor.txt','Delimiter','space','ReadVariableNames',1);" #read in precursor table
                       'precursorTab=table2array(precursorTab);' #convert table to array
                       'precursorTab=precursorTab(:,1:end-1);' #get rid of last column, which is NaN
-                      "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of long term power behavior
+                      "powerPlotLong=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',rhoTab(:,1),rhoTab(:,4),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of long term power behavior
                       'axis([0,rhoTab(end,1),1E-3,2]);'
                       "xlabel('time,(s)');"
                       "ylabel('normalizedPower/Flow');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
+                      "legend('totalPower','decayPower','fissionPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
                       "print('powerPlotLong','-dtiffn');"
                       "savefig('powerPlotLong');"
-                      "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of short term power behavior
+                      "powerPlotShort=semilogy(rhoTab(:,1),rhoTab(:,2),rhoTab(:,1),rhoTab(:,3),'--',rhoTab(:,1),rhoTab(:,4),'--',primaryTab(:,1),primaryTab(:,6),'-.',intermediateTab(:,1),intermediateTab(:,4),':');" #make plot of short term power behavior
                       'axis([0,'+str(shortTimeLimit)+',1E-3,2]);'
                       "xlabel('time,(s)');"
                       "ylabel('normalizedPower/Flow');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('totalPower','decayPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
+                      "legend('totalPower','decayPower','fissionPower','flowRate,peakChannel','flowRate,intermediateLoop','Location','eastoutside');"
                       "print('powerPlotShort','-dtiff');"
                       "savefig('powerPlotShort');"
-                      "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of long term reactivity component behavior
+                      "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'--',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.',rhoTab(:,1),rhoTab(:,13),'-.');" #make plot of long term reactivity component behavior
                       'ylim('+rhoLimits+');'
                       "xlabel('time,(s)');"
                       "ylabel('reactivity,($)');"
@@ -41,7 +41,7 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem','Location','eastoutside');"
                       "print('rhoPlotLong','-dtiff');"
                       "savefig('rhoPlotLong');"
-                      "reactivityPlotLong=plot(rhoTab(:,1),rhoTab(:,4),rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),'--',rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'-.',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.');" #make plot of short term reactivity component behavior
+                      "reactivityPlotShort=plot(rhoTab(:,1),rhoTab(:,5),rhoTab(:,1),rhoTab(:,6),rhoTab(:,1),rhoTab(:,7),rhoTab(:,1),rhoTab(:,8),'--',rhoTab(:,1),rhoTab(:,9),'--',rhoTab(:,1),rhoTab(:,10),'--',rhoTab(:,1),rhoTab(:,11),'-.',rhoTab(:,1),rhoTab(:,12),'-.',rhoTab(:,1),rhoTab(:,13),'-.');" #make plot of short term reactivity component behavior
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ylim('+rhoLimits+');'
                       "xlabel('time,(s)');"
