@@ -108,7 +108,7 @@ def findRhoLimits(rhoTab):
 
     return rhoLimits
 
-def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem):
+def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, fissionPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem):
     ############################################################################
     ###extracts reactivity coefficients for a given step and puts them into 
     ###rhoTab
@@ -117,7 +117,8 @@ def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, 
     rhoStep.append(int(line[3:8]))
     rhoTime.append(float(line[8:17])) #cumulative time [s]
     power.append(float(line[30:35])) #normalized reactor power
-    decayPower.append(float(line[38:43])) #normalized decay power
+    decayPower.append(float(line[38:43])) #decay power fraction
+    fissionPower.append(power[-1]-decayPower[-1]) #fission power fraction
     netReactivity.append(float(line[53:61])) #net reactivity of core [$]
     CRDL.append(float(line[68:75])) #[$]
     radExpansion.append(float(line[75:82])) #[$]
@@ -128,7 +129,7 @@ def getStepReactivity(line, rhoStep, rhoTime, power, decayPower, netReactivity, 
     structureAxialExpansion.append(float(line[110:117])) #[$]
     controlSystem.append(float(line[131:138])) #[$]
 
-    return [rhoStep, rhoTime, power, decayPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
+    return [rhoStep, rhoTime, power, decayPower, fissionPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
 
 def moveGlobalPlots():
     ############################################################################
@@ -211,7 +212,7 @@ def printReactivityTables(fr, rhoStep, rhoTab):
     ###prints temporary table of reactivity components for MATLAB plotting
     ############################################################################
 
-    fr.write('time totalPower decayPower netReactivity CRDL radExpansion doppler fuelAxialExpansion cladAxialExpansion coolant structureAxialExpansion controlSystem NaN\n')
+    fr.write('time totalPower decayPower fissionPower netReactivity CRDL radExpansion doppler fuelAxialExpansion cladAxialExpansion coolant structureAxialExpansion controlSystem NaN\n')
     for stp in rhoStep:
         for entry in rhoTab[1:]: #not including step number
             fr.write(str(entry[stp-1])+' ')
