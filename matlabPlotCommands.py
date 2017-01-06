@@ -51,21 +51,21 @@ def matlabPlotCommands(runDir, shortTimeLimit, rhoLimits, matlabExe):
                       "legend('netReactivity','CRDL','radExpansion','doppler','fuelAxialExpansion','cladAxialExpansion','coolant','structureAxialExpansion','controlSystem','Location','eastoutside');"
                       "print('rhoPlotShort','-dtiff');"
                       "savefig('rhoPlotShort');"
-                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of long term temp behavior
+                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':',primaryTab(:,1),primaryTab(:,11),'--');" #make plot of long term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','topActiveCore','Location','eastoutside');"
                       "print('tempPlotLong','-dtiff');"
                       "savefig('tempPlotLong');"
-                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':');" #make plot of short term temp behavior
+                      "plot(primaryTab(:,1),primaryTab(:,2),primaryTab(:,1),primaryTab(:,3),primaryTab(:,1),primaryTab(:,4),primaryTab(:,1),primaryTab(:,5),primaryTab(:,1),primaryTab(:,7),'--',primaryTab(:,1),primaryTab(:,8),'--',primaryTab(:,1),primaryTab(:,9),'-.',primaryTab(:,1),primaryTab(:,10),'-.',intermediateTab(:,1),intermediateTab(:,2),':',intermediateTab(:,1),intermediateTab(:,3),':',primaryTab(:,1),primaryTab(:,11),'--');" #make plot of short term temp behavior
                       "xlabel('time,(s)');"
                       "ylabel('temperature,(C)');"
                       'xlim([0,'+str(shortTimeLimit)+']);'
                       'ax=gca;'
                       "grid(ax,'on');"
-                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','Location','eastoutside');"
+                      "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantInlet','coolantOutlet','fuelAve','cladAve','IHXinlet,tubeSide','IHXoutlet,tubeSide','topActiveCore','Location','eastoutside');"
                       "print('tempPlotShort','-dtiff');"
                       "savefig('tempPlotShort');"
                       "semilogy(precursorTab(:,1),precursorTab(:,2),precursorTab(:,1),precursorTab(:,3),precursorTab(:,1),precursorTab(:,4),precursorTab(:,1),precursorTab(:,5),'--',precursorTab(:,1),precursorTab(:,6),'--',precursorTab(:,1),precursorTab(:,7),'--');" #make plot of long term behavior
