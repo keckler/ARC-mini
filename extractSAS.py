@@ -141,6 +141,7 @@ for channel in channelNums:
                         coolantOutlet.append(float(nextLine[15:23]))
                     elif nextLine.split()[0] == topOfActiveCore: #get temp at top of active core
                         topActiveCoreTemp.append(float(nextLine[15:23]))
+                        nextLine = fs.next()
                     elif nextLine.split()[0] == '0.00000': #get inlet temp
                         coolantInlet.append(float(nextLine[15:23]))
                         inletFlag = 1
