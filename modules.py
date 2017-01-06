@@ -1,4 +1,4 @@
-def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab):
+def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab, topActiveCoreTemp):
     ############################################################################
     ###approximate SS values by their first transient value
     ############################################################################
@@ -8,11 +8,12 @@ def addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve
     coolantOutlet[:0] = coolantOutlet[0:1]
     fuelAve[:0] = fuelAve[0:1]
     cladAve[:0] = cladAve[0:1]
+    topActiveCoreTemp[:0] = topActiveCoreTemp[0:1]
 
     for group in precursorTab[1:]:
         group[:0] = group[0:1]
 
-    return [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab]
+    return [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab, topActiveCoreTemp]
 
 def aveFuelCladTemp(fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp, fuelAve, cladAve):
     ############################################################################
@@ -197,7 +198,7 @@ def printPrimaryTables(fp, tempStep, primaryTab):
     ###prints temporary table of primary circuit parameters for MATLAB plotting
     ############################################################################
 
-    fp.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve NaN\n')
+    fp.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve topActiveCoreTemp NaN\n')
     i = 0
     for stp in tempStep:
         for entry in primaryTab[1:]: #not including step number
