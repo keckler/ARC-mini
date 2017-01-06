@@ -17,6 +17,7 @@ shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
 IHXpump = 2 #element number of intermediate pump
 precursorDecayConstants = [1.3377E-2, 3.1026E-2, 1.1763E-1, 3.0917E-1, 8.8605E-1, 2.9416E0]
+topOfActiveCore = '0.81280' #string with height of top of active core. enter exactly as printed in SAS output
 #matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
 matlabExe = 'matlab' #for running on savio
 
@@ -81,6 +82,7 @@ for channel in channelNums:
     coolantOutlet = [] #[K]
     fuelAve = [] #[K]
     cladAve = [] #[K]
+    topActiveCoreTemp = [] #[K]
     
     #intermediate loop parameters
     IHXintermediateInlet = [] #[K]
@@ -97,7 +99,7 @@ for channel in channelNums:
     
     #put all entries into tables
     rhoTab = [rhoStep, rhoTime, power, decayPower, fissionPower, netReactivity, CRDL, radExpansion, doppler, fuelAxialExpansion, cladAxialExpansion, coolant, structureAxialExpansion, controlSystem]
-    primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve]
+    primaryTab = [tempStep, tempTime, saturation, fuelPeak, cladPeak, coolantPeak, flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, topActiveCoreTemp]
     intermediateTab = [tempStep, tempTime, IHXintermediateInlet, IHXintermediateOutlet, IHXflow]
     precursorTab = [tempTime, group1, group2, group3, group4, group5, group6]
     
@@ -133,10 +135,12 @@ for channel in channelNums:
                 nextLine = fs.next()
                 flowRate.append(float(nextLine.split()[-1]))
                 inletFlag = 0
-                while inletFlag == 0: #get inlet and outlet temps
+                while inletFlag == 0: #get inlet, outlet, and top of active core temps
                     if nextLine.split()[0] == 'VESSEL' and nextLine.split()[1] == 'OUTLET': #get outlet temp
                         nextLine = fs.next()
                         coolantOutlet.append(float(nextLine[15:23]))
+                    elif nextLine.split()[0] == topOfActiveCore: #get temp at top of active core
+                        topActiveCoreTemp.append(float(nextLine[15:23]))
                     elif nextLine.split()[0] == '0.00000': #get inlet temp
                         coolantInlet.append(float(nextLine[15:23]))
                         inletFlag = 1
@@ -200,7 +204,7 @@ for channel in channelNums:
     fs.close()
     
     #alter table to include SS temps (approximating SS by values at first step)
-    [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab] = modules.addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab)
+    [flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab, topActiveCoreTemp] = modules.addSteadyStateValues(flowRate, coolantInlet, coolantOutlet, fuelAve, cladAve, precursorTab, topActiveCoreTemp)
     
     #find min and max rho components if not specified by user
     if rhoLimits == '[]':
