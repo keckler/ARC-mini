@@ -1,0 +1,14 @@
+channel 1 extraction:
+
+initializing stuff...
+
+reading from SAS output file...
+
+printing temporary files...
+
+Traceback (most recent call last):
+  File "/global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py", line 236, in <module>
+    modules.printPrimaryTables(fp, tempStep, primaryTab)
+  File "/global/home/users/ckeckler/docs/mini/ARC-mini/modules.py", line 205, in printPrimaryTables
+    fp.write(str(entry[i])+' ')
+IndexError: list index out of range
