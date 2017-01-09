@@ -57,9 +57,11 @@ def correctPrimaryTab(primaryTab):
     ###steps in which not all info was printed out
     ############################################################################
 
-    for entry in primaryTab:
-        if len(entry) > len(primaryTab[-1]):
-            entry = entry[:-1]
+    i = 0
+    while i < len(primaryTab):
+        if len(primaryTab[i]) > len(primaryTab[-1]):
+            primaryTab[i] = primaryTab[i][:-1]
+        i = i + 1
 
     return [primaryTab]
 
