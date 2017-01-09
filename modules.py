@@ -57,13 +57,19 @@ def correctPrimaryTab(primaryTab):
     ###steps in which not all info was printed out
     ############################################################################
 
+    lengths = []
+    for entry in primaryTab:
+        lengths.append(len(entry))
+
+    shortest = min(lengths)
+
     i = 0
     while i < len(primaryTab):
-        if len(primaryTab[i]) > len(primaryTab[-1]):
+        if len(primaryTab[i]) > shortest:
             primaryTab[i] = primaryTab[i][:-1]
         i = i + 1
 
-    return [primaryTab]
+    return primaryTab
 
 def deleteGlobalPlots():
     ############################################################################
