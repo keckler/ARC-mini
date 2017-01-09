@@ -220,7 +220,7 @@ def printPrimaryTables(fp, tempStep, primaryTab):
 
     fp.write('time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve topActiveCoreTemp NaN\n')
     i = 0
-    for stp in tempStep:
+    for stp in primaryTab[0]:
         for entry in primaryTab[1:]: #not including step number
             fp.write(str(entry[i])+' ')
         fp.write('\n')
