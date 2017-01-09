@@ -51,6 +51,18 @@ def channelPeakValues(nextLine, saturation, fuelPeak, cladPeak, coolantPeak):
 
     return [saturation, fuelPeak, cladPeak, coolantPeak, chanFlag]
 
+def correctPrimaryTab(primaryTab):
+    ############################################################################
+    ###makes all primary table columns same length by removing entries for time 
+    ###steps in which not all info was printed out
+    ############################################################################
+
+    for entry in primaryTab:
+        if len(entry) > len(primaryTab[-1]):
+            entry = entry[:-1]
+
+    return [primaryTab]
+
 def deleteGlobalPlots():
     ############################################################################
     ###moves plots not specific to each channel into a global folder

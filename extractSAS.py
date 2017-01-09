@@ -210,6 +210,11 @@ for channel in channelNums:
     #find min and max rho components if not specified by user
     if rhoLimits == '[]':
         rhoLimits = modules.findRhoLimits(rhoTab)
+
+    #alter tables if only part of the info was printed out/read in (i.e. if SAS printed out saturation temp but aborted before printing out coolant peak temp)
+    primaryTab = modules.correctPrimaryTab(primaryTab)
+    intermediateTab = modules.correctIntermediateTab(intermediateTab)
+
     
     #####
     #print to temporary file
