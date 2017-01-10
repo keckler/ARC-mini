@@ -1070,7 +1070,7 @@ COOLIN    64     1     0
 #
 #            THETA1, THETA2: 0.5 Normally, 0/1 for Implicit Calculation
 #                      |           |
-    67     2 5.00000D-01 5.00000D-01                         THETA1,THETA2
+    67     2         0.0         1.0                         THETA1,THETA2
 #
 #            DTLMAX: Maximum Coolant Temperature Change per Coolant Time Step
 #                      |
