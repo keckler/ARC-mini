@@ -234,19 +234,19 @@ for channel in channelNums:
     fpr = open('precursor.txt', 'w')
     
     #print reactivity tables
-    modules.printReactivityTables(fr, rhoStep, rhoTab)
+    modules.printReactivityTables(fr, rhoTab)
     fr.close()
     
     #print primary tables
-    modules.printPrimaryTables(fp, tempStep, primaryTab)
+    modules.printPrimaryTables(fp, primaryTab)
     fp.close()
     
     #print intermediate tables
-    modules.printIntermediateTables(fi, tempStep, intermediateTab)
+    modules.printIntermediateTables(fi, intermediateTab)
     fi.close()
     
     #print precursor tables
-    modules.printPrecursorTables(fpr, tempStep, precursorTab)
+    modules.printPrecursorTables(fpr, precursorTab)
     fpr.close()
     
     

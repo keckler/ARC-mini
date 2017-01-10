@@ -182,7 +182,7 @@ def nodeTemps(nextLine, fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp):
 
     return [fuelNodeMidHeight, fuelNodeAveTemp, cladNodeAveTemp]
 
-def printIntermediateTables(fi, tempStep, intermediateTab):
+def printIntermediateTables(fi, intermediateTab):
     ############################################################################
     ###prints temporary table of intermediate circuit parameters for MATLAB 
     ###plotting
@@ -190,7 +190,7 @@ def printIntermediateTables(fi, tempStep, intermediateTab):
 
     fi.write('time IHXinlet IHXoutlet IHXflow NaN\n')
     i = 0
-    for stp in tempStep:
+    for stp in intermediateTab[0]:
         for entry in intermediateTab[1:]: #not including step number
             fi.write(str(entry[i])+' ')
         fi.write('\n')
@@ -198,14 +198,14 @@ def printIntermediateTables(fi, tempStep, intermediateTab):
 
     return
 
-def printPrecursorTables(fpr, tempStep, precursorTab):
+def printPrecursorTables(fpr, precursorTab):
     ############################################################################
     ###prints temporary table of precursor concentrations for MATLAB plotting
     ############################################################################
 
     fpr.write('time group1 group2 group3 group4 group5 group6 NaN\n')
     i = 0
-    for stp in tempStep:
+    for stp in precursorTab[0]:
         for entry in precursorTab:
             fpr.write(str(entry[i])+' ')
         fpr.write('\n')
@@ -213,7 +213,7 @@ def printPrecursorTables(fpr, tempStep, precursorTab):
 
     return
 
-def printPrimaryTables(fp, tempStep, primaryTab):
+def printPrimaryTables(fp, primaryTab):
     ############################################################################
     ###prints temporary table of primary circuit parameters for MATLAB plotting
     ############################################################################
@@ -228,13 +228,13 @@ def printPrimaryTables(fp, tempStep, primaryTab):
 
     return
 
-def printReactivityTables(fr, rhoStep, rhoTab):
+def printReactivityTables(fr, rhoTab):
     ############################################################################
     ###prints temporary table of reactivity components for MATLAB plotting
     ############################################################################
 
     fr.write('time totalPower decayPower fissionPower netReactivity CRDL radExpansion doppler fuelAxialExpansion cladAxialExpansion coolant structureAxialExpansion controlSystem NaN\n')
-    for stp in rhoStep:
+    for stp in rhoTab[0]:
         for entry in rhoTab[1:]: #not including step number
             fr.write(str(entry[stp-1])+' ')
         fr.write('\n')
