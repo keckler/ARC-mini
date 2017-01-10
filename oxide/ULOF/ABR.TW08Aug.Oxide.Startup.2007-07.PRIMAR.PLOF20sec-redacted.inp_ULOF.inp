@@ -2769,7 +2769,7 @@ INPCOM     1     1     1
     15     1   100            NSTEP
     41     1   100            NOREAC
     41     1   100            NOREAC        
-    12     1    10            IPO    
+    12     1     1            IPO    
     15     1   100            NSTEP
    107     1   700            MSTPLA    
    108     1 10000            MSTPLB
