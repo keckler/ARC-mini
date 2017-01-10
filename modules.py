@@ -51,6 +51,26 @@ def channelPeakValues(nextLine, saturation, fuelPeak, cladPeak, coolantPeak):
 
     return [saturation, fuelPeak, cladPeak, coolantPeak, chanFlag]
 
+def correctPrecursorTab(precursorTab):
+    ############################################################################
+    ###makes all precursor table columns same length by removing entries for time 
+    ###steps in which not all info was printed out
+    ############################################################################
+
+    lengths = []
+    for entry in precursorTab:
+        lengths.append(len(entry))
+
+    shortest = min(lengths)
+
+    i = 0
+    while i < len(precursorTab):
+        if len(precursorTab[i]) > shortest:
+            precursorTab[i] = precursorTab[i][:-1]
+        i = i + 1
+
+    return precursorTab
+
 def correctPrimaryTab(primaryTab):
     ############################################################################
     ###makes all primary table columns same length by removing entries for time 
