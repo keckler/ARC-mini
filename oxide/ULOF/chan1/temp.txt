@@ -1,2 +1,0 @@
-time saturation fuelPeak cladPeak coolantPeak flowRate coolantInlet coolantOutlet fuelAve cladAve topActiveCoreTemp NaN
-0.0 1203.54 1984.273 808.248 796.287 0.9525407 628.147 797.782 1504.32610526 730.245105263 
