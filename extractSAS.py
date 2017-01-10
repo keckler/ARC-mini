@@ -11,7 +11,7 @@
 #user input
 #####
 
-channelNums = [1,2,4] #channel numbers of to be plotted
+channelNums = [1,2,3,4] #channel numbers of to be plotted
 rhoLimits = '[]' #range of reactivity to be plotted, ($), no spaces allowed, leave as '[]' if you want code to decide
 shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
