@@ -213,7 +213,7 @@ for channel in channelNums:
 
     #alter tables if only part of the info was printed out/read in (i.e. if SAS printed out saturation temp but aborted before printing out coolant peak temp)
     primaryTab = modules.correctPrimaryTab(primaryTab)
-    precursorTab = modules.correctPrecursorTab(intermediateTab)
+    precursorTab = modules.correctPrecursorTab(precursorTab)
 
     
     #####
