@@ -18,6 +18,16 @@
 #         5sec .inp to make PLOF
 #     15) Changaed BLK3 890+892+ others to reduce print/plot frequency for 
 #         50000 sec transient
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+# obtained by Chris Keckler from Tom Fanning
+# Jan 11 2017 -
+#     1. IPO changed to 10 for purposes of extracting data
+#     2. PREATB changed to have a CR extraction of the "average rod" at a rate 
+#        of 0.005 $/s starting at 11 s
+#     3. AMOTTK changed to have both pumps continue operating at nominal speed
+#        through entire transient
+#     4. DTMPTB changed to have nominal temp drop across SGs for entire transient
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
@@ -1062,16 +1072,16 @@ INPCOM     1     1     1
     95     1     0                                           IFIT(1)
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-POWINA    12     1     1
+#POWINA    12     1     1
 #
 #                      PREATB: Transient External Reactivity or Normalized Power
 #                      |           |           |           |           |
-    29     4        0.00        0.00        0.00        0.00             PREATB
+#    29     4        0.00        0.00        0.00        0.00             PREATB
 #
 #                      PREATM: Transient Problem Times for PREATB
 #                      |           |           |           |           |
-    49     4         0.0      1000.0      2000.0      4000.0             PREATM
-    -1
+#    49     4         0.0      1000.0      2000.0      4000.0             PREATM
+#    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 OPCIN     11     1     1
 #
@@ -2363,13 +2373,13 @@ PMR4IN    18     1     0
   2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
   2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
   2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
-  2223     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,1)
+  2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
   2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
-  2243     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,2)
+  2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
   2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
-  2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP
+  2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
   3273     4 0.          10.         11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
@@ -2532,14 +2542,10 @@ OPCIN     11     1     1
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
 POWINA    12     1     1
-    29     5 0.          -18.0       -18.0       -18.0       -18.0       PREATB
-    34     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-    39     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-    44     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-    49     5 0.          2.          3.          4.          6.          PREATM
-    54     5 12.         22.         42.         102.        202.
-    59     5 402.        1002.       2002.       4002.       10002.      
-    64     5 20002.      40002.      100002.     200002.     400002.    
+    29     5 0.          0.0         0.0         0.60        0.60       PREATB
+    34     5 0.6         0.6         0.6         0.6         0.6 
+    49     5 0.          2.          11.         131.        132.          PREATM
+    54     5 20002.      40002.      100002.     200002.     400002.    
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
