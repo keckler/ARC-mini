@@ -34,6 +34,8 @@
 #        of transient
 #     4. AMOTTK changed for both pumps to have pumps stop at 11 s, so that 
 #        transient starts at same time as ULOHS
+#     5. DTMIN table commented out so that SAS determines time step sizes on its
+#        own. done to avoid oscillations in the reflector channel coolant temp
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
