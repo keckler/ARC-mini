@@ -1,0 +1,2802 @@
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+# July 25 merge of Anton + Floyd
+#     1) Changed ZPLENL and ZPLENU
+#     2) Above core reflector load pad 4 4 change to 3  3 INPCHN51
+#     3) Deleted stratified volume model INPMR4 NSTRCV set to 0 7/30
+#     4) Reinserted stratified volume model INPMR NSTRCV set to 2 7/31
+#     5) Restart Block 1 NSTEP=100 7/31
+#     6) Changed problem time to 1000secs BLK 11 TMAX 8/1
+#     7) BLK 18 Pri and Int pumps trip at .1 sec 2223 8/1
+#     8) Per Floyd PLOF CHN 3 FG resist .06 BLK 63 59 8/1
+#
+#
+#August 02 merge of Anton+Floyd for Oxide case
+#     1) Chage BLK 18 1899 primary pump inertia to 930 Aug02
+#     2) 500 sec test run
+#     3) 2000 sec extended run
+#     4) COrrected ZPLENU and ZPLENL for Oxide core BLK 14 8/6
+#     5) Anton CR feedback correction 8/3 email BLK12      8/6
+#     6) For 10000sec transient change BLK 3 890+892+others
+#        to reduce print and binary output ffrequency
+#     7) Corrected BLK 18 core height and position 42,163,302 7Aug
+#     8) Changed plot output 11 and time for 20000sec transient
+#     9) Converted ULOF dec to PLOF deck by replacing BLK 12 from  
+#        Aug 08 Metal PLOF deck 8/8
+#     10) Reduced print/plot freuencies BLK 3 890+892 + other changes
+#         for 50000sec transient
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+# obtained by Chris Keckler from Tom Fanning
+# Jan 12 2017 - 
+#     1. IPO changed to 10 for purposes of extracting data
+#     2. PREATB changed to have a CR extraction of the "average rod" at a rate 
+#        of 0.005 $/s starting at 11 s
+#     2a. PREATB changed to have CR worth be $0.50 but extracted at the same rate
+#     3. AMOTTK changed to have both pumps continue operating at nominal speed
+#        through entire transient
+#     4. DTMPTB changed to have nominal temp drop across SGs for entire transient
+#
+# PRIMARY AND SECONDARY TITLE RECORDS
+#                                                                       Version
+ ABR REFERENCE OXIDE FUEL STARTUP CORE                                  5.1
+ SAS4A/SASSYS Model - Null transient in PRIMAR4
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+# STORAGE ALLOCATION RECORDS
+#
+#    NCH: Number of Channels
+#    |  NEUTSP: Neutronics Storage Allocation Flag
+#    |  |  IDBUGP: Data Management Print Flag
+#    |  |  |  IPDECK: Input Data Editing Flag
+#    |  |  |  |  NBYSSH: Number of Bypass Channels in SA-to-SA Heat Transfer
+#    |  |  |  |  |  IDATMO: Data Management Option Flag (0/1=Default/Extended)
+#    |  |  |  |  |  |  IADEFC: Data Pack DEFC Storage Allocation Flag
+#    |  |  |  |  |  |  |  IAPLUC: Data Pack PLUC Storage Allocation Flag
+#    |  |  |  |  |  |  |  |  IACNTL: Control System Module Storage Allocation Flag
+#    |  |  |  |  |  |  |  |  |  IALBOP: BOP Module Storage Allocation Flag
+#    |  |  |  |  |  |  |  |  |  |
+#    1  0  0  0  0  1  0  1  1  1
+     4  0  0  0  0  1  0  1  1  1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  INPCOM: Channel Independent Variables (Integer)
+#
+INPCOM     1     0     0
+#
+#                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
+#                |       Time Steps
+    11     1     0                                           MAXSTP
+#
+#                IPO: Number of Steps between Prints before IBLPRT or Boiling
+#                |     IPOBOI: Number of Steps between Prints after IBLPRT
+#                |     |       or Start of Boiling
+#                |     |
+    12     2  1000  1000                                     IPO,IPOBOI
+#
+#                NOREAC: Main Time Step Intevals between PSHORT Print
+#                |
+    41     1  1000
+#
+#                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
+#                |
+    24     1     1                                           ICLCMP
+#
+#       DEFORM-4 Parameters
+#
+#                IYLD: Cladding flow stress formulation
+#                |     (=3, Input table YLDTAB)
+    26     1     3                                                              
+#
+#                IMELTV: Axial extent assumptions for the molten
+#                |       cavity pressure calculation.
+#                |      (=1, Cavity includes all central cavity)
+    28     1     1                                                              
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  OPCIN: Channel Independent Variables (Floating Point)
+#         Time Steps and Convergence Criteria Data
+#
+OPCIN     11     0     0
+#
+#                      TIMAX: Maximum Problem Time (s)
+#                      |
+     7     1         0.0                                     TIMAX
+#
+#                      EPSTEM: Steady-State Temperature Convergence
+#                      |
+     1     1     1.0D-02                                     EPSTEM
+#
+#                      EPSPOW: Neutron Flux Amplitude Convergence
+#                      |
+     3     1     1.0D-05                                     EPSPOW
+#
+#                      DT0: Initial and Max Main Time Step Size
+#                      |
+     5     1        1.00                                     DT0
+#
+#                      DTFUEL: Max Fuel Temp Change per Heat-Transfer Time Step
+#                      |           DTCLAD: Max Clad Temp Change per HT Time Step
+#                      |           |
+    10     2         5.0        30.0                         DTFUEL,DTCLAD
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  POWINA: Core Power Parameters (Floating Point)
+#
+POWINA    12     0     0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  PMATCM: Materials Properties
+#
+PMATCM    13     0     0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                         #####  ####### ######  #######
+#                        #     # #     # #     # #
+#                        #       #     # #     # #
+#                        #       #     # ######  #####
+#                        #       #     # #   #   #
+#                        #     # #     # #    #  #
+#                         #####  ####### #     # #######
+#
+#                    ######  ####### #     # ####### ######
+#                    #     # #     # #  #  # #       #     #
+#                    #     # #     # #  #  # #       #     #
+#                    ######  #     # #  #  # #####   ######
+#                    #       #     # #  #  # #       #   #
+#                    #       #     # #  #  # #       #    #
+#                    #       #######  ## ##  ####### #     #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NPREAT: Number of Entries in PREA vs. Time Table
+#                |       (Power or Reactivity vs Time)
+    18     1     0                                           NPREAT
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINA    12     1     1
+#
+#                      POWTOT: Total Reactor Power
+#                      |
+     3     1  1000.0D+06                                     POWTOT
+#
+#                      FRPR: Fraction of Total Power Represented by All Channels
+#                      |           FRFLOW: Fraction of Total Flow Represented
+#                      |           |       by All SAS4A Channels
+    69     2         1.0         1.0                         FRPR,FRFLOW
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                    ######  #######  #####     #    #     #
+#                    #     # #       #     #   # #    #   #
+#                    #     # #       #        #   #    # #
+#                    #     # #####   #       #     #    #
+#                    #     # #       #       #######    #
+#                    #     # #       #     # #     #    #
+#                    ######  #######  #####  #     #    #
+#
+#                    ######  ####### #     # ####### ######
+#                    #     # #     # #  #  # #       #     #
+#                    #     # #     # #  #  # #       #     #
+#                    ######  #     # #  #  # #####   ######
+#                    #       #     # #  #  # #       #   #
+#                    #       #     # #  #  # #       #    #
+#                    #       #######  ## ##  ####### #     #
+#
+#
+#    DEFINE DECAY HEAT REGION 1 USING ANSI STANDARD CURVE FOR PU-239
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NDKGRP: Number of Decay Heat Groups
+#                |
+    17     1    23                                           NDKGRP
+#
+#                NPOWDK: Number of Power Curves or Sets of Decay Heat Parameters
+#                |       (0 = Only Build-In ANSI Curves Used)
+#                |     NPDKST: Number of Entries in POWLVL/POWTIM Tables for
+#                |     |       Initializing Decay Heat Precursors
+#                |     |       (0 = Infinite Steady-State Irradiation)
+    45     2     0     0                                     NPOWDK,NPDKST
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINA    12     1     1
+#
+#                      DKANSI(IPR,2): Fraction of Pu-239 in Decay Region IPR
+#                      |
+   811     1         1.0                                     DKANSI(IPR=1,PU239)
+#
+#                      QETOT(2): Total Recoverable Energy from Pu-239 Fission
+#                      |         (0.0 = Use Code Default of 200 MeV)
+   962     1         0.0                                     QETOT(PU239)
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                    ######  #######   ###   #     # #######
+#                    #     # #     #    #    ##    #    #
+#                    #     # #     #    #    # #   #    #
+#                    ######  #     #    #    #  #  #    #
+#                    #       #     #    #    #   # #    #
+#                    #       #     #    #    #    ##    #
+#                    #       #######   ###   #     #    #
+#
+#        #    #    ###   #     # ####### #######   ###    #####   #####
+#        #   #      #    ##    # #          #       #    #     # #     #
+#        #  #       #    # #   # #          #       #    #       #
+#        ###        #    #  #  # #####      #       #    #        #####
+#        #  #       #    #   # # #          #       #    #             #
+#        #   #      #    #    ## #          #       #    #     # #     #
+#        #    #    ###   #     # #######    #      ###    #####   #####
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NDELAY: Number of Delayed Neutron Precursor Families
+#                |
+    16     1     6                                           NDELAY
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINA    12     1     1
+#
+#                      GENTIM: Prompt Neutron Lifetime
+#                      |
+#          31-JUL-2007: BOEC Value from TK Kim:
+     2     1    4.81E-07                                     GENTIM
+#
+#                      BETADN(L): Effective Delayed Neutron Fract. for Family L
+#                      |           |           |           |
+#          31-JUL-2007: BOEC Value from TK Kim:
+     4     4    7.98E-05    5.75E-04    4.85E-04    1.13E-03 BETADN
+     8     2    6.57E-04    2.38E-04
+#
+#                      DECCON(L): Decay Constant for Precursor Family L
+#                      |           |           |           |
+#          31-JUL-2007: BOEC Value from TK Kim:
+    10     4    1.34E-02    3.10E-02    1.17E-01    3.08E-01   DECCON
+    14     2    8.84E-01    2.93E+00
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                             CHANNEL-INDEPENDENT
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                ICREXP: Control-Rod Driveline Expansion Feedback Flag
+#                |
+    31     1     1                                           ICREXP
+#
+#                IRADEX: Radial Expansion Feedback Flag
+#                |
+    36     1     1                                           IRADEX
+#
+#                MODEEX: Axial Expansion Option Flag
+#                | (0 = Force balance or free expansion, depending on radial gap)
+    55     1     0                                           MODEEX
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINA    12     1     1
+#
+#          18-JUL-2007: Above-core dimension are from F. Dunn 
+#                      CRDLEN: Length of Control-Rod Drive Lines in Outlet Sodium
+#                      |           CRDEXP: Thermal Expansion Coefficient for CR
+#                      |           |       Drive Lines
+    71     2        6.00     2.0E-05                         CRDLEN,CRDEXP
+#
+#                      ACRDEX: Control-Rod Reactivity Feedback Parameter
+#                      |           BCRDEX: (Quadratic Term)
+#                      |           |
+    73     2      -33.32      -41.51                         ACRDEX,BCRDEX
+    73     2      -43.86      -42.84                         ACRDEX,BCRDEX
+#
+#                      CRDMC: Control-Rod Drive Mass x Specific Heat
+#                      |           CRDHA: Control-Rod Drive Surface Area x
+#                      |           |      Heat-Transfer Coefficient
+    75     2 7.619  D 04 5.410  D 03                         CRDMC,CRDHA
+#   NOTE: The above values need to be updated.
+#
+#                      UIVOL: Coolant Volume in Upper Internal Structure
+#                      |
+    77     1        13.0                                     UIVOL
+#
+#                      RDEXPC: Coefficient in Simple Radial Expansion Feedback Model
+#                      |           XMCXAC: Ratio of Distances XMC/XAC
+#                      |           |       (Nozzle-Midplane/Nozzle-Load Pad)
+    78     2   -0.002202        0.80                         RDEXPC,XMCXAC
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#        ####### #     # ####### #                  #    #     # ######
+#        #       #     # #       #                 # #   ##    # #     #
+#        #       #     # #       #                #   #  # #   # #     #
+#        #####   #     # #####   #               #     # #  #  # #     #
+#        #       #     # #       #               ####### #   # # #     #
+#        #       #     # #       #               #     # #    ## #     #
+#        #        #####  ####### #######         #     # #     # ######
+#
+#         #####  #          #    ######  ######    ###   #     #  #####
+#        #     # #         # #   #     # #     #    #    ##    # #     #
+#        #       #        #   #  #     # #     #    #    # #   # #
+#        #       #       #     # #     # #     #    #    #  #  # #  ####
+#        #       #       ####### #     # #     #    #    #   # # #     #
+#        #     # #       #     # #     # #     #    #    #    ## #     #
+#         #####  ####### #     # ######  ######    ###   #     #  #####
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#  FUEL PROPERTIES ARE TAKEN FROM LSPB OXIDE CORE INPUT DECK
+#  SOME PARAMETERS ARE LATER MODIFIED FOR 
+#  HT-9 "fuel" (for reflector) IN TABLE 5
+#
+#                IFUEL1: Number of Fuel Types
+#                |     ICLAD1: Number of Cladding Types
+#                |     |
+     3     2     5     1                                     IFUEL1,ICLAD1
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    FUEL PROPERTIES (LSPB OXIDE CORE INPUT DECK)
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES                                                                          
+     FUEL PROPERTY TABLES                                                       
+                                                                                
+     FUEL DENSITY TABLES                                                        
+     TABLE 1:   MIXED OXIDE, THEORETICAL DENSITY                                
+     TABLE 2:   MIXED OXIDE, FUEL PIN SMEAR DENSITY (82.5%)                     
+     TABLE 3:   UO2, THEORETICAL DENSITY                                        
+     TABLE 4:   UO2, AXIAL BLANKET SMEAR DENSITY (82.5%)                        
+     TABLE 5:   UO2, INTERNAL AND RADIAL BLANKET SMEAR DENSITY (93.3%)          
+                                                                                
+     THERMAL CONDUCTIVITY TABLES                                                
+     TABLES 1-4, THEORETICAL VALUE REDUCED TO 82.1% FOR ASSUMED 10%             
+                 AVERAGE FUEL POROSITY                                          
+     TABLE 5,    THEORETICAL VALUE REDUCED TO 91.7% FOR ASSUMED 5%              
+                 AVERAGE FUEL POROSITY                                          
+                                                                                
+     HEAT CAPACITY TABLES                                                       
+     TABLES 1-5, HEAT CAPACITY FOR UO2 USED FOR ALL FUEL                        
+                                                                                
+     SOLIDUS AND LIQUIDUS TEMPERATURES, HEAT OF FUSION                          
+     TABLES 1-2, MIXED OXIDE                                                    
+     TABLES 3-5, UO2                                                            
+                                                                                
+     CLADDING TABLES                                                            
+     TABLE 1, HT-9                                                              
+    -1                                                                          
+PMATCM    13     1     0                                                        
+     1     3 1.10800D 04 2.04000D-05 8.70000D-09                                
+     4     5 2.10000D 00 2.88000D-03 2.52000D-05 5.83000D-10 5.75000D-02        
+     9     2 5.03000D-04 2.91000D-11                                            
+    11     5 2.49000D+01 2.54000D+01 2.59000D+01 2.63000D+01 2.68000D+01        
+    16     3 2.72000D+01 2.76000D+01 2.80000D+01                                
+    71     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
+    76     3 8.73000D+02 9.73000D+02 1.07300D+03                                
+    91     5 1.09606D 04 1.08782D 04 1.07805D 04 1.06674D 04 1.05401D 04        
+    96     5 1.03974D 04 1.02415D 04 1.00702D 04 9.88690D 03 9.75626D 03        
+   101     5 9.29485D 03 9.29485D 03 8.92916D 03 8.88086D 03 8.35182D 03        
+   111     5 9.04246D 03 8.97453D 03 8.89392D 03 8.80064D 03 8.69558D 03        
+   116     5 8.57784D 03 8.44923D 03 8.30794D 03 8.15669D 03 8.04892D 03        
+   121     5 7.66825D 03 7.66825D 03 7.36656D 03 7.32671D 03 7.17385D 03        
+   131     5 1.09387D 04 1.08569D 04 1.07596D 04 1.06470D 04 1.05194D 04        
+   136     5 1.03774D 04 1.02211D 04 1.00510D 04 9.86748D 03 9.67080D 03        
+   141     3 9.63883D 03 8.86000D 03 8.74092D 03                                
+   151     5 9.02443D 03 8.95694D 03 8.87667D 03 8.78378D 03 8.67851D 03        
+   156     5 8.56136D 03 8.43241D 03 8.29208D 03 8.14067D 03 7.97841D 03        
+   161     3 7.95203D 03 8.86000D 03 8.74092D 03                                
+   171     5 1.02058D 04 1.01295D 04 1.00387D 04 9.93365D 03 9.81460D 03        
+   176     5 9.68211D 03 9.53629D 03 9.37758D 03 9.20636D 03 9.02286D 03        
+   181     3 8.99303D 03 8.86000D 03 8.74092D 03                                
+   251     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   256     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 2.97515D 03        
+   261     5 3.00000D 03 3.00000D 03 3.02515D 03 3.07315D 03 3.67315D 03        
+   271     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   276     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 2.97515D 03        
+   281     5 3.00000D 03 3.00000D 03 3.02515D 03 3.07315D 03 3.67315D 03        
+   291     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   296     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 3.07315D 03        
+   301     3 3.12015D 03 3.12015D 03 3.25015D 03                                
+   311     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   316     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 3.07315D 03        
+   321     3 3.12015D 03 3.12015D 03 3.25015D 03                                
+   331     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   336     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 3.07315D 03        
+   341     3 3.12015D 03 3.12015D 03 3.25015D 03                                
+   419     1 3.00150D 02                                                        
+   420     5 1.07460D 01 6.18860D 00 4.36000D 00 3.38800D 00 2.80100D 00        
+   425     5 2.42800D 00 2.19200D 00 2.05400D 00 1.99400D 00 1.99900D 00        
+   430     5 2.06400D 00 2.18500D 00 2.36100D 00 2.59300D 00 2.88000D 00        
+   440     5 1.07460D 01 6.18960D 00 4.36000D 00 3.38800D 00 2.80100D 00        
+   445     5 2.42800D 00 2.19200D 00 2.05400D 00 1.99400D 00 1.99900D 00        
+   450     5 2.06400D 00 2.18500D 00 2.36100D 00 2.59300D 00 2.88000D 00        
+   460     5 7.06022D 00 5.31637D 00 4.20760D 00 3.44427D 00 2.88957D 00        
+   465     5 2.47247D 00 2.15777D 00 1.93512D 00 1.81340D 00 1.81595D 00        
+   470     5 1.97569D 00 2.33061D 00 2.91999D 00 2.87022D 00 2.83327D 00        
+   480     5 7.06022D 00 5.31637D 00 4.20760D 00 3.44427D 00 2.88957D 00        
+   485     5 2.47247D 00 2.15777D 00 1.93512D 00 1.81340D 00 1.81595D 00        
+   490     5 1.97569D 00 2.33061D 00 2.91999D 00 2.87022D 00 2.83327D 00        
+   500     5 7.88149D 00 5.93479D 00 4.69705D 00 3.84492D 00 3.22570D 00        
+   505     5 2.76008D 00 2.40877D 00 2.16022D 00 2.02434D 00 2.02718D 00        
+   510     5 2.20551D 00 2.60171D 00 3.25966D 00 3.20409D 00 3.16285D 00        
+   580     5 2.73150D 02 4.73150D 02 6.73150D 02 8.73150D 02 1.07315D 03        
+   585     5 1.27315D 03 1.47315D 03 1.67315D 03 1.87315D 03 2.07315D 03        
+   590     5 2.27315D 03 2.47315D 03 2.67315D 03 2.87315D 03 3.07315D 03        
+   606     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   611     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
+   616     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
+   626     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   631     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
+   636     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
+   646     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   651     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
+   656     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
+   666     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   671     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
+   676     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
+   686     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   691     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
+   696     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
+   766     5 2.73150D 02 4.73150D 02 6.73150D 02 8.73150D 02 1.07315D 03        
+   771     5 1.27315D 03 1.47315D 03 1.67315D 03 1.87315D 03 2.07315D 03        
+   776     5 2.27315D 03 2.47315D 03 2.67315D 03 3.12000D 03 3.12000D 03        
+   786     5 2.97515D 03 2.97515D 03 3.11015D 03 3.11015D 03 3.11015D 03        
+   794     5 3.02115D 03 3.02115D 03 3.13015D 03 3.13015D 03 3.13015D 03        
+   802     5 2.64896D 05 2.64896D 05 2.77037D 05 2.77037D 05 2.77037D 05        
+   810     1 1690.15                                                            
+   813     1 1710.15                                                            
+   816     1 2.683  D 05                                                        
+   819     5 4.82500D+02 5.21480D+02 5.63370D+02 6.15380D+02 6.84680D+02        
+   824     5 7.84960D+02 8.66080D+02 1.02150D+03 1.21000D+03 8.68340D+02        
+   829     2 7.47970D+02 7.62140D+02                                            
+   879     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
+   884     5 8.73000D+02 9.23000D+02 9.73000D+02 9.98000D+02 1.02300D+03        
+   889     2 1.07300D+03 1.08856D+03                                            
+   990     5 3.73566D+06 4.02379D+06 4.33085D+06 4.71178D+06 5.22021D+06        
+   995     5 5.95863D+06 6.55969D+06 7.71948D+06 9.13369D+06 6.54728D+06        
+  1000     2 5.62698D+06 5.72962D+06                                            
+  1050     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
+  1055     5 8.73000D+02 9.23000D+02 9.73000D+02 9.98000D+02 1.02300D+03        
+  1060     2 1.07300D+03 1.08856D+03                                            
+  1086     1 8.31434D+00                                                        
+   171     5 1.09387D 04 1.08569D 04 1.07596D 04 1.06470D 04 1.05194D 04        
+   176     5 1.03774D 04 1.02211D 04 1.00510D 04 9.86748D 03 9.67080D 03        
+   181     3 9.63883D 03 8.86000D 03 8.74092D 03                                
+   600     4 1.31000D+02 2.46000D-01 1.97000D+02 6.00000D-01                    
+   604     2 1.20000D+00 2.00000D-02                                            
+   910     4 8.48000D+08 7.58000D+08 7.14000D+08 6.96000D+08                    
+   914     4 6.76000D+08 6.36000D+08 4.62000D+08 2.62000D+08                    
+   918     3 1.38000D+08 3.45000D+07 0.00000                                    
+   970     4 2.55350D+02 3.66450D+02 4.77550D+02 5.88750D+02                    
+   974     4 6.99850D+02 8.10950D+02 9.22050D+02 1.03315D+03                    
+   978     3 1.14425D+03 1.25535D+03 1.64815D+03                                
+  1073     5 0.132       0.175       0.132       0.175       0.067              
+  1077     1 0.043                                                              
+  1083     4 2.07040D+01 4.52810D+05 1.50000D+00 8.31434D+00                    
+  1087     4 4.50000D-01 5.00000D+04 5.65065D+04 1.71700D+10                    
+  1091     4 3.87000D+05 1.45556D-08 2.67000D+05 2.23000D-03                    
+  1095     4 6.33750D+04 9.46900D+02 3.13000D+03 3.30000D-06                    
+  1099     1 1.78000D-06                                                        
+  1101     1 1.66667D+00                                                        
+  1103     4 1.00000D+00 1.50000D-01 8.05000D-01 1.00000D+00                    
+  1107     4 5.67000D-08 9.00000D-01 8.00000D-01 6.92000D+03                    
+  1111     4 3.39500D+01 3.38000D-01 1.48000D+04 9.57500D+00                    
+  1115     4 2.00000D-04 1.10000D+04 3.00000D-01 3.26500D-01                    
+  1119     2 1.00000D+00 3.77000D+05                                            
+  1124     1 6.50000D+01                                                        
+  1225     2 4.00000D+00 3.00000D-03                                            
+  1258     2 1.00000D+00 2.00000D-01                                            
+  1261     3 1.00000D-01 6.00000D-01 1.00000D+00                                
+  1275     1 1.00000D-01                                                        
+    -1                                                                          
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    FUEL PROPERTIES (ABR OXIDE CORE)
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCM    13     1     1
+#
+#            TR: Reference Design Temperature
+#                      |
+   419     1      298.00                                     TR
+#
+#            FGMM: Molecular Weight of Fission Gas
+#                      |
+   600     1      131.00                                     FGMM
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCM    13     1     1
+#
+#            PRSTY(IFUEL): As-Fabricated Porosity for Each Fuel Type
+#                      |           |           |           |
+  1073     4       0.115       0.115       0.115       0.115 PRSTY
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    HT-9 "FUEL" PROPERTIES (Fuel Type 5)
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCM    13     1     1
+#
+#            RHOTAB(L,IFUEL): Theoretical Fuel (Cladding) Density
+#                      |           |           |           |
+   171     4 7.74233E+03 7.71614E+03 7.68742E+03 7.65665E+03 RHOTAB(L,5)
+   175     4 7.62433E+03 7.59096E+03 7.55702E+03 7.52301E+03 RHOTAB(L,5)
+#
+#            RHOTEM(L,IFUEL): Temperature for RHOTAB(L,IFUEL)
+#                      |           |           |           |
+   331     4        373.        473.        573.        673. RHOTEM(L,5)
+   335     4        773.        873.        973.       1073. RHOTEM(L,5)
+#
+#            XKTAB(L,IFUEL): Fuel (Cladding) Thermal Conductivity
+#                      |           |           |           |
+   500     4     25.5220     25.8456     26.0844     26.2384 XKTAB(L,5)
+   504     4     26.3076     26.2920     26.1916     26.0064 XKTAB(L,5)
+   508     4     25.7364     25.3816     24.9420     24.60   XKTAB(L,5)
+   512     4     24.8160     25.4250     26.0340     26.6430 XKTAB(L,5)
+#
+#            XKTEM(L): Temperature for XKTAB(L,*)
+#                      |           |           |           |
+   580     4       500.0       550.0       600.0       650.0 XKTEM(L)
+   584     4       700.0       750.0       800.0       850.0 XKTEM(L)
+   588     4       900.0       950.0      1000.0      1030.0 XKTEM(L)
+   592     4      1050.0      1100.0      1150.0      1200.0 XKTEM(L)
+#
+#            CPFTAB(L,IFUEL): Fuel (Cladding) Specific Heat:
+#                      |           |           |           |
+   686     4 482.50      521.48      563.37      615.38      CPFTAB(L,5)
+   690     4 684.68      784.96      866.08      1021.5      CPFTAB(L,5)
+   694     4 1210.0      868.34      747.97      762.14      CPFTAB(L,5)
+#
+#            CPFTEM(L): Temperature for CPFTAB(L,*)
+#                      |           |           |           |
+   766     4 373.        473.        573.        673.        CPCTEM(L)
+   770     4 773.        873.        923.        973.        CPCTEM(L)
+   774     4 998.        1023.       1073.       1088.6      CPCTEM(L)
+#
+#            TFSOL(IFUEL): Fuel (Cladding) Solidus Temperature
+#                      |
+   790     1      1700.0                                     TFSOL(5)
+#
+#            TFLIQ(IFUEL): Fuel (Cladding) Liquidus Temperature
+#                      |
+   798     1      1710.0                                     TFLIQ(5)
+#
+#            UFMELT(IFUEL): Fuel (Cladding) Heat of Fusion
+#                      |
+   806     1    268000.0                                     UFMELT(5)
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    HT-9 CLADDING PROPERTIES
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCM    13     1     1
+#
+#    Thermal Conductivity is From:
+#    L. Leibowitz and R. A. Blomquist, "Thermal Conductivity and Thermal
+#    Expansion of Stainless Steels D9 and HT9," International Journal of
+#    Thermophysics, Vol. 9, No. 5, September 1988.
+#
+#            EXKTB(L,ICLAD): Thermal Conductivity of Cladding at
+#                            Temperature L for Cladding Type ICLAD
+#                      |           |           |           |
+    11     4     25.5220     25.8456     26.0844     26.2384 EXKTB
+    15     4     26.3076     26.2920     26.1916     26.0064 EXKTB
+    19     4     25.7364     25.3816     24.9420     24.60   EXKTB
+    23     4     24.8160     25.4250     26.0340     26.6430 EXKTB
+#
+#            EXKTM(L): Temperature for EXKTB(L,*)
+#                      |           |           |           |
+    71     4       500.0       550.0       600.0       650.0 EXKTM
+    75     4       700.0       750.0       800.0       850.0 EXKTM
+    79     4       900.0       950.0      1000.0      1030.0 EXKTM
+    83     4      1050.0      1100.0      1150.0      1200.0 EXKTM
+#
+#            TESOL(ICLAD): Cladding Solidus Temperature
+#                      |
+   810     1      1700.0                                     TESOL
+#
+#            TELIQ(ICLAD): Cladding Liquidus Temperature
+#                      |
+   813     1      1710.0                                     TELIQ
+#
+#            UEMELT(ICLAD): Cladding Heat of Fusion
+#                      |
+   816     1    268000.0                                     UEMELT
+#
+#   Specific Heat and Density is From: (redacted)
+#
+#            CPCTAB(L,ICLAD): Cladding Specific Heat
+#                      |           |           |           |
+   819     4 482.50      521.48      563.37      615.38      CPCTAB
+   823     4 684.68      784.96      866.08      1021.5      CPCTAB
+   827     4 1210.0      868.34      747.97      762.14      CPCTAB
+#
+#            CPCTEM(L): Temperature for CPCTAB.
+#                      |           |           |           |
+   879     4 373.        473.        573.        673.        CPCTEM
+   883     4 773.        873.        923.        973.        CPCTEM
+   887     4 998.        1023.       1073.       1088.6      CPCTEM
+#
+#   Note: Density is being extrapolated past 650C (923K)
+#
+#            CROETB(L,ICLAD): Specific Heat x Density for Cladding
+#                      |           |           |           |
+   990     4 3.73567E+06 4.02381E+06 4.33086E+06 4.71175E+06 CROETB
+   994     4 5.22023E+06 5.95860E+06 6.55971E+06 7.71949E+06 CROETB
+   998     4 9.13369E+06 6.54728E+06 5.62699E+06 5.72958E+06 CROETB
+#
+#            CROETM(L): Temperature for CROETB
+#                      |           |           |           |
+  1050     4 373.        473.        573.        673.        CROETM
+  1054     4 773.        873.        923.        973.        CROETM
+  1058     4 998.        1023.       1073.       1088.6      CROTEM
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#               #    #     # ####### ######     #     #####  #######
+#              # #   #     # #       #     #   # #   #     # #
+#             #   #  #     # #       #     #  #   #  #       #
+#            #     # #     # #####   ######  #     # #  #### #####
+#            #######  #   #  #       #   #   ####### #     # #
+#            #     #   # #   #       #    #  #     # #     # #
+#            #     #    #    ####### #     # #     #  #####  #######
+#
+#             #####  #     #    #    #     # #     # ####### #
+#            #     # #     #   # #   ##    # ##    # #       #
+#            #       #     #  #   #  # #   # # #   # #       #
+#            #       ####### #     # #  #  # #  #  # #####   #
+#            #       #     # ####### #   # # #   # # #       #
+#            #     # #     # #     # #    ## #    ## #       #
+#             #####  #     # #     # #     # #     # ####### #######
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NCHAN: Number of Channels
+#                |
+     1     1     1                                           NCHAN
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+
+    Average Channel is based on 180 assembly core from 29-JUNE-2007
+    (source redacted)
+    
+    Power:        1000 MWth
+    # Assmbly:    180 (78 Inner, 102 Outer)
+    Pins/Assmbly: 271
+    Pin OD:       0.755 cm
+    Core Height: 106.68 cm
+    
+    AM
+
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  INPCHN: Channel-Dependent Input (Integer)
+#
+INPCHN    51     1     0                                                
+#
+#                NPLN: Number of Segments in Gas Plenum
+#                |     NREFB: Number of Reflector Zones below Pin
+#                |     |     NREFT: Number of Reflector Zones above Pin
+#                |     |     |      (Note: Below + Above <= 6)
+     4     3     6     1     1                               NPLN,NREFB,NREFT
+#
+#                NZNODE(KZ): Number of Segments in Zone KZ
+#                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
+     7     3     5    26     5                               NZNODE
+#
+#                NT: Number of Radial Temperature Nodes in Fuel
+#                |
+    14     1    10                                           NT
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |     IFUELB: Table Number of Property Value for Blanket Fuel
+#                |     |     ICLADV: Table Number for Cladding
+#                |     |     |
+    15     3     1     0     1                               IFUELV,ICLADV
+#
+#                NPIN: Number of Pins per Assembly
+#                |     NSUBAS: Number of Subassemblies in Channel
+#                |     |
+    25     2   271   180                                      NPIN,NSUBAS
+#
+#                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
+#                |     JNEN: Axial Node of Cladding Output for Plotting
+#                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
+#                |     |     |     JNSN: Axial Coolant Node of Structure
+#                |     |     |     |     Output for Plotting
+    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
+#
+#                IRHOK: Fuel Properties Correlation Selection Flag
+#                |      (>0=Use IFUELM Flag when IMETAL=2/3)
+     3     1     3                                           IRHOK
+#
+#                IMETAL: Fuel Type (0/1/2/3=Oxide/U-Fs/UPuZr/UZr)
+#                |
+   189     1     0                                           IMETAL
+#
+#                IDKCRV: Power or Decay Heat Curve for this Channel
+#                |
+   203     1     1                                           IDKCRV
+#
+#       DEFORM-4 Parameters
+#
+#                NAXOP: Model selection for axial expansion and crack volume
+#                |     MSTEP: Number of main steady-state power change and 
+#                |     |      constant power intervals.
+#                |     |     ITAU: Irradiation induced cladding swelling 
+#                |     |     |      incubation parameter options.
+#                |     |     |      (=-2, No cladding swelling)
+#                |     |     |     IRATE: Irradiation induced cladding swelling
+#                |     |     |     |      rate options.
+#                |     |     |     |      (=-2, No cladding swelling)
+#                |     |     |     |     IHGAP: Fuel-cladding gap conductance 
+#                |     |     |     |     |      selection
+#                |     |     |     |     |      (=1, SAS4A method) 
+    20     5     5     4    -2    -2     1   NAXOP,MSTEP,ITAU,IHGAP                                   
+#
+#                NGRAIN: Model selection for grain growth theory.
+#                |       (>0, Unlimited grain growth theory, Suggested value=4)
+#                |     ISSFUE: =1, Use dynamic calculation of DEFORM in 
+#                |     |      steady-state.
+    31     2     4     1                                                        
+#
+#                NPLIN(M): Number of subdivisions in each of the MSTEP divisions.  
+#                |     |     |     |      (M = 1, MSTEP)
+    37     4    10    30    20    50                                            
+#
+#                NSKIP(M): Print control for each of the MSTEP divisions in DEFORM.  
+#                |     |     |     |      (M = 1, MSTEP)
+    51     4    99    99    99    30                                            
+#
+#                IPSIG: Hydrostatic pressure for fuel swelling
+#                |      (=3, Use (SIGR + SIGC + SIGZ)/ 3)
+    95     1     3                                                            
+#
+#                ISSFU2: = 1, Use DEFORM calculation during the transient.
+#                |     IHEALC: =0, No crack healing
+#                |     |     IAXTHF: Determine components active in the axial 
+#                |     |     |      expansion calculation in DEFORM.
+#                |     |     |      (=1, Thermal and force effects)
+   122     3     1     0     1                                                  
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  GEOMIN: Geometry Input for Channel (Floating Point)
+#
+GEOMIN    61     1     0                                                
+#
+#            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
+#                      |           |           |           |
+     1     3 2.50266E-05 2.50266E-05 2.50266E-05             ACCZ
+#
+#            AXHI(J): Length of Axial Segment J in Core and Blanket
+#                      |           |           |           |
+     8     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    12     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    16     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    20     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    24     4     0.05334     0.05334     0.05334     0.05334 AXHI
+#
+#            DHZ(KZ): Hydraulic Diameter for Zone KZ
+#                      |           |           |           |
+    32     3 3.36149E-03 3.36149E-03 3.36149E-02             DHZ
+# DH in upper reflector is increased by 10x compared to that in core
+# to reduce the pressure drop through the upper structure of the assembly
+#
+#            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
+#                      |           |           |           |
+    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
+#
+#            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
+#                      |           |           |           |
+    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
+#
+#            PLENL: Length of Fission-Gas Plenum
+#                      |
+    53     1      1.6002                                     PLENL
+#
+#            RBR(J): Cladding Inner Radius for Axial Segment J
+#                      |           |           |           |
+    54     1 3.21500E-03                                     RBR
+#
+#            RER(J): Cladding Outer Radius for Axial Segment J
+#                      |           |           |           |
+    78     1 3.77500E-03                                     RER
+#
+#            RBRPL: Cladding Inner Radius in Fission-Gas Plenum
+#                      |
+   102     1 3.21500E-03                                     RBRPL
+#
+#            RERPL: Cladding Outer Radius in Fission-Gas Plenum
+#                      |
+   103     1 3.77500E-03                                     RERPL
+#
+#            ROUTFP(J): Fuel Outer Radius for Axial Segment J
+#                      |           |           |           |
+   128     1 3.21500E-03                                     ROUTFP
+#
+#            ZONEL(KZ): Length of Zone KZ
+#                      |           |           |           |
+   152     3      1.1176      2.6670       0.635             ZONEL
+#
+#            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
+#                      |           |           |           |
+   159     3 2.21004E-03 2.21004E-03 2.21004E-03             SRFSTZ
+#
+#            AREAPC: Coolant Plus Pin Area per Pin
+#                      |
+   166     1 6.97962E-05                                     AREAPC
+#
+#                      RBR0: Nominal Cladding Inner Radius
+#                      |           RER0: Nominal Cladding Outer Radius
+#                      |           |
+   180     2 3.21500E-03 3.77500E-03                         RBR0,RER0
+#
+#  NOTE: Pins in the reflector region are assumed to be identical in
+#        size to the pins in the core region:
+#
+#            SER(KZ): Reflector/Pin Perimeter
+#                      |           |           |           |
+   182     3 2.37190E-02 2.37190E-02 2.37190E-02             SER
+#
+#            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
+#                      |           |           |           |
+   169     3 9.43750E-04 5.60000E-04 9.43750E-04             DRFO
+#
+#            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
+#                      |           |           |           |
+   189     3 9.43750E-04 0.00000E+00 9.43750E-04             DRFI
+#
+#       DEFORM-4 Parameters
+#
+#            RINFP: Fuel inner radius for axial segment 
+#                      | (Minimum of 1.0E-6 if ISSFUE = 1).
+#                      |
+   104     1 1.00000E-06                                     RERPL
+#
+#            ROUTFP(J): Fuel Outer Radius for Axial Segment J
+#                       85% pin smear density, 89.5% pellet density
+#                      |           |           |           |
+   128     1 3.13313E-03                                     ROUTFP
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  POWINC: Channel-Dependent Power Input (Floating Point)
+#
+POWINC    62     1     0                                                
+#
+#                      GAMSS: Fraction of Power from Direct Heating of Structure
+#                      |
+     2     1 1.00000D-05                                     GAMSS
+#
+#                      GAMTNC: Fraction of Power from Direct Heating of Coolant
+#                      |           GAMTNE: Fraction of Heating in Cladding
+#                      |           |
+     4     2 1.00000D-05 1.00000D-05                         GAMTNC,GAMTNE
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak.
+#            Shape is from 4-th order polynomial fit of average power
+#            density for assembly IC34
+#                      |           |           |           |
+     6     4 7.45279E-01 8.36708E-01 9.21755E-01 9.98851E-01 PSHAPE (D)
+    10     4 1.06659E+00 1.12374E+00 1.16923E+00 1.20217E+00 PSHAPE (E)
+    14     4 1.22182E+00 1.22763E+00 1.21920E+00 1.19631E+00 PSHAPE (F)
+    18     4 1.15890E+00 1.10710E+00 1.04116E+00 9.61561E-01 PSHAPE (G)
+    22     4 8.68905E-01 7.63983E-01 6.47751E-01 5.21332E-01 PSHAPE (H)
+#
+#            PSHAPR(I): Radial Power Shape within Pin
+#                      |           |           |           |
+    30     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    34     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    38     2 1.00000D+00 1.00000D+00                         PSHAPR
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     5.55556                                     PRSHAP
+#
+#       DEFORM-4 Parameters
+#
+#               PLIN (M): Relative power level at the end of the M 
+#                      |  steady-state division. (M = 1, MSTEP)
+#                      |           |           |           |           
+    45     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00                    
+#
+#              TPLIN (M): Time (from fresh start-up) at the ends of 
+#                      |  the M steady-state divisions. (M = 1, MSTEP)
+#                      |           |           |           |           
+    53     4 8.64000D+05 3.45600D+06 8.64000D+06 5.04576D+07                    
+#
+#                      FLTPOW: Fast flux to linear power ratio.
+#                      |   (Core average flux / Average linear  power
+#                      |    from (source redacted))
+    61     1 1.38627D+11                                                        
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  PMATCH: Channel-Dependent Properties Input (Floating Point)
+#
+PMATCH    63     1     0                                                
+#
+#     2-AUG-07 The following corrections to records 2-8 were made to restore 
+#              those used for (source redacted) for oxide fuel 
+#
+#            AHBPAR, BHBPAR, CHBPAR: Bond Heat Transfer Correlation Parameters
+#                      |           |           |
+     2     3 1.80000D+03 6.10000D-05 1.32000D-06             AHBPAR,BHBPAR,CHBPAR
+#
+#                      HBMAX: Maximum value of bond conductance when a gap 
+#                      |  exists; minimum value when a gap does not exist.
+#                      |           HBMIN: Minimum value of bond conductance. 
+#                      |           |           HBPAR: Bond conductance = HBPAR/gap.
+#                      |           |           | If all three parameters in locations 
+#                      |           |           | 2-4 are zero     
+     5     3 8.00000D 03 8.00000D 03 2.86000D-02            HBMAX,HBMIN,HBPAR                           
+#
+#   Structure Thermal Conductivity based on HT-9.
+#
+#            XKSTIZ(KZ): Inner Structure Thermal Conductivity for Zone KZ
+#                      |           |           |
+    11     3         26.         26.         26.             XKSTIZ
+#
+#            XKSTOZ(KZ): Outer Structure Thermal Conductivity for Zone KZ
+#                      |           |           |
+    18     3         26.         26.         26.             XKSTOZ
+#
+#                      DEL: Stefan-Boltzmann's constant*emissivity
+#                      |          DGO: Initial grain size
+#                      |          |
+    25     2   4.818D-08        0.0                          DEL,DGO
+#
+#            P0GAS: Initial Plenum Gas Pressure at Reference Temperature TR
+#                      |
+    27     1 1.     D 05                                     P0GAS
+#
+#            XKRF(KZ): Reflector Thermal Coductivity for Zone KZ
+#                      |           |           |
+    28     3       19.78         26.       19.78             XKRF
+#
+#            DENSS: Density of Solid Cladding at Reference Temperature TR
+#                      |
+    35     1 7.76000E+03                                     DENSS
+#
+#            RHOCSI(KZ): Density x Heat Capacity for Inner Structure
+#                 ~350C|      ~425C|      ~510C|
+    37     3 4.52000E+06 4.82000E+06 5.26000E+06             RHOCSI
+#
+#            RHOCSO(KZ): Density x Heat Capacity for Outer Structure
+#                 ~350C|      ~425C|      ~510C|
+    44     3 4.52000E+06 4.82000E+06 5.26000E+06             RHOCSO
+#
+#            RHOCR(KZ): Density x Heat Capacity for Reflector
+#                      |           |           |
+    51     3 4.55000D 06 4.82000E+06 4.55000D 06             RHOCR
+#
+#                      RHOCG: Desity x Heat Capacity for Gas in Plenum
+#                      |           RG: Thermal Resistance of Plenum Gas
+#                      |           |
+    58     2 2.40000D+04 6.00000D-02                         RHOCG,RG
+#
+#       DEFORM-4 Parameters
+#
+#                      HBMAX: Maximum value of bond conductance when a gap 
+#                      |  exists; minimum value when a gap does not exist.
+#                      |           HBMIN: Minimum value of bond conductance. 
+#                      |           |         
+     5     2 3.00000D+04 1.00000D+02                       HBMAX,HBMIN
+#
+#                      DGO: Initial grain size
+#                      |           P0GAS: Initial Plenum Gas Pressure at 
+#                      |           |  Reference Temperature TR
+#                      |           |         
+    26     2 1.00000D-05 1.01325D+05                         DGO,P0GAS
+#
+#                      FGMIN: Fraction of retained fission gas that assists 
+#                      |  nonequilibrium fission gas bubble induced fuel 
+#                      |  swelling
+#                      |       
+    60     1 3.00000D-01                                         FGMIN                                              
+#
+#                      TSEP1: Fuel plasticity temperature 
+#                      |           TSEP2: Pressure adjustment to plasticity 
+#                      |           |      temperature.
+#                      |           |
+    69     2 2.70000D+03 1.00000D-08                        TSEP1, TSEP2                                            
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  COOLIN: Channel-Dependent Coolant Input (Floating Point)
+#
+COOLIN    64     1     0                                                
+#
+#            AFR, BFR: Liquid Slug Friction Factor Coefficients
+#                      |           |
+     1     2       0.316       -0.25                         AFR,BFR
+#            Include effect of wire wrap: 0.316 x 1.143
+     1     1    0.361198                                     AFR
+#
+#            C1, C2, C3: Coefficients for Convection Heat-Transfer Coefficient
+#                      |           |           |
+     3     3 2.50000D-02 8.00000D-01 5.00000D+00             C1,C2,C3
+#
+#                      DWMAX: Maximum Fraction Change in Coolant Flow Rate per
+#                      |      Heat-Transfer Time Step before Boiling
+#                      |           RELAM: Re Number for Switch between Turb.
+#                      |           |      and Laminar Friction Factor
+#                      |           |           AFLAM: Laminar Friction Factor =
+#                      |           |           |      AFLAM/Re
+     6     3 1.00000D-01 2.40000D+03 6.40000D+01             DWMAX,RELAM,AFLAM
+     7     2 1874.       90.                                 RELAM,AFLAM
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.103613                                     W0
+#
+#                      XKORV: EXPANSION AND CONTRACTION ORIFICE 
+#                      |      LOSSES AT THE SA INLET AND OUTLET
+#                      |      (FROM FED CHANGES)	
+#                      |
+    48     1         0.5                         XKORV(1,1)
+    51     1         1.0                         XKORV(4,1)
+    56     1         1.0                         XKORV(1,2)
+    59     1         0.5                         XKORV(4,2)
+#
+#            DZIAB, DZIAT: Effective Coolant Inertial Term Below/Above
+#                      |           |  Subassembly Inlet/Outlet
+    65     2 1.03000D+03 3.65200D+03                         DZIAB,DZIAT
+#
+#            THETA1, THETA2: 0.5 Normally, 0/1 for Implicit Calculation
+#                      |           |
+    67     2 5.00000D-01 5.00000D-01                         THETA1,THETA2
+#
+#            DTLMAX: Maximum Coolant Temperature Change per Coolant Time Step
+#                      |
+    69     1        15.0                                     DTLMAX
+#
+#            DTCMIN: Minimum Coolant Time Step Size before Boiling
+#                      |
+   171     1     1.0D-05                                     DTCMIN
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#             #####  #     #    #    #     # #     # ####### #
+#            #     # #     #   # #   ##    # ##    # #       #
+#            #       #     #  #   #  # #   # # #   # #       #
+#            #       ####### #     # #  #  # #  #  # #####   #
+#            #       #     # ####### #   # # #   # # #       #
+#            #     # #     # #     # #    ## #    ## #       #
+#             #####  #     # #     # #     # #     # ####### #######
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     1     1
+#
+#                IAXEXP: Simple Axial Expansion Feedback Model Flag
+#                |       (0/1/2=No/Calculate/Calculate and Print)
+   181     1     1                                           IAXEXP
+#
+#                JSTRDX: Axial Structure Node Corresponding to Above-Core
+#                |       Load Pad
+   183     1    26                                           JSTRDX
+#
+#                IRDEXP: 0/1=Use/Skip this Channel in Radial Expansion Feedback
+#                |
+   187     1     0                                           IRDEXP
+#
+#                ICHUIS: 0/1=Use/Exclude Coolant from this Channel in
+#                |       Control-Rod Driveline Feedback
+   362     1     0
+#
+#                IREACZ: Axial Reactivity Worth Input Option. 0/1=MZ/MZC Mesh
+#                |
+   365     1     1                                           IREACZ
+#
+#       DEFORM-4 Parameters
+#
+#                IAXEXP: Simple axial expansion reactivity feedback model.  
+#                |      Can not be used with DEFORM-4.
+#                |      (=0, No simple axial expansion feedback)
+   181     1     0                                                              
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     1     1
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -7.021E-03  -5.228E-03                         ADOP,BDOP
+#
+#   WDOPA(J): Axial Doppler Weighting Factor
+#
+#   Values are region averaged for each axial segment. No fine-meshed
+#   values were available. Values are based on flooded Doppler axial
+#   distribution.
+#
+#                      |           |           |           |           |
+    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+    69     4      0.0622      0.0622      0.0622      0.0622             D
+    73     4      0.0760      0.0760      0.0760      0.0760             E
+    77     4      0.0655      0.0655      0.0655      0.0655             F
+    81     4      0.0337      0.0337      0.0337      0.0337             G
+    85     4      0.0126      0.0126      0.0126      0.0126             H
+#
+#   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
+#
+#   Whole-core coolant reactovity worth is entered on the coolant mesh
+#   to characterize the axial dependence of the density worth. Only
+#   region-averaged values were available.
+#
+#                      |           |           |           |           |
+   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
+   117     4  5.5236E-06  5.5236E-06  5.5236E-06  5.5236E-06             D
+   121     4  2.3345E-05  2.3345E-05  2.3345E-05  2.3345E-05             E
+   125     4  2.1645E-05  2.1645E-05  2.1645E-05  2.1645E-05             F
+   129     4  7.5399E-06  7.5399E-06  7.5399E-06  7.5399E-06             G
+   133     4 -2.2748E-06 -2.2748E-06 -2.2748E-06 -2.2748E-06             H
+   137     1 -2.2066E-06                                                 BOND
+   138     5 -3.1132E-07 -3.1132E-07 -3.1132E-07 -3.1132E-07 -3.1132E-07 PLNM
+   143     5  5.9447E-12  5.9447E-12  5.9447E-12  5.9447E-12  5.9447E-12 UPPRF
+#
+#   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
+#
+#   Whole-core cladding worth includes contributions from wire-wrap.
+#   Cladding worth per kg: -6.10087E-06
+#   Cladding + wire wrap worth per kg of cladding: -6.77579E-06
+#   The second value above is weighted by the square of the axial
+#   power distribution from the assembly in position IC34.
+#
+#   Whole-core cladding worth should be -10.65 $.
+#
+#                      |           |           |           |           |
+   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   165     4 -3.6118E-06 -4.5523E-06 -5.5248E-06 -6.4876E-06             D
+   169     4 -7.3974E-06 -8.2113E-06 -8.8896E-06 -9.3975E-06             E
+   173     4 -9.7073E-06 -9.7998E-06 -9.6657E-06 -9.3062E-06             F
+   177     4 -8.7333E-06 -7.9699E-06 -7.0489E-06 -6.0122E-06             G
+   181     4 -4.9094E-06 -3.7953E-06 -2.7283E-06 -1.7673E-06             H
+#
+#   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
+#
+#   Whole-core fuel worth is calculated using the SAS basis for
+#   fuel density, a MOX fuel is assumed, with a density
+#   of 9.785 g/cc. Core-average fuel worth is 2.37643E-05 per kg.
+#   This is weighted by the square of the axial power distribution
+#   from the assembly in position IC34.
+#
+#   Whole-core fuel worth should be 118.10 $.
+#
+#                      |           |           |           |           |
+   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   213     4  1.2667E-05  1.5966E-05  1.9377E-05  2.2754E-05             D
+   217     4  2.5944E-05  2.8799E-05  3.1178E-05  3.2959E-05             E
+   221     4  3.4046E-05  3.4370E-05  3.3900E-05  3.2639E-05             F
+   225     4  3.0630E-05  2.7952E-05  2.4722E-05  2.1086E-05             G
+   229     4  1.7218E-05  1.3311E-05  9.5689E-06  6.1984E-06             H
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     1     1
+#
+#                      FUELEX: Fuel Axial Expansion Coefficient
+#                      |           CLADEX: Cladding Axial Expansion Coefficient
+#                      |           |
+    73     2     1.1E-05     1.4E-05                         FUELEX,CLADEX
+#
+#                      YFUEL: Fuel Young's Modulus
+#                      |           YCLAD: Cladding Young's Modulus
+#                      |           |
+    75     2     1.5E+11 1.52056E+11                         YFUEL,YCLAD
+#
+#                      EXPCFF: Effective Axial Expansion Multiplier
+#                      |       (For Simple Feedback Model Only)
+    79     1         1.0                                     EXPCFF
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                ######  ######    ###   #     #    #    ######
+#                #     # #     #    #    ##   ##   # #   #     #
+#                #     # #     #    #    # # # #  #   #  #     #
+#                ######  ######     #    #  #  # #     # ######
+#                #       #   #      #    #     # ####### #   #
+#                #       #    #     #    #     # #     # #    #
+#                #       #     #   ###   #     # #     # #     #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                IPRION: PRIMAR-4 Option Flag
+#                |
+    27     1     0                                           IPRION
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  OPCIN: Channel Independent Variables (Floating Point)
+#         Time Steps and Convergence Criteria Data
+#
+OPCIN     11     1     1
+#
+#                      DTP0: Initial PRIMAR Time Step Size
+#                      |           DTPMAX: Maximum PRIMAR Time Step Size Before
+#                      |           |       Boiling Starts
+    13     2        0.25        0.25                         DTP0,DTPMAX
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PRIMIN    14     0     0
+#
+#            PX: Coolant Exit Pressure at ZPLENU
+#                      |
+     1     1   1.503E+05                                     PX
+#
+#            T0TAB(L): Inlet Temperature at Time T0TME(L)
+#                      |           |
+    45     2      628.15      628.15                         T0TAB
+#
+#            T0TME(L): Time for Inlet Temperature T0TAB(L)
+#                      |           |
+    65     2         0.0   1000000.0                         T0TME
+#
+#            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
+#                      |           |
+    87     2     -1.1176       3.302                         ZPLENL,ZPLENU
+#
+#            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
+#                      |
+    96     1         0.8                                     THT2VL
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#    #######   ###   #     # #######          #####  ####### ####### ######
+#       #       #    ##   ## #               #     #    #    #       #     #
+#       #       #    # # # # #               #          #    #       #     #
+#       #       #    #  #  # #####            #####     #    #####   ######
+#       #       #    #     # #                     #    #    #       #
+#       #       #    #     # #               #     #    #    #       #
+#       #      ###   #     # #######          #####     #    ####### #
+#
+#===============================================================================
+INPCOM     1     1     1
+#
+#                IPOWER: 0/1 = Reactivity/Power vs Time from PREA
+#                |
+     8     1     0
+#
+#                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
+#                |       Time Steps
+    11     1     0                                           MAXSTP
+#
+#                IPO: Number of Steps between Prints before IBLPRT or Boiling
+#                |     IPOBOI: Number of Steps between Prints after IBLPRT or Boiling
+#                |     |
+    12     2   500   500                                     IPO,IPOBOI
+#
+#                NPREAT: Number of Entries in PREA vs. Time Table
+#                |       (Power or Reactivity vs Time)
+    18     1     4                                           NPREAT
+#
+#                NOREAC: Main Time Step Intevals between PSHORT Print
+#                |
+    41     1   500
+#
+#                IFIT(K): Input Table Lookup Options (K=1: Power/Reac vs. Time)
+#                |        (0=Linear Fit)
+    95     1     0                                           IFIT(1)
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#POWINA    12     1     1
+#
+#                      PREATB: Transient External Reactivity or Normalized Power
+#                      |           |           |           |           |
+#    29     4        0.00        0.00        0.00        0.00             PREATB
+#
+#                      PREATM: Transient Problem Times for PREATB
+#                      |           |           |           |           |
+#    49     4         0.0      1000.0      2000.0      4000.0             PREATM
+#    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+OPCIN     11     1     1
+#
+#                      TIMAX: Maximum Problem Time (s)
+#                      |
+     7     1      1000.0                                     TIMAX
+#
+#                      DTMIN: Time Step Sizes vs. Time
+#                      |           |           |           |
+    95     4         0.1         0.2         0.5         0.5
+#
+#                      TDTMIN: Time for Time Step Sizes
+#                      |           |           |           |
+   105     4      1000.0      1000.0      2000.0      4000.0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#ENDJOB    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#   CHANNEL   REGION
+#         1   INNER CORE
+#         2   OUTER CORE
+#         3   REFLECTORS 
+#         4   PEAK CORE CHANNEL (IC62)
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NCHAN: Number of Channels
+#                |
+     1     1     4                                           NCHAN
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                ######  ######    ###   #     # ####### ######
+#                #     # #     #    #    #     # #       #     #
+#                #     # #     #    #    #     # #       #     #
+#                #     # ######     #    #     # #####   ######
+#                #     # #   #      #     #   #  #       #   #
+#                #     # #    #     #      # #   #       #    #
+#                ######  #     #   ###      #    ####### #     #
+#
+#         #####  #     #    #    #     # #     # ####### #        #####
+#        #     # #     #   # #   ##    # ##    # #       #       #     #
+#        #       #     #  #   #  # #   # # #   # #       #       #
+#        #       ####### #     # #  #  # #  #  # #####   #        #####
+#        #       #     # ####### #   # # #   # # #       #             #
+#        #     # #     # #     # #    ## #    ## #       #       #     #
+#         #####  #     # #     # #     # #     # ####### #######  #####
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     1     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     1                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    78                                           NSUBAS
+    -1
+INPCHN    51     2     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     1                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1   102                                           NSUBAS
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+GEOMIN    61     1     1                                                
+    -1
+GEOMIN    61     2     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     1     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     6.17462                                     PRSHAP
+    -1
+POWINC    62     2     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     4.91735                                     PRSHAP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     1     1                                                
+    -1
+PMATCH    63     2     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+COOLIN    64     1     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.107153                                     W0
+    -1
+COOLIN    64     2     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.097493                                     W0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                ######  ######    ###   #     # ####### ######
+#                #     # #     #    #    #     # #       #     #
+#                #     # #     #    #    #     # #       #     #
+#                #     # ######     #    #     # #####   ######
+#                #     # #   #      #     #   #  #       #   #
+#                #     # #    #     #      # #   #       #    #
+#                ######  #     #   ###      #    ####### #     #
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#   INNER CORE
+#
+POWINC    62     1     1
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
+#
+#   WDOPA(J): Axial Doppler Weighting Factor
+#
+#                      |           |           |           |           |
+    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+    69     4      0.0594      0.0594      0.0594      0.0594             D
+    73     4      0.0734      0.0734      0.0734      0.0734             E
+    77     4      0.0662      0.0662      0.0662      0.0662             F
+    81     4      0.0369      0.0369      0.0369      0.0369             G
+    85     4      0.0141      0.0141      0.0141      0.0141             H
+#
+#   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
+#
+#                      |           |           |           |           |
+   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
+   117     4  1.3082E-05  1.3082E-05  1.3082E-05  1.3082E-05             D
+   121     4  4.1269E-05  4.1269E-05  4.1269E-05  4.1269E-05             E
+   125     4  3.9317E-05  3.9317E-05  3.9317E-05  3.9317E-05             F
+   129     4  1.6340E-05  1.6340E-05  1.6340E-05  1.6340E-05             G
+   133     4 -2.3895E-06 -2.3895E-06 -2.3895E-06 -2.3895E-06             H
+   137     1 -3.3382E-06                                                 BOND
+   138     5 -4.7421E-07 -4.7421E-07 -4.7421E-07 -4.7421E-07 -4.7421E-07 PLNM
+   143     5  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11 UPPRF
+#
+#   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
+#
+#   Inner-core cladding worth is -7.98 $.
+#
+#                      |           |           |           |           |
+   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   165     4 -6.2496E-06 -7.8771E-06 -9.5598E-06 -1.1226E-05             D
+   169     4 -1.2800E-05 -1.4209E-05 -1.5382E-05 -1.6261E-05             E
+   173     4 -1.6797E-05 -1.6957E-05 -1.6725E-05 -1.6103E-05             F
+   177     4 -1.5112E-05 -1.3791E-05 -1.2197E-05 -1.0403E-05             G
+   181     4 -8.4950E-06 -6.5673E-06 -4.7210E-06 -3.0581E-06             H
+#
+#   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
+#
+#   Inner-core fuel worth is 58.85 $.
+#
+#                      |           |           |           |           |
+   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   213     4  1.4566E-05  1.8359E-05  2.2280E-05  2.6163E-05             D
+   217     4  2.9832E-05  3.3115E-05  3.5850E-05  3.7899E-05             E
+   221     4  3.9148E-05  3.9521E-05  3.8980E-05  3.7530E-05             F
+   225     4  3.5220E-05  3.2141E-05  2.8427E-05  2.4246E-05             G
+   229     4  1.9799E-05  1.5306E-05  1.1003E-05  7.1272E-06             H
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#   OUTER CORE
+#
+POWINC    62     2     2
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -2.377E-03  -1.813E-03                         ADOP,BDOP
+#
+#   WDOPA(J): Axial Doppler Weighting Factor
+#
+#                      |           |           |           |           |
+    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+    69     4      0.0677      0.0677      0.0677      0.0677             D
+    73     4      0.0810      0.0810      0.0810      0.0810             E
+    77     4      0.0643      0.0643      0.0643      0.0643             F
+    81     4      0.0273      0.0273      0.0273      0.0273             G
+    85     4      0.0097      0.0097      0.0097      0.0097             H
+#
+#   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
+#
+#                      |           |           |           |           |
+   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
+   117     4 -2.5664E-07 -2.5664E-07 -2.5664E-07 -2.5664E-07             D
+   121     4  9.6396E-06  9.6396E-06  9.6396E-06  9.6396E-06             E
+   125     4  8.1303E-06  8.1303E-06  8.1303E-06  8.1303E-06             F
+   129     4  8.1071E-07  8.1071E-07  8.1071E-07  8.1071E-07             G
+   133     4 -2.1871E-06 -2.1871E-06 -2.1871E-06 -2.1871E-06             H
+   137     1 -1.3412E-06                                                 BOND
+   138     5 -1.8675E-07 -1.8675E-07 -1.8675E-07 -1.8675E-07 -1.8675E-07 PLNM
+   143     5  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12 UPPRF
+#
+#   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
+#
+#   Outer-core cladding worth is -2.66 $.
+#
+#                      |           |           |           |           |
+   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   165     4 -1.5946E-06 -2.0098E-06 -2.4391E-06 -2.8642E-06             D
+   169     4 -3.2659E-06 -3.6252E-06 -3.9247E-06 -4.1489E-06             E
+   173     4 -4.2857E-06 -4.3265E-06 -4.2673E-06 -4.1086E-06             F
+   177     4 -3.8557E-06 -3.5186E-06 -3.1120E-06 -2.6543E-06             G
+   181     4 -2.1675E-06 -1.6756E-06 -1.2045E-06 -7.8025E-07             H
+#
+#   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
+#
+#   Outer-core fuel worth is 59.29 $.
+#
+#                      |           |           |           |           |
+   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
+#
+   213     4  1.1216E-05  1.4136E-05  1.7156E-05  2.0146E-05             D
+   217     4  2.2971E-05  2.5499E-05  2.7605E-05  2.9182E-05             E
+   221     4  3.0144E-05  3.0431E-05  3.0015E-05  2.8899E-05             F
+   225     4  2.7120E-05  2.4749E-05  2.1889E-05  1.8670E-05             G
+   229     4  1.5245E-05  1.1786E-05  8.4724E-06  5.4880E-06             H
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#    ######  ####### ####### #       #######  #####  ####### ####### ######
+#    #     # #       #       #       #       #     #    #    #     # #     #
+#    #     # #       #       #       #       #          #    #     # #     #
+#    ######  #####   #####   #       #####   #          #    #     # ######
+#    #   #   #       #       #       #       #          #    #     # #   #
+#    #    #  #       #       #       #       #     #    #    #     # #    #
+#    #     # ####### #       ####### #######  #####     #    ####### #     #
+#
+#             #####  #     #    #    #     # #     # ####### #
+#            #     # #     #   # #   ##    # ##    # #       #
+#            #       #     #  #   #  # #   # # #   # #       #
+#            #       ####### #     # #  #  # #  #  # #####   #
+#            #       #     # ####### #   # # #   # # #       #
+#            #     # #     # #     # #    ## #    ## #       #
+#             #####  #     # #     # #     # #     # ####### #######
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+
+    Reflector channel represents power from Reflector+Control
+                                 and geometry from Reflector
+                                 
+    Non-Driver Power:             16.81 MWth 
+    Reflector+Control Assemblies: 133
+    Pins/Assmbly: 91
+    Pin OD:       1.541 cm
+    
+    Reflector axial mesh and power distribution are assumed to be identical
+    to the driver channels. Fission gas heat capacity is set to that of HT-9.
+    
+
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  INPCHN: Channel-Dependent Input (Integer)
+#
+INPCHN    51     3     0                                                
+#
+#                NPLN: Number of Segments in Gas Plenum
+#                |     NREFB: Number of Reflector Zones below Pin
+#                |     |     NREFT: Number of Reflector Zones above Pin
+#                |     |     |      (Note: Below + Above <= 6)
+     4     3     6     1     1                               NPLN,NREFB,NREFT
+#
+#                NZNODE(KZ): Number of Segments in Zone KZ
+#                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
+     7     3     5    26     5                               NZNODE
+#
+#                NT: Number of Radial Temperature Nodes in Fuel
+#                |
+    14     1    10                                           NT
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |     IFUELB: Table Number of Property Value for Blanket Fuel
+#                |     |     ICLADV: Table Number for Cladding
+#                |     |     |
+    15     3     5     0     1                               IFUELV,ICLADV
+#
+#                NPIN: Number of Pins per Assembly
+#                |     NSUBAS: Number of Subassemblies in Channel
+#                |     |
+    25     2    91    81                                     NPIN,NSUBAS
+#
+#                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
+#                |     JNEN: Axial Node of Cladding Output for Plotting
+#                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
+#                |     |     |     JNSN: Axial Coolant Node of Structure
+#                |     |     |     |     Output for Plotting
+    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
+#
+#                IRHOK: Fuel Properties Correlation Selection Flag
+#                |      (0=Use Tabular Input)
+     3     1     0                                           IRHOK
+#
+#                IDKCRV: Power or Decay Heat Curve for this Channel
+#                |
+   203     1     0                                           IDKCRV
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  GEOMIN: Geometry Input for Channel (Floating Point)
+#
+GEOMIN    61     3     0                                                
+#
+#            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
+#                      |           |           |           |
+     1     3 2.53990E-05 2.53990E-05 2.53990E-05             ACCZ
+#
+#            AXHI(J): Length of Axial Segment J in Core and Blanket
+#                      |           |           |           |
+     8     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    12     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    16     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    20     4     0.05334     0.05334     0.05334     0.05334 AXHI
+    24     4     0.05334     0.05334     0.05334     0.05334 AXHI
+#
+#            DHZ(KZ): Hydraulic Diameter for Zone KZ
+#                      |           |           |           |
+    32     3 1.87820E-03 1.87820E-03 1.87820E-02             DHZ
+# DH in upper reflector is increased by 10x compared to that in core
+# to reduce the pressure drop through the upper structure of the assembly
+#
+#            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
+#                      |           |           |           |
+    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
+#
+#            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
+#                      |           |           |           |
+    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
+#
+#            PLENL: Length of Fission-Gas Plenum
+#                      |
+    53     1      1.6002                                     PLENL
+#
+#            RBR(J): Cladding Inner Radius for Axial Segment J
+#                      |           |           |           |
+    54     1 6.93450E-03                                     RBR
+#
+#            RER(J): Cladding Outer Radius for Axial Segment J
+#                      |           |           |           |
+    78     1 7.70500E-03                                     RER
+#
+#            RBRPL: Cladding Inner Radius in Fission-Gas Plenum
+#                      |
+   102     1 6.93450E-03                                     RBRPL
+#
+#            RERPL: Cladding Outer Radius in Fission-Gas Plenum
+#                      |
+   103     1 7.70500E-03                                     RERPL
+#
+#            ROUTFP(J): Fuel Outer Radius for Axial Segment J
+#                      |           |           |           |
+   128     1 6.93450E-03                                     ROUTFP
+#
+#            ZONEL(KZ): Length of Zone KZ
+#                      |           |           |           |
+   152     3      1.1176      2.6670       0.635             ZONEL
+#
+#            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
+#                      |           |           |           |
+   159     3 5.68037E-03 5.68037E-03 5.68037E-03             SRFSTZ
+#
+#            AREAPC: Coolant Plus Pin Area per Pin
+#                      |
+   166     1 2.11906E-04                                     AREAPC
+#
+#                      RBR0: Nominal Cladding Inner Radius
+#                      |           RER0: Nominal Cladding Outer Radius
+#                      |           |
+   180     2 6.93450E-03 7.70500E-03                         RBR0,RER0
+#
+#  NOTE: Pins in the reflector region are assumed to be identical in
+#        size to the pins in the core region:
+#
+#            SER(KZ): Reflector/Pin Perimeter
+#                      |           |           |           |
+   182     3 4.84119E-02 4.84119E-02 4.84119E-02             SER
+#
+#            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
+#                      |           |           |           |
+   169     3 1.92625E-03 7.02600E-04 1.92625E-03             DRFO
+#
+#            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
+#                      |           |           |           |
+   189     3 1.92625E-03 0.00000E+00 1.92625E-03             DRFI
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  POWINC: Channel-Dependent Power Input (Floating Point)
+#
+POWINC    62     3     0                                                
+#
+#                      GAMSS: Fraction of Power from Direct Heating of Structure
+#                      |
+     2     1 1.00000D-05                                     GAMSS
+#
+#                      GAMTNC: Fraction of Power from Direct Heating of Coolant
+#                      |           GAMTNE: Fraction of Heating in Cladding
+#                      |           |
+     4     2 1.00000D-05 1.00000D-05                         GAMTNC,GAMTNE
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak.
+#            Shape is from 4-th order polynomial fit of average power
+#            density for assembly IC34
+#                      |           |           |           |
+     6     4 7.45279E-01 8.36708E-01 9.21755E-01 9.98851E-01 PSHAPE (D)
+    10     4 1.06659E+00 1.12374E+00 1.16923E+00 1.20217E+00 PSHAPE (E)
+    14     4 1.22182E+00 1.22763E+00 1.21920E+00 1.19631E+00 PSHAPE (F)
+    18     4 1.15890E+00 1.10710E+00 1.04116E+00 9.61561E-01 PSHAPE (G)
+    22     4 8.68905E-01 7.63983E-01 6.47751E-01 5.21332E-01 PSHAPE (H)
+#
+#            PSHAPR(I): Radial Power Shape within Pin
+#                      |           |           |           |
+    30     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    34     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    38     2 1.00000D+00 1.00000D+00                         PSHAPR
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1   0.1263910                                     PRSHAP
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  PMATCH: Channel-Dependent Properties Input (Floating Point)
+#
+PMATCH    63     3     2                                                
+#
+#                      RHOCG: Desity x Heat Capacity for Gas in Plenum
+#                      |           RG: Thermal Resistance of Plenum Gas ?
+#                      |           |
+    58     2 5.26000E+06 1.15000E-04                         RHOCG,RG
+#   The above values are meant to represent HT-9.
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  COOLIN: Channel-Dependent Coolant Input (Floating Point)
+#
+COOLIN    64     3     2                                                
+#
+#            AFR, BFR: Liquid Slug Friction Factor Coefficients
+#                      |           |
+     1     2       0.316       -0.25                         AFR,BFR
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1 8.06243E-03                                     W0
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    ######  ####### ####### #       #######  #####  ####### ####### ######
+#    #     # #       #       #       #       #     #    #    #     # #     #
+#    #     # #       #       #       #       #          #    #     # #     #
+#    ######  #####   #####   #       #####   #          #    #     # ######
+#    #   #   #       #       #       #       #          #    #     # #   #
+#    #    #  #       #       #       #       #     #    #    #     # #    #
+#    #     # ####### #       ####### #######  #####     #    ####### #     #
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     3     3
+#
+#                IAXEXP: Simple Axial Expansion Feedback Model Flag
+#                |       (0/1/2=No/Calculate/Calculate and Print)
+   181     1     0                                           IAXEXP
+#
+#                JSTRDX: Axial Structure Node Corresponding to Above-Core
+#                |       Load Pad
+   183     1    26                                           JSTRDX
+#
+#                IRDEXP: 0/1=Use/Skip this Channel in Radial Expansion Feedback
+#                |
+   187     1     1                                           IRDEXP
+#
+#                ICHUIS: 0/1=Use/Exclude Coolant from this Channel in
+#                |       Control-Rod Driveline Feedback
+   362     1     1
+#
+#                IREACZ: Axial Reactivity Worth Input Option. 0/1=MZ/MZC Mesh
+#                |
+   365     1     1                                           IREACZ
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                        ######  #######    #    #    #
+#                        #     # #         # #   #   #
+#                        #     # #        #   #  #  #
+#                        ######  #####   #     # ###
+#                        #       #       ####### #  #
+#                        #       #       #     # #   #
+#                        #       ####### #     # #    #
+#
+#             #####  #     #    #    #     # #     # ####### #
+#            #     # #     #   # #   ##    # ##    # #       #
+#            #       #     #  #   #  # #   # # #   # #       #
+#            #       ####### #     # #  #  # #  #  # #####   #
+#            #       #     # ####### #   # # #   # # #       #
+#            #     # #     # #     # #    ## #    ## #       #
+#             #####  #     # #     # #     # #     # ####### #######
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+
+    The peak channel is based on the the peak power/flow assembly. 
+    Flow is based on batch-averaged assembly flow for the peak assembly, 
+    but power is based on fresh assembly power.
+    The peak assembly is IC43 (inner core) 
+    
+    AM
+
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     1     1                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    78                                           NSUBAS
+    26     1    77                                           NSUBAS
+    -1
+INPCHN    51     4     1                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1     1                                           NSUBAS
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+GEOMIN    61     1     1                                                
+    -1
+GEOMIN    61     4     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     1     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     6.17462                                     PRSHAP
+   256     1     6.18195                                     PRSHAP
+    -1
+POWINC    62     4     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1      6.0900                                     PRSHAP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     1     1                                                
+    -1
+PMATCH    63     4     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+COOLIN    64     1     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.107153                                     W0
+    47     1    0.107342                                     W0
+    -1
+COOLIN    64     4     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.092620                                     W0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#   PEAK CHANNEL FEEDBACK ADJUSTMENTS
+#
+POWINC    62     1     1
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
+    62     2  -4.584E-03  -3.371E-03    = 77/78              ADOP,BDOP
+    -1
+POWINC    62     4     4
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
+    62     2  -5.953E-05  -4.378E-05    = 1/78               ADOP,BDOP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+      THIS SECTION COMPLETES CORE DESIGN
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+XNOTES
+       PRIMAR-4 MODEL
+       POOL DESIGN
+       SMALL DRACS IN COLD POOL
+    -1
+INPCOM     1     1     1
+    27     1     4                              IPRION
+    -1
+OPCIN     11     1     1
+    26     1 1.0                               DTSSCP, NULL TRANS. STEP SIZE
+    26     1 20.                               DTSSCP, NULL TRANS. STEP SIZE
+    27     1      1.0-12                       EPSSCP, CONVERGENCE CRITERION
+    27     1 -1.0                              EPSSCP, CONVERGENCE CRITERION
+    -1
+PRIMIN    14     1     1
+#
+#            PX: Coolant Exit Pressure at ZPLENU
+#                      |
+     1     1 1.9    D 05                                     PX
+     1     1 1.49   D 05                                     PX
+#
+#            T0TAB(L): Inlet Temperature at Time T0TME(L)
+#                      |           |
+    45     2      628.15      628.15                         T0TAB
+#
+#            T0TME(L): Time for Inlet Temperature T0TAB(L)
+#                      |           |
+    65     2         0.0   1000000.0                         T0TME
+#
+#            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
+#                      |           |
+    87     2       -0.60        2.30                         ZPLENL,ZPLENU
+    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
+    87     2     -1.1176       3.302                         ZPLENL,ZPLENU    
+#
+#            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
+#                      |
+    96     1         0.8                                     THT2VL
+    -1
+INPMR4     3     1     0
+     1     1     5                                           NCVP
+     2     1     4                                           NCVS
+     4     1     6                                           NSEGLP
+     5     1     4                                           NSEGLS
+    10     1    26                                           NELEMT
+#                  COMPRESSIBLE VOLUMES
+    11     1     1    ITYPCV(1), INLET PLENUM
+    12     1     7    ITYPCV(2), OUTLET PLENUM WITH COVER GAS
+    13     1     8    ITYPCV(3), POOL WITH COVER GAS, UPPER ANNULUS OF COLD POOL
+    14     1     2    ITYPCV(4), COMPRESSIBLE LIQUID, NO GAS, LOWER PART OF COLD POOL
+    15     1     2    ITYPCV(5), COMPRESSIBLE LIQUID, NO GAS, MAIN COLD POOl     
+    16     1     9    ITYPCV(6), PUMP BOWL WITH COVER GAS, INTERMEDIATE PUMP
+    17     1     2    ITYPCV(7), COMPRESSIBLE LIQUID, NO GAS, UPPER HALF OF STEAM GENERATOR
+    18     1     2    ITYPCV(8), COMPRESSIBLE LIQUID, NO GAS, LOWER HALF OF STEAM GENERATOR
+    19     1     8    ITYPCV(9), POOL WITH COVER GAS, DRACS LOOP COVER GAS
+#                  ELEMENTS
+    49     1     1    ITYPEL(1), CORE SUBASSEMBLIES
+    50     1     6    ITYPEL(2), IHX SHELL SIDE
+    51     1     3    ITYPEL(3), PIPE, iHX OUTLET
+    52     1     5    ITYPEL(4), PUMP IMPELLER, PRIMARY PUMP
+    53     1     3    ITYPEL(5), PIPE, PUMP TO INLET PLENUM
+    54     1     3    ITYPEL(6), PIPE, ANNULUS TO DHX INLET
+    55     1     6    ITYPEL(7), IHX SHELL SIDE, DHX PRIMARY SIDE
+    56     1     3    ITYPEL(8), PIPE, CONNECTS CV3 AND CV5
+    57     1     3    ITYPEL(9), PIPE, CONNECTS CV3 AND CV4
+    58     1     5    ITYPEL(10), PUMP IMPELLER, INTERMEDIATE PUMP
+    59     1     3    ITYPEL(11), PIPE, PUMP TO IHX, INTERMEDIATE LOOP
+    60     1     3    ITYPEL(12), PIPE, IHX DOWNCOMMER
+    61     1     7    ITYPEL(13), IHX TUBE SIDE
+    62     1     3    ITYPEL(14), PIPE
+    63     1     3    ITYPEL(15), PIPE
+    64     1     3    ITYPEL(16), PIPE, STEAM GENERATOR INLET REGION
+    65     1     8    ITYPEL(17), STEAM GENERATOR
+    66     1     3    ITYPEL(18), PIPE, STEAM GENERATOR OUTLET REGION
+    67     1     3    ITYPEL(19), PIPE, INCLUDES STEAM GENERATOR PRESSURE DROP
+    68     1     3    ITYPEL(20), PIPE
+    69     1     3    ITYPEL(21), PIPE
+    70     1    12    ITYPEL(22), AIR DUMP HEAT EXCHANGER IN DRACS LOOP
+    71     1     3    ITYPEL(23), PIPE
+    72     1     3    ITYPEL(24), PIPE, DOWNCOMMER IN DHX
+    73     1     7    ITYPEL(25), IHX TUBE SIDE, DHX INTERMEDIATE SIDE
+    74     1     3    ITYPEL(26), PIPE
+#                  LIQUID SEGMENTS
+   189     2     1     2  JCVL(M,1), CVs AT ENDS OF LIQUID SEGMENT
+   191     2     2     5  JCVL(M,2)
+   193     2     5     1  JCVL(M,3)
+   195     2     5     5  JCVL(M,4)
+   197     2     3     5  JCVL(M,5)
+   199     2     5     4  JCVL(M,6)
+   201     2     6     7  JCVL(M,7)
+   203     2     7     8  JCVL(M,8)
+   205     2     8     6  JCVL(M,9)
+   207     2     9     9  JCVL(M,10)
+   325     1     1        NELML(1), NUMBER OF ELEMENTS IN THE SEGMENT
+   326     1     2        NELML(2)
+   327     1     2        NELML(3)
+   328     1     2        NELML(4)
+   329     1     1        NELML(5)
+   330     1     1        NELML(6)
+   331     1     7        NELML(7)
+   332     1     1        NELML(8)
+   333     1     3        NELML(9)
+   334     1     6        NELEML(10)
+   365     1     1        JFSELL(1), FIRST ELEMENT IN THE SEGMENT
+   366     1     2        JFSELL(2)
+   367     1     4        JFSELL(3)
+   368     1     6        JFSELL(4)
+   369     1     8        JFSELL(5)
+   370     1     9        JFSELL(6)
+   371     1    10        JFSELL(7)
+   372     1    17        JFSELL(8)
+   373     1    18        JFSELL(9)
+   374     1    21        JFSELL(10)
+#                   PUMPS
+   405     1     2        NPUMP, NUMBER OF PUMPS
+   406     1     4        IELPMP(1)
+   407     1    10        IELPMP(2)
+   418     1     2        IEMPMP(1), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
+   419     1     2        IEMPMP(2), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
+#                  IHX
+   470     1     2        NIHX, NUMBER OF IHXs
+   473     1     2        IELIHX(1), ELEMENT NUMBER, SHELL SIDE
+   474     1     7        IELIHX(2), ELEMENT NUMBER, SHELL SIDE  
+   481     1    13        IELHXS(1), ELEMENT NUMBER, TUBE SIDE
+   482     1    25        IELHXS(2), ELEMENT NUMBER, TUBE SIDE
+#                  NAK
+   509     1     3        INAKDR = 3 FOR NAK IN SOME LOOPS, Na IN OTHERS
+  1377     1    10        ISGLNK, USE NAK IN SEGMENT 10
+  1378     1     9        ICVNAK, USE NAK IN CV 9
+#                  TEMPERATURE GROUPS
+   512     1    17        NTGPT, NUMBER OF TEMPERATURE GROUPS
+   513     1    41        NTNODE(1), NUMBER OF NODES IN THE TEMPERATURE GROUP
+   514     1    10        NTNODE(2)
+   515     1    15        NTNODE(3)
+   516     1     5        NTNODE(4)
+   517     1    41        NTNODE(5)
+   518     1     3        NTNODE(6)
+   519     1     3        NTNODE(7)
+   520     1    40        NTNODE(8)
+   521     1    40        NTNODE(9)
+   522     1    20        NTNODE(10)
+   523     1     2        NTNODE(11)
+   524     1    20        NTNODE(12)
+   525     1    30        NTNODE(13)
+   526     1     3        NTNODE(14)
+   527     1     2        NTNODE(15)
+   528     1    40        NTNODE(16)
+   529     1    40        NTNODE(17)
+   613     1     2        IFSTEL(1), FIRST ELEMENT IN TEMPERATURE GROUP
+   614     1     3        IFSTEL(2)
+   615     1     4        IFSTEL(3)
+   616     1     6        IFSTEL(4)
+   617     1     7        IFSTEL(5)
+   618     1     8        IFSTEL(6)
+   619     1     9        IFSTEL(7)
+   620     1    10        IFSTEL(8)
+   621     1    14        IFSTEL(9)
+   622     1    16        IFSTEL(10)
+   623     1    17        IFSTEL(11)
+   624     1    18        IFSTEL(12)
+   625     1    19        IFSTEL(13)
+   626     1    21        IFSTEL(14)
+   627     1    22        IFSTEL(15)
+   628     1    23        IFSTEL(16)
+   629     1    26        IFSTEL(17)
+   713     1     2        ILSTEL(1), LAST ELEMENT IN TEMPERATURE GROUP
+   714     1     3        ILSTEL(2)
+   715     1     5        ILSTEL(3)
+   716     1     6        ILSTEL(4)
+   717     1     7        ILSTEL(5)
+   718     1     8        ILSTEL(6)
+   719     1     9        ILSTEL(7)
+   720     1    12        ILSTEL(8)
+   721     1    15        ILSTEL(9)
+   722     1    16        ILSTEL(10)
+   723     1    17        ILSTEL(11)
+   724     1    18        ILSTEL(12)
+   725     1    20        ILSTEL(13)
+   726     1    21        ILSTEL(14)
+   727     1    22        ILSTEL(15)
+   728     1    24        ILSTEL(16)
+   729     1    26        ILSTEL(17)
+#                   STEAM GENERATOR
+   839     1     1         NSGN, NUMBER OF STEAM GENERATORS
+   840     1    17        IELSGN, ELEMENT NUMBER
+   852     1     1        ISGCLC, TABLE LOOK-UP, TABLE 1
+   864     1     3        IEVAP, ONCE-THROUGH STEAM GENERATOR
+#                   PRINTS
+   890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
+   890     1200000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
+#                   BINARY OUTPUT ON fort.15
+   891     1    10        NBINOT
+   892     1     2        IBINST
+   892     1   200        IBINST
+   893    10245001     9 15002    10185001     2395001     2770001780001  IBINOT
+#                   AIR DUMP HEAT EXCHANGER
+   991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
+   992     1    22        IELDHX, ELEMENT NUMBER
+#                   Control Rod Drive Expansion Reactivity Feedback
+  1008     1     2        NEXPFB
+  1008     1     1        NEXPFB
+  1009     1    -3        IEXPFB(1)
+  1010     1    -5        IEXPFB(2)
+#                   COMPONENT-COMPONENT HEAT TRANSFER
+  1052     1    -1        IELHT
+  1082     1    -4        IELHT2
+  1052     1     0        IELHT
+  1082     1     0        IELHT2
+#                   COMMON COVER GAS PRESSURES
+  1153     1     2        NCCV
+  1154     1     2        ICCVFS
+#                   NULL TRANSIENT
+  1288     1   200        ISSCPC
+  1288     1  2000        ISSCPC
+  1288     1  1000        ISSCPC
+  1289     1   100        ISST15
+  1289     1  1000        ISST15
+  1289     1   500        ISST15
+#                   STRATIFIED COMPRESSIBLE VOLUMES
+  1313     1     0        NSTRCV
+  1313     1     2        NSTRCV
+  1314     2     2     5  ICVSTR
+  1317     2     1     2  ISTRVT
+  1320     2     1     1  NUMWAL
+  1323     2     1     2  IFSTWL
+  1326     2     0     0  IWLHRZ
+  1335     2    10    10  NVDWL
+  1344     2     5     5  NLNDWL
+  1353     2     3     0  ICV2WL
+  1362     1     0        IDBSTR
+  1363     1    30        ISTDBS
+#                   DEBUG PRINTS
+   507     1     0                                                       IDBPR4
+   508     1     0                                                       IDBP4N
+    -1
+PMR4IN    18     1     0
+#                   DEBUG PRINTS
+     1     1 0.           TMDBP4
+#                   LIQUID SEGMENTS
+     2     1 5028.        FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
+     3     1 1257.        FLOSSL(2)
+     4     1 1257.        FLOSSL(3)
+     5     1 0.           FLOSSL(4)
+     6     1 0.           FLOSSL(5)
+     7     1 0.           FLOSSL(6)
+     8     1 1290.        FLOSSL(7)
+     9     1 1290.        FLOSSL(8)
+    10     1 1290.        FLOSSL(9)
+    11     1 0.           FLOSSL(10)
+    42     1 -1.2446      ZINL(1), INLET ELEVATION
+    42     1 -1.1176      ZINL(1), INLET ELEVATION
+    43     1 7.31         ZINL(2)
+    44     1 2.016        ZINL(3)
+    45     1 2.6          ZINL(4)
+    46     1 2.75         ZINL(5)
+    47     1 -1.55        ZINL(6)
+    48     1 23.58        ZINL(7)
+    49     1 28.88        ZINL(8)
+    50     1 15.86        ZINL(9)
+    51     1 22.0         ZINL(10)
+    82     2 1.          1.          CVMLT(M,1), MULTIPLICITY FACTORS
+    84     2 4.          4.          CVMLT(M,2)
+    86     2 4.          4.          CVMLT(M,3)
+    88     2 3.          3.          CVMLT(M,4)
+    88     2 2.          2.          CVMLT(M,4)
+    90     2 1.          1.          CVMLT(M,5)
+    92     2 1.          1.          CVMLT(M,6)
+    94     2 1.          1.          CVMLT(M,7)
+    96     2 1.          1.          CVMLT(M,8)
+    98     2 1.          1.          CVMLT(M,9)
+   100     2 1.          1.          CVMLT(M,10)
+#                 ELEMENTS
+   162     1 3.175        ZOUTEL(1), OUTLET ELEVATION
+   162     1 3.302        ZOUTEL(1), OUTLET ELEVATION
+   163     1 2.53         ZOUTEL(2)
+   164     1 1.8128       ZOUTEL(3)
+   165     1 2.016        ZOUTEL(4)
+   166     1 -1.65        ZOUTEL(5)
+   167     1 4.763        ZOUTEL(6)
+   168     1 2.263        ZOUTEL(7)
+   169     1 2.65         ZOUTEL(8)
+   170     1 -1.65        ZOUTEL(9)
+   171     1 23.58        ZOUTEL(10)
+   172     1 7.31         ZOUTEL(11)
+   173     1 2.53         ZOUTEL(12)
+   174     1 7.31         ZOUTEL(13)
+   175     1 10.0         ZOUTEL(14)
+   176     1 42.36        ZOUTEL(15)
+   177     1 39.34        ZOUTEL(16)
+   178     1 28.78        ZOUTEL(17)
+   179     1 15.86        ZOUTEL(18)
+   180     1 15.86        ZOUTEL(19)
+   181     1 24.88        ZOUTEL(20)
+   182     1 21.0         ZOUTEL(21)
+   183     1 20.0         ZOUTEL(22)
+   184     1 4.763        ZOUTEL(23)
+   185     1 2.263        ZOUTEL(24)
+   186     1 4.763        ZOUTEL(25)
+   187     1 22.0         ZOUTEL(26)
+   302     1 4.573        XLENEL(1), ELEMENT LENGTH
+   302     1 4.419        XLENEL(1), ELEMENT LENGTH
+   303     1 4.78         XLENEL(2)
+   304     1 .7172        XLENEL(3)
+   305     1 .1           XLENEL(4)
+   306     1 4.0          XLENEL(5)
+   307     1 2.0          XLENEL(6)
+   308     1 2.5          XLENEL(7)
+   309     1 .1           XLENEL(8)
+   310     1 .1           XLENEL(9)
+   311     1 .1           XLENEL(10)
+   312     1 25.          XLENEL(11)
+   313     1 4.78         XLENEL(12)
+   314     1 4.78         XLENEL(13)
+   315     1 6.8          XLENEL(14)
+   316     1 76.          XLENEL(15)
+   317     1 3.0          XLENEL(16)
+   318     1 .1           XLENEL(17)
+   319     1 3.0          XLENEL(18)
+   320     1 6.8          XLENEL(19)
+   321     1 30.          XLENEL(20)
+   322     1 1.0          XLENEL(21)
+   323     1 11.3         XLENEL(22)
+   324     1 27.          XLENEL(23)
+   325     1 2.50         XLENEL(24)
+   326     1 2.50         XLENEL(25)
+   327     1 30.          XLENEL(26)
+   442     1 1.           AREAEL(1), COOLANT FLOW AREA
+   443     1 1.044        AREAEL(2)
+   444     1 .79          AREAEL(3)
+   445     1 .255         AREAEL(4)
+   446     1 .255         AREAEL(5)
+   447     1 .0807        AREAEL(6)
+   448     1 .0807        AREAEL(7)
+   449     1 .2           AREAEL(8)
+   450     1 .2           AREAEL(9)
+   451     1 .25          AREAEL(10)
+   452     1 .255         AREAEL(11)
+   453     1 .255         AREAEL(12)
+   454     1 .7048        AREAEL(13)
+   455     1 .255         AREAEL(14)
+   456     1 .255         AREAEL(15)
+   457     1 5.2          AREAEL(16)
+   458     1 .255         AREAEL(17)
+   459     1 5.2          AREAEL(18)
+   460     1 .255         AREAEL(19)
+   461     1 .255         AREAEL(20)
+   462     1 .255         AREAEL(21)
+   463     1 .255         AREAEL(22)
+   464     1 .255         AREAEL(23)
+   465     1 .255         AREAEL(24)
+   466     1 .255         AREAEL(25)
+   467     1 .255         AREAEL(26)
+   582     1 1.           DHELEM(1), HYDRAULIC DIAMETER
+   583     1 .01859       DHELEM(2)
+   584     1 1.0          DHELEM(3)
+   585     1 .57          DHELEM(4)
+   586     1 .57          DHELEM(5)
+   587     1 .13          DHELEM(6)
+   588     1 .0491        DHELEM(7)
+   589     1 .2           DHELEM(8)
+   590     1 .2           DHELEM(9)
+   591     1 .5           DHELEM(10)
+   592     1 .57          DHELEM(11)
+   593     1 .57          DHELEM(12)
+   594     1 .014122      DHELEM(13)
+   595     1 .57          DHELEM(14)
+   596     1 .57          DHELEM(15)
+   597     1 1.           DHELEM(16)
+   598     1 1.           DHELEM(17)
+   599     1 1.           DHELEM(18)
+   600     1 .57          DHELEM(19)
+   601     1 .57          DHELEM(20)
+   602     1 .2           DHELEM(21)
+   603     1 .035         DHELEM(22)
+   604     1 .2           DHELEM(23)
+   605     1 .2           DHELEM(24)
+   606     1 .0204        DHELEM(25)
+   607     1 .2           DHELEM(26)
+   722     1       1.0-5  ROUGHL(1), SURFACE ROUGHNESS
+   723     1       1.0-5  ROUGHL(2)
+   724     1       1.0-5  ROUGHL(3)
+   725     1       1.0-5  ROUGHL(4)
+   726     1       1.0-5  ROUGHL(5)
+   727     1       1.0-5  ROUGHL(6)
+   728     1       1.0-5  ROUGHL(7)
+   729     1       1.0-5  ROUGHL(8)
+   730     1       1.0-5  ROUGHL(9)
+   731     1       1.0-5  ROUGHL(10)
+   732     1       1.0-5  ROUGHL(11)
+   733     1       1.0-5  ROUGHL(12)
+   734     1       1.0-5  ROUGHL(13)
+   735     1       1.0-5  ROUGHL(14)
+   736     1       1.0-5  ROUGHL(15)
+   737     1       1.0-5  ROUGHL(16)
+   738     1       1.0-5  ROUGHL(17)
+   739     1       1.0-5  ROUGHL(18)
+   740     1       1.0-5  ROUGHL(19)
+   741     1       1.0-5  ROUGHL(20)
+   742     1       1.0-5  ROUGHL(21)
+   743     1       1.0-5  ROUGHL(22)
+   744     1       1.0-5  ROUGHL(23)
+   745     1       1.0-5  ROUGHL(24)
+   746     1       1.0-5  ROUGHL(25)
+   747     1       1.0-5  ROUGHL(26)
+   862     1 0.           BNDNUM(1), NUMBER OF BENDS
+   863     1 0.           BNDNUM(2)
+   864     1 0.0          BNDNUM(3)
+   865     1 0.           BNDNUM(4)
+   866     1 1.0          BNDNUM(5)
+   867     1 2.0          BNDNUM(6)
+   868     1 0.           BNDNUM(7)
+   869     1 0.           BNDNUM(8)
+   870     1 0.           BNDNUM(9)
+   871     1 0.           BNDNUM(10)
+   872     1 6.           BNDNUM(11)
+   873     1 2.           BNDNUM(12)
+   874     1 0.           BNDNUM(13)
+   875     1 0.           BNDNUM(14)
+   876     1 10.          BNDNUM(15)
+   877     1 0.           BNDNUM(16)
+   878     1 0.           BNDNUM(17)
+   879     1 0.           BNDNUM(18)
+   880     1 2.           BNDNUM(19)
+   881     1 1.           BNDNUM(20)
+   882     1 0.           BNDNUM(21)
+   883     1 0.           BNDNUM(22)
+   884     1 0.           BNDNUM(23)
+   885     1 2.           BNDNUM(24)
+   886     1 0.           BNDNUM(25)
+   887     1 0.           BNDNUM(26)
+  1002     1 0.           G2PRDR(1), ORIFICE COEFFICIENT
+  1003     1 15.9         G2PRDR(2)
+  1004     1 1.           G2PRDR(3)
+  1005     1 0.           G2PRDR(4)
+  1006     1 1.6          G2PRDR(5)
+  1007     1 1.6          G2PRDR(6)
+  1008     1 0.           G2PRDR(7)
+  1009     1 0.           G2PRDR(8)
+  1010     1 0.           G2PRDR(9)
+  1011     1 0.           G2PRDR(10)
+  1012     1 0.           G2PRDR(11)
+  1013     1 0.           G2PRDR(12)
+  1014     1 0.           G2PRDR(13)
+  1015     1 0.           G2PRDR(14)
+  1016     1 0.           G2PRDR(15)
+  1017     1 0.           G2PRDR(16)
+  1018     1 1.29         G2PRDR(17), SG pressure drop
+  1019     1 0.           G2PRDR(18)
+  1020     1 0.           G2PRDR(19)
+  1021     1 0.0          G2PRDR(20)
+  1022     1 0.           G2PRDR(21)
+  1023     1 0.           G2PRDR(22)
+  1024     1 0.           G2PRDR(23)
+  1025     1 0.           G2PRDR(24)
+  1026     1 0.           G2PRDR(25)
+  1027     1 1.5          G2PRDR(26)
+  1142     1 31.          BNDLOD, EFFECTIVE L/D PER BEND
+  1143     1 1.           WALLMC, PIPE WALL MASS X HEAT CAPACITY / LENGTH
+  1144     1 1.           WALLMC(2)
+  1145     1 50000.       WALLMC(3)
+  1146     1 95000.       WALLMC(4)
+  1147     1 95000.       WALLMC(5)
+  1148     1 40000.       WALLMC(6)
+  1149     1 1.           WALLMC(7)
+  1150     1 1.           WALLMC(8)
+  1151     1 1.           WALLMC(9)
+  1152     1 95000.       WALLMC(10)
+  1153     1 95000.       WALLMC(11)
+  1154     1 95000.       WALLMC(12)
+  1155     1 1.           WALLMC(13)
+  1156     1 95000.       WALLMC(14)
+  1157     1 95000.       WALLMC(15)
+  1158     1 100000.      WALLMC(16)
+  1159     1 1.           WALLMC(17)
+  1160     1 100000.      WALLMC(18)
+  1161     1 95000.       WALLMC(19)
+  1162     1 95000.       WALLMC(20)
+  1163     1 40000.       WALLMC(21)
+  1164     1 1.           WALLMC(22)
+  1165     1 40000.       WALLMC(23)
+  1166     1 40000.       WALLMC(24)
+  1167     1 1.           WALLMC(25)
+  1168     1 40000.       WALLMC(26)
+  1283     1 1.           WALLH(1), PIPE WALL HEAT TRANSFER COEF.
+  1284     1 1.           WALLH(2)
+  1285     1 6000.        WALLH(3)
+  1286     1 4700.        WALLH(4)
+  1287     1 4700.        WALLH(5)
+  1288     1 6000.        WALLH(6)
+  1289     1 1.           WALLH(7)
+  1290     1 1.           WALLH(8)
+  1291     1 1.           WALLH(9)
+  1292     1 4700.        WALLH(10)
+  1293     1 4700.        WALLH(11)
+  1294     1 4700.        WALLH(12)
+  1295     1 1.           WALLH(13)
+  1296     1 4700.        WALLH(14)
+  1297     1 4700.        WALLH(15)
+  1298     1 4000.        WALLH(16)
+  1299     1 1.           WALLH(17)
+  1300     1 4000.        WALLH(18)
+  1301     1 4700.        WALLH(19)
+  1302     1 4700.        WALLH(20)
+  1303     1 8000.        WALLH(21)
+  1304     1 1.           WALLH(22)
+  1305     1 8000.        WALLH(23)
+  1306     1 8000.        WALLH(24)
+  1307     1 1.           WALLH(25)
+  1308     1 8000.        WALLH(26)
+#                COMPRESSIBLE VOLUMES
+  1423     1 7.7          VOLLGC(1), TOTAL VOLUME, LIQUID + GAS
+  1424     1 895.9        VOLLGC(2)
+  1425     1 76.4         VOLLGC(3)
+  1426     1 1.64         VOLLGC(4)
+  1427     1 581.8        VOLLGC(5)
+  1428     1 20.          VOLLGC(6)
+  1429     1 38.          VOLLGC(7)
+  1430     1 38.          VOLLGC(8)
+  1431     1 4.0          VOLLGC(9)
+  3612     1 0.           VOLGS0(1), INITIAL COVER GAS VOLUME
+  3613     1 140.         VOLGS0(2)
+  3614     1 26.7         VOLGS0(3)
+  3615     1 0.           VOLGS0(4)
+  3616     1 0.           VOLGS0(5)
+  3617     1 10.          VOLGS0(6)
+  3618     1 0.           VOLGS0(7)
+  3619     1 0.           VOLGS0(8)
+  3620     1 2.           VOLGS0(9)
+  1461     1 0.           PRESG0(1), INITIAL GAS PRESSURE
+  1462     1 100000.      PRESG0(2)
+  1463     1 100000.      PRESG0(3)
+  1464     1 0.           PRESG0(4)
+  1465     1 0.           PRESG0(5)
+  1466     1 400000.      PRESG0(6)
+  1467     1 0.           PRESG0(7)
+  1468     1 0.           PRESG0(8)
+  1469     1 100000.      PRESG0(9)
+  1499     1      1.0-08  ALPHAP(1), VOLUME PRESSURE EXPANSION COEFFICIENT
+  1500     1      1.0-10  ALPHAP(2)
+  1501     1      1.0-10  ALPHAP(3)
+  1502     1      1.0-08  ALPHAP(4)
+  1503     1      1.0-08  ALPHAP(5)
+  1504     1      1.0-10  ALPHAP(6)
+  1505     1      1.0-08  ALPHAP(7)
+  1506     1      1.0-08  ALPHAP(8)
+  1507     1      1.0-10  ALPHAP(9)
+  1575     1 -1.6         ZCVL(1), REFERENCE ELEVATION
+  1576     1 2.973        ZCVL(2)
+  1577     1 6.0          ZCVL(3)
+  1578     1 -2.8         ZCVL(4)
+  1579     1 -1.6         ZCVL(5)
+  1580     1 26.          ZCVL(6)
+  1581     1 39.          ZCVL(7)
+  1582     1 19.          ZCVL(8)
+  1583     1 22.5         ZCVL(9)
+  1613     1 11.          AREAIN(1), LIQUID-GAS INTERFACE AREA
+  1614     1 125.4        AREAIN(2)
+  1615     1 6.2          AREAIN(3)
+  1616     1 150.         AREAIN(4)
+  1617     1 135.3        AREAIN(5)
+  1618     1 3.           AREAIN(6)
+  1619     1 2.           AREAIN(7)
+  1620     1 2.           AREAIN(8)
+  1621     1 1.           AREAIN(9)
+  1689     1 .66          GAMGSC
+  1690     1 208.1        RGASC
+  1691     1      2.22-5  U0CVGS
+  1692     1 293.         TRFU
+  1861     1 1.           TAUGAS(1), COVER GAS TIME CONSTANT
+  1862     1 2.           TAUGAS(2)
+  1863     1 2.           TAUGAS(3)
+  1864     1 2.           TAUGAS(4)
+  1865     1 2.           TAUGAS(5)
+  1866     1 2.           TAUGAS(6)
+  1867     1 2.           TAUGAS(7)
+  1868     1 2.           TAUGAS(8)
+  1869     1 2.           TAUGAS(9)
+  2464     1     2.13-10  BTAPNA(1), Na ISOTHERMAL COMPRESIBILITY
+  2465     1     2.13-10  BTAPNA(2)
+  2466     1     2.13-10  BTAPNA(2)
+  2467     1     2.13-10  BTAPNA(2)
+  2468     1     2.13-10  BTAPNA(2)
+  2469     1     2.13-10  BTAPNA(4)
+  2470     1     2.13-10  BTAPNA(5)
+  2471     1     2.13-10  BTAPNA(6)
+  2472     1     2.13-10  BTAPNA(7)
+  2473     1     2.13-10  BTAPNA(8)
+  2474     1     2.13-10  BTAPNA(9)
+  2578     1 3300.        HWALL(1), WALL-COOLANT HEAT TRANSFER COEF.
+  2579     1 1.           HWALL(2)
+  2580     1 800.         HWALL(3)
+  2581     1 800.         HWALL(4)
+  2582     1 250.         HWALL(5)
+  2583     1 1.           HWALL(6)
+  2584     1 1.           HWALL(7)
+  2585     1 1.           HWALL(8)
+  2586     1 1.           HWALL(9)
+  2616     1 11.          AWALL(1), WALL SURFACE AREA
+  2617     1 1.           AWALL(2)
+  2618     1 125.         AWALL(3)
+  2619     1 154.         AWALL(4)
+  2620     1 .1           AWALL(5)
+  2621     1 1.           AWALL(6)
+  2622     1 1.           AWALL(7)
+  2623     1 1.           AWALL(8)
+  2624     1 1.           AWALL(9)
+  2654     1      5.0+05  CMWALL(1), MASS X SPECIFIC HEAT OF WALL
+  2655     1 10.          CMWALL(2)
+  2656     1      2.3+07  CMWALL(3)
+  2657     1      2.8+07  CMWALL(4)
+  2658     1 18000.       CMWALL(5)
+  2659     1 10.          CMWALL(6)
+  2660     1 10.          CMWALL(7)
+  2661     1 10.          CMWALL(8)
+  2662     1 10.          CMWALL(9)
+#                PUMPS
+  1899     2 900.        500.             PMPINR
+  1899     2 920.        80.              PMPINR
+  1899     2 930.        160.             PMPINR
+  1899     2 930.        250.             PMPINR
+  1899     2 930.        270.             PMPINR
+  1899     2 930.        275.             PMPINR
+  1899     2 225.        275.             PMPINR
+  1899     2 500.        275.             PMPINR
+  1899     2 400.        200.             PMPINR
+  1899     2 200.        100.             PMPINR
+  1899     2 220.        50.              PMPINR
+  1899     2 218.        25.              PMPINR
+  1899     2 218.        15.              PMPINR
+  1899     2 218.        10.              PMPINR
+  1899     2 218.        9.               PMPINR
+  1899     2 930.        9.               PMPINR
+  1911     2 370000.     160000.          HEADR
+  1923     2 125.7       125.7            PMPSPR
+  1935     2 1257.       1290.            PMPFLR
+  1947     2 .84         .84              PMPEFR
+  1959     2 0.          0.               TRKLSC
+  1983     3 0.01        0.0        -73.13       APMPHD(1-3,1), LOW RANGE TORQUE LOSS COEF.
+  1986     3 0.00268     0.0         0.07        APMPHD(4-6,1), MIDDLE RANGE
+  1989     3 0.00383     0.01071     0.01406     APMPHD(7-9,1), HIGH RANGE
+  1992     2 0.01        0.268                   APMPHD(10-11,1), LIMITS OF RANGES
+  1994     1 2.5                                 APMPHD(12,1), LOCKED ROTOR COEF.
+  1995     1 0.                                  APMPHD(13,1), TRANSITION WB
+  1996     1 2.5                                 APMPHD(14,1), REVERSED FLOW LOCKED ROTOR COEF.
+  2000     1 1.0                                 APMPHD(18,1), PUMP CURVE NUMBER
+  2001     1 .02                                 APMPHD(19,1), WB FOR LOCKED ROTOR
+  2002     1 .02                                 APMPHD(20,1), SB FOR LOCKED ROTOR
+  2003     3 0.01        0.0        -73.13       APMPHD(1-3,2), LOW RANGE TORQUE LOSS COEF.
+  2006     3 0.00268     0.0         0.07        APMPHD(4-6,2), MIDDLE RANGE
+  2009     3 0.00383     0.01071     0.01406     APMPHD(7-9,2), HIGH RANGE
+  2012     2 0.01        0.268                   APMPHD(10-11,2), LIMITS OF RANGES
+  2014     1 2.5                                 APMPHD(12,2), LOCKED ROTOR COEF.
+  2015     1 0.                                  APMPHD(13,2), TRANSITION WB
+  2016     1 2.5                                 APMPHD(14,2), REVERSED FLOW LOCKED ROTOR COEF.
+  2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
+  2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
+  2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
+  2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
+  2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
+  2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
+  2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
+  2463     1 9.8                                             GRAVTY
+#                 steam generator table
+  2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
+  3105     4 28.83       28.83       28.83       28.83                   ZCENTR
+  3273     4 0.          10.         11.         9999999.                TMPMTB
+  3441     2 .99999      .99999                                          DTEVPF
+#                 IHX, DRACS
+  3445     2 815992.     218000.                                         PRSIHX
+  3445     2 706348.     243000.                                         PRSIHX
+  3455     5 .125        .25         .5          1.0         1.0         DZSHPX
+  3460     5 1.          1.          1.          1.          1.
+  3465     5 1.          1.          1.          1.          1.
+  3470     5 1.          1.          1.          1.          1.
+  3475     5 1.          1.          1.          1.          1.
+  3480     5 1.          1.          1.          1.          1.
+  3485     5 1.          1.          1.          1.          1.
+  3490     5 1.          1.          1.          .5          .25
+  3495     1 .125
+  3516     2 5.29        1.32                                            PERSPX
+  3524     2 225.        6.97                                            PERPTX
+  3532     2 200.        6.41                                            PERTIX
+  3540     2 .019        .019                                            DSHIHX
+  3548     2 .000889     .0009                                           DTUIHX
+  3556     2       4.6+6       4.6+6                                     RCSHHX
+  3564     2       4.6+6       4.6+6                                     RCTUHX
+  3572     2 20.         20.                                             XKSHHX
+  3580     2 20.         20.                                             XKTUHX
+  3588     2       1.0+6       1.0+6                                     HFPIHX
+  3596     2       1.0+6       1.0+6                                     HFIIHX
+  3604     2 1.          1.                                              SLANTX
+  3650     3 .025        .8          4.8                 C1PIPE, C2PIPE, C3PIPE
+  3653     3 .025        .8          4.8                   C1IHX, C2IHX, C3IHX 
+#                 AIR DUMP HEAT EXCHANGER
+  3801     1 .017525                                                     RITB
+  3805     1 .02108                                                      ROTB
+  3809     1 9.7                                                         XKTB
+  3813     1 15.6                                                        HOTB
+  3813     1 31.8                                                        HOTB
+  3813     1 25.8                                                        HOTB
+  3813     1 20.0                                                        HOTB
+  3813     1 23.7                                                        HOTB
+  3813     1 24.0                                                        HOTB
+  3813     1 24.00                                                       HOTB
+  3817     1 5200.                                                       HITB
+  3821     1 170.                                                        AHT
+  3821     1 255.5                                                       AHT
+  3821     1 1000.                                                       AHT
+  3821     1 450.                                                        AHT
+  3821     1 400.                                                        AHT
+  3821     1 437.                                                        AHT
+  3821     1 500.                                                        AHT
+  3821     1 480.                                                        AHT
+  3821     1 486.                                                        AHT
+  3821     1 474.                                                        AHT
+  3825     1 5.                                                          SRLEN
+  3825     1 15.                                                         SRLEN
+  3825     1 18.                                                         SRLEN
+  3825     1 20.                                                         SRLEN
+  3825     1 22.                                                         SRLEN
+  3825     1 25.                                                         SRLEN
+  3825     1 10.                                                         SRLEN
+  3825     1 11.                                                         SRLEN
+  3825     1 5.                                                          SRLEN
+  3829     1 1.16                                                        XKHXLS
+  3829     1 2.22                                                        XKHXLS
+  3829     1 1.306                                                       XKHXLS
+  3833     1 1.0                                                         XKRLS
+  3837     1 .2                                                          XKSOLS
+  3841     1 4.69                                                        AHX
+  3841     1 7.038                                                       AHX
+  3841     1 28.                                                         AHX
+  3841     1 15.                                                         AHX
+  3845     1 15.                                                         AR
+  3845     1 60.                                                         AR
+  3845     1 30.                                                         AR
+  3849     1 11.61                                                       ASI
+  3849     1 17.42                                                       ASI
+  3849     1 50.                                                         ASI
+  3853     4 10000.      10000.      0.5         0.5                     XKSILS
+  3893     4 0.          2.          3.          9999999.                XKSILS
+  3933     1 300.                                                        AIRTMP
+#              CONTROL ROD DIRVE REACTIVITY FEEDBACK
+  4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
+  4175     1 2.7     -05   VSLEXP(2), DZ = 2.7, EXP. COEF. = 1.0-5
+  4174     1 8.7     -05   VSLEXP(1), DZ = 8.7, EXP. COEF. = 1.0-5
+#              COMPONENT-TO-COMPONENT HEAT TRANSFER
+  4216     1 120000.                                                     HAELHT
+#              TIME STEP CONTROLS
+  4282     1 .2                                                          EPSF
+  4283     1 .1                                                          EPSFC
+#              IHX HEAT TRANSFER CORRELATION, TUBE SIDE
+  4309     3 .025        .8          4.8                  C1IHXT, C2IHXT,C3IHXT
+#              DEGREE OF IMPLICITNESS
+  4679     1 .75                                                         THT2CV
+#              STRATIFIED COMPRESSIBLE VOLUMES, CV2 AND CV5
+  5008     1 1.2                                                         RCORE
+  5009     2 250.        250.                                            HCSTWL
+  5018     2 250.        0.                                              HCSTW2
+  5027     2 250.        190.                                            ASTWL
+  5036     5 .000127     .000127     .000127     .000127     .000127     HINVWL
+  5044     5 .000508     .000508     .000508     .000508     .000508     
+  5108     5      1.50+7      1.50+7      1.50+7      1.50+7      1.50+7 XMCSTW
+  5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
+  5180     1 2.973                                                       ZINST(1)
+  5181     1 -1.6                                                        ZINST(2)
+  5186     1 10.                                                         EPSTST
+  5186     2 2.0         2.0                                             EPSTST  
+  5189     1 20.                                                         XLENTR
+  5189     2 100.        100.                                            XLENTR
+    -1
+XNOTES
+     fort.15 output from PRIMAR-4                         07/05 FED
+     each record contains:  ISTEP, IPRSTP, NBNTOT, (ARRAY(I),I=1,NBNTOT)
+        ISTEP = main time step
+        IPRSTP = primar time step
+
+     I     ARRAY(I)
+     1     TIMEP2 = time at the end of the PRIMAR time step
+   2-10    TLQCV2(ICV = 1-9) = liquid temperature in compressible volume
+  11-19    FLOSL2(ISGL=2-10) = coolant flow rate
+  20-21    HEADP2(IPMP=1-2) = pump head, primary pump
+  22-23    PSPED2(IPMP=1-2) = pump speed, primary pump
+    24     QQ(1) = heat removal from air dump heat exchanger connected to DRACS
+    25     WAIR(1) = air flow rate through the air dump heat exchanger
+
+
+        NBNTOT = 25
+        ICV = COMPRESSIBLE VOLUME
+        ISGL = LIQUID SEGMENT
+        IPMP = PUMP
+    -1
+XNOTES
+     PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
+    -1
+INPCOM     1     1     1
+    41     1     0            NOREAC
+     8     1     0            IPOWER
+    11     1     0            MAXSTP
+    11     1 10000            MAXSTP
+    11     1 70000            MAXSTP
+    12     1    10            IPO
+    18     1     3            NPREAT
+    18     1    20            NPREAT
+    15     1   100            NSTEP
+    41     1   100            NOREAC
+    41     1   100            NOREAC        
+    12     1    10            IPO    
+    15     1   100            NSTEP
+   107     1   700            MSTPLA    
+   108     1 10000            MSTPLB
+   108     1 15000            MSTPLB
+   109     1     1            MSTPL1
+   110     1    20            MSTPL2
+   111     1    40            MSTPL3 
+    -1
+OPCIN     11     1     1
+     5     1 .5               DT0     
+     7     1 500.             TIMAX
+     7     1 2000.            TIMAX
+     7     1 50000.           TIMAX
+    13     1 .5               DTP0
+    14     1 1.               DTPMAX
+    95     4 .5          1.          1.          1.          DTMIN
+   105     4 20.         200.        5000.       10000.      TDTMIN
+    -1
+POWINA    12     1     1
+    29     5 0.          0.0         0.0         0.50        0.50        PREATB
+    34     5 0.50        0.50        0.50        0.50        0.50  
+    49     5 0.          2.          11.         111.        162.          PREATM
+    54     5 20002.      40002.      100002.     200002.     400002.    
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
