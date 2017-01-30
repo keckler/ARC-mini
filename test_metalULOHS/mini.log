@@ -11,9 +11,46 @@ For product information, visit www.mathworks.com.
 
 	Academic License
 
-{Attempted to access rhoTab(0,1); index must be a positive integer or logical.
-} 
->> channel 1 extraction:
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2015 The MathWorks, Inc.
+                   R2015a (8.5.0.197613) 64-bit (glnxa64)
+                             February 12, 2015
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+
+	Academic License
+
+channel 1 extraction:
 
 initializing stuff...
 
@@ -26,15 +63,43 @@ plotting complete...
 
 cleaning up...
 
-Traceback (most recent call last):
-  File "/global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py", line 279, in <module>
-    modules.moveGlobalPlots()
-  File "/global/home/users/ckeckler/docs/mini/ARC-mini/modules.py", line 182, in moveGlobalPlots
-    move('powerPlotLong.tif','../globalPlots/')
-  File "/usr/lib64/python2.6/shutil.py", line 260, in move
-    copy2(src, real_dst)
-  File "/usr/lib64/python2.6/shutil.py", line 95, in copy2
-    copyfile(src, dst)
-  File "/usr/lib64/python2.6/shutil.py", line 50, in copyfile
-    with open(src, 'rb') as fsrc:
-IOError: [Errno 2] No such file or directory: 'powerPlotLong.tif'
+channel 2 extraction:
+
+initializing stuff...
+
+reading from SAS output file...
+
+printing temporary files...
+
+plotting...
+plotting complete...
+
+cleaning up...
+
+channel 3 extraction:
+
+initializing stuff...
+
+reading from SAS output file...
+
+printing temporary files...
+
+plotting...
+plotting complete...
+
+cleaning up...
+
+channel 4 extraction:
+
+initializing stuff...
+
+reading from SAS output file...
+
+printing temporary files...
+
+plotting...
+plotting complete...
+
+cleaning up...
+
+data extraction complete
