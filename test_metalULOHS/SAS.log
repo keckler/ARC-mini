@@ -1,0 +1,69 @@
+       1:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
+       2:   #                                                                                   
+       3:   # July 25 merge of Anton + Floyd                                                    
+       4:   #     1) Changed ZPLENL and ZPLENU                                                  
+       5:   #     2) Above core reflector load pad 4 4 change to 3  3 INPCHN51                  
+       6:   #     3) Deleted stratified volume model INPMR4 NSTRCV set to 0 7/30                
+       7:   #     4) Reinserted stratified volume model INPMR NSTRCV set to 2 7/31              
+       8:   #     5) Restart Block 1 NSTEP=100 7/31                                             
+       9:   #     6) Changed problem time to 1000secs BLK 11 TMAX 8/1                           
+      10:   #     7) BLK 18 Pri and Int pumps trip at .1 sec 2223 8/1                           
+      11:   #     8) Per Floyd PLOF CHN 3 FG resist .06 BLK 63 59 8/1                           
+      12:   #                                                                                   
+      13:   #                                                                                   
+      14:   #August 02 merge of Anton+Floyd for Oxide case                                      
+      15:   #     1) Chage BLK 18 1899 primary pump inertia to 930 Aug02                        
+      16:   #     2) 500 sec test run                                                           
+      17:   #     3) 2000 sec extended run                                                      
+      18:   #     4) COrrected ZPLENU and ZPLENL for Oxide core BLK 14 8/6                      
+      19:   #     5) Anton CR feedback correction 8/3 email BLK12      8/6                      
+      20:   #     6) For 10000sec transient change BLK 3 890+892+others                         
+      21:   #        to reduce print and binary output ffrequency                               
+      22:   #     7) Corrected BLK 18 core height and position 42,163,302 7Aug                  
+      23:   #     8) Changed plot output 11 and time for 20000sec transient                     
+      24:   #     9) Converted ULOF dec to PLOF deck by replacing BLK 12 from                   
+      25:   #        Aug 08 Metal PLOF deck 8/8                                                 
+      26:   #     10) Reduced print/plot freuencies BLK 3 890+892 + other changes               
+      27:   #         for 50000sec transient                                                    
+      28:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
+      29:   #                                                                                   
+      30:   # obtained by Chris Keckler from Tom Fanning                                        
+      31:   # Dec 8 2016 -                                                                      
+      32:   #     1. IPO changed to 10 for purposes of extracting data                          
+      33:   #     2. PREATB changed to have no CR insertion                                     
+      34:   #     3. NSTRCV changed to have no stratified volumes, associated input             
+      35:   #        commented accordingly                                                      
+      36:   #     4. AMOTTK changed to have both pumps continue operating at nominal speed      
+      37:   #        through entire transient                                                   
+      38:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
+      39:   #                                                                                   
+      40:   # PRIMARY AND SECONDARY TITLE RECORDS                                               
+      41:   #                                                                       Version     
+      42:    ABR REFERENCE OXIDE FUEL STARTUP CORE                                  5.1         
+      43:    SAS4A/SASSYS Model - Null transient in PRIMAR4                                     
+      44:   #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8    
+      45:   #                                                                                   
+      46:   # STORAGE ALLOCATION RECORDS                                                        
+      47:   #                                                                                   
+      48:   #    NCH: Number of Channels                                                        
+      49:   #    |  NEUTSP: Neutronics Storage Allocation Flag                                  
+      50:   #    |  |  IDBUGP: Data Management Print Flag                                       
+      51:   #    |  |  |  IPDECK: Input Data Editing Flag                                       
+      52:   #    |  |  |  |  NBYSSH: Number of Bypass Channels in SA-to-SA Heat Transfer        
+      53:   #    |  |  |  |  |  IDATMO: Data Management Option Flag (0/1=Default/Extended)      
+      54:   #    |  |  |  |  |  |  IADEFC: Data Pack DEFC Storage Allocation Flag               
+      55:   #    |  |  |  |  |  |  |  IAPLUC: Data Pack PLUC Storage Allocation Flag            
+      56:   #    |  |  |  |  |  |  |  |  IACNTL: Control System Module Storage Allocation Fl ...
+      57:   #    |  |  |  |  |  |  |  |  |  IALBOP: BOP Module Storage Allocation Flag          
+      58:   #    |  |  |  |  |  |  |  |  |  |                                                   
+      59:   #    1  0  0  0  0  1  0  1  1  1                                                   
+      60:        4  0  0  0  0  1  0  1  1  1                                                   
+====================================================================================================================================
+
+====> Mini SAS: EXECUTION ABORTED AT START0.F90:78
+
+====> Errors:   0
+====> Warnings: 0
+
+====================================================================================================================================
+
