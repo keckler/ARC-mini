@@ -24,8 +24,9 @@
 # Dec 6 2016 -
 #     1. IPO changed to 10 for purposes of extracting data
 #     2. PREATB changed to have no CR insertion
-#     3. DTMPTB changed to have nominal temperature drop across SGs for entire
-#        transient
+#     3. DTMPTB changed to have constant SG outlet temp at nominal for entire
+#        transient. nominal value of 604.88 K taken from null transient results
+#        in pipe element 18
 #     4. AMOTTK changed for both pumps to have pumps stop at 11 s, so that
 #        transient starts at same time as ULOHS
 #     5. ISGCLC changed to make ITAB table 1 be SG outlet temperature vs time,
@@ -2381,7 +2382,7 @@ PMR4IN    18     1     0
   2253     5 0.          11.0        11.1        13.0        100000.     AMOTTK(11-15,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
-  2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP
+  2937     4 604.88      604.88      604.88      604.88         DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
   3273     4 0.          10.         11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
