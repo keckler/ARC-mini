@@ -2854,7 +2854,7 @@
     2854:   #          |         |                                                              
     2855:   #----+-----+-----------+-----------+-----------+-----------+-----------+            
     2856:   #    |     |           |           |           |           |           |            
-    2857:     4001     5         0.0         0.0     -0.0013     -0.0092     -0.0293            
+    2857:     4001     5         0.0        -1.0     -0.0013     -0.0092     -0.0293            
     2858:     4006     5     -0.0554     -0.0985     -0.1666     -0.4624     -0.7924            
     2859:     4011     5     -0.8923     -0.9634     -0.9877     -1.0000     -1.0000            
     2860:   #                                                                                   
@@ -2931,14 +2931,7 @@
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3200
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3300
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3400
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3500
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3600
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3700
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3800
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 3900
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 4000
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 113 ON MAIN TIME STEP 4100
-0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP   4184 AT TIME    3983.9687
+0****** SWITCH TO BOILING MODULE IN CHANNEL    4 AT STEP   3451 AT TIME    3250.8102
 ====> ERROR (TSTHRM.F90:424) <====
 ====================================================================================================================================
 
