@@ -17,8 +17,8 @@ shortTimeLimit = 500 #range of time to be plotted in short time scale plots, (s)
 IHXintermediateSide = 13 #element number of intermediate side of IHX (tube side)
 IHXpump = 2 #element number of intermediate pump
 precursorDecayConstants = [1.3377E-2, 3.1026E-2, 1.1763E-1, 3.0917E-1, 8.8605E-1, 2.9416E0]
-topOfActiveCore = '0.81280' #string with height of top of active core. enter exactly as printed in SAS output
-#topOfActiveCore = '1.06680'
+#topOfActiveCore = '0.81280' #string with height of top of active core. enter exactly as printed in SAS output
+topOfActiveCore = '1.06680'
 #matlabExe = '/Applications/MATLAB_R2014b.app/bin/matlab' #for running locally
 matlabExe = 'matlab' #for running on savio
 
