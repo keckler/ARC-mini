@@ -2,8 +2,8 @@
 
 #-------------------------------------------------------------------------------
 #run from command line using './plotTau output_file_name'
-#extracts tau value and results from lag compensator (i.e. ARC reservoir temp)
-#and plots over course of transient
+#extracts tau value and results from lag compensator (i.e. ARC reservoir temp, 
+#outlet temp, flow) and plots over course of transient
 #-------------------------------------------------------------------------------
 
 #####
