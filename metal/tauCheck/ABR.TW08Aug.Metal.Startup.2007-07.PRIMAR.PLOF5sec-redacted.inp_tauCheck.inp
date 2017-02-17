@@ -32,6 +32,8 @@
 # Feb 17 2017 -
 #     5. Added ARC control system input with a step change in tau at 30 s to test
 #        that the variable lag compensator is working properly
+#     6. IPO changed to 1 for purposes of plotting variable tau
+#     7. MAXSTP changed to 5000 (from 70000) so outputs are smaller
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
@@ -2520,13 +2522,13 @@ INPCOM     1     1     1
      8     1     0            IPOWER
     11     1     0            MAXSTP
     11     1 10000            MAXSTP
-    11     1 70000            MAXSTP
+    11     1  5000            MAXSTP
     12     1    10            IPO
     18     1     3            NPREAT
     18     1    20            NPREAT
     15     1   100            NSTEP
     41     1   100            NOREAC        
-    12     1    10            IPO    
+    12     1     1            IPO    
     15     1   100            NSTEP
    107     1   700            MSTPLA    
    108     1 10000            MSTPLB
