@@ -52,7 +52,7 @@ for line in fo:
             nextLine = fo.next()
             nextLine = fo.next()
             time.append(float(nextLine.split()[9][0:10])*10**float(nextLine.split()[9][-2:]))
-            for i in range(1,23):
+            for i in range(1,25):
                 nextLine = fo.next()
             flow.append(float(nextLine.split()[-1][0:10])*10**float(nextLine.split()[-1][-3:]))
             nextLine = fo.next()
