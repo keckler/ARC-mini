@@ -21,18 +21,17 @@
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 # obtained by Chris Keckler from Tom Fanning
-# Dec 6 2016 -
+# Jan 11 2017 -
 #     1. IPO changed to 10 for purposes of extracting data
-#     2. PREATB changed to have no CR insertion
-#     3. DTMPTB changed to have nominal temperature drop across SGs for entire
-#        transient
-#     4. AMOTTK changed for both pumps to have pumps stop at 11 s, so that
-#        transient starts at same time as ULOHS
-# Feb 16 2017 -
-#     5. Added variable time constant ARC control system block
-#     6. Changed PMPINR to 1 for both pumps to have very small halving time
-#     7. Reduced CRDEXP from 2.0E-6 to 1.0E-6 to avoid CRDL oscillations in this
-#        test case
+#     2. PREATB changed to have a CR extraction of the "average rod" at a rate 
+#        of 0.005 $/s starting at 11 s
+#     3. AMOTTK changed to have both pumps continue operating at nominal speed
+#        through entire transient
+#     4. DTMPTB changed to have nominal temp drop across SGs for entire transient
+#
+# Feb 17 2017 -
+#     5. Added ARC control system input with a step change in tau at 30 s to test
+#        that the variable lag compensator is working properly
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
@@ -285,7 +284,7 @@ POWINA    12     1     1
 #                      CRDLEN: Length of Control-Rod Drive Lines in Outlet Sodium
 #                      |           CRDEXP: Thermal Expansion Coefficient for CR
 #                      |           |       Drive Lines
-    71     2        6.00     1.0E-05                         CRDLEN,CRDEXP
+    71     2        6.00     2.0E-05                         CRDLEN,CRDEXP
 #
 #                      ACRDEX: Control-Rod Reactivity Feedback Parameter
 #                      |           BCRDEX: (Quadratic Term)
@@ -1077,16 +1076,16 @@ INPCOM     1     1     1
     95     1     0                                           IFIT(1)
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-POWINA    12     1     1
+#POWINA    12     1     1
 #
 #                      PREATB: Transient External Reactivity or Normalized Power
 #                      |           |           |           |           |
-    29     4        0.00        0.00        0.00        0.00             PREATB
+#    29     4        0.00        0.00        0.00        0.00             PREATB
 #
 #                      PREATM: Transient Problem Times for PREATB
 #                      |           |           |           |           |
-    49     4         0.0      1000.0      2000.0      4000.0             PREATM
-    -1
+#    49     4         0.0      1000.0      2000.0      4000.0             PREATM
+#    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 OPCIN     11     1     1
 #
@@ -2352,7 +2351,7 @@ PMR4IN    18     1     0
   1899     2 218.        25.              PMPINR
   1899     2 218.        15.              PMPINR
   1899     2 218.        10.              PMPINR
-  1899     2   1.        1.               PMPINR
+  1899     2 218.        9.               PMPINR
   1911     2 370000.     160000.          HEADR
   1923     2 125.7       125.7            PMPSPR
   1935     2 1257.       1290.            PMPFLR
@@ -2378,13 +2377,13 @@ PMR4IN    18     1     0
   2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
   2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
   2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
-  2223     5 1.0         1.0         0.0         0.0         0.0         AMOTTK(1-5,1)
-  2233     5 0.          11.0        11.1        13.0        100000.     AMOTTK(11-15,1)
-  2243     5 1.0         1.0         0.0         0.0         0.0         AMOTTK(1-5,2)
-  2253     5 0.          11.0        11.1        13.0        100000.     AMOTTK(11-15,2)
+  2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
+  2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
+  2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
+  2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
-  2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP
+  2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
   3273     4 0.          10.         11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
@@ -2535,7 +2534,6 @@ INPCOM     1     1     1
    109     1     1            MSTPL1
    110     1    20            MSTPL2
    111     1    40            MSTPL3 
-    56     1     1            JREEXT
     -1
 OPCIN     11     1     1
      5     1 .5               DT0     
@@ -2548,14 +2546,10 @@ OPCIN     11     1     1
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
 POWINA    12     1     1
-    29     5 0.            0.0         0.0         0.0         0.0       PREATB
-    34     5   0.0         0.0         0.0         0.0         0.0 
-    39     5   0.0         0.0         0.0         0.0         0.0 
-    44     5   0.0         0.0         0.0         0.0         0.0 
-    49     5 0.          2.          3.          4.          6.          PREATM
-    54     5 12.         22.         42.         102.        202.
-    59     5 402.        1002.       2002.       4002.       10002.      
-    64     5 20002.      40002.      100002.     200002.     400002.    
+    29     5 0.          0.0         0.0         0.60        0.60       PREATB
+    34     5 0.6         0.6         0.6         0.6         0.6 
+    49     5 0.          2.          11.         131.        132.          PREATM
+    54     5 20002.      40002.      100002.     200002.     400002.    
     -1
 #===============================================================================
 #
@@ -2587,7 +2581,7 @@ INCONT     5     1     0
     1  -55    0    0       0.0       0.0       0.0       0.0       0.0 
 #
 #
-#  Constant of 11.0 (seconds). 
+#  Constant of 30.0 (seconds). 
 #
 #        Constant definition number (21)
 #        |
@@ -2600,7 +2594,13 @@ INCONT     5     1     0
 #        |    |    |         |         Empty..
 #        |    |    |         |         |   
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
-    2   21    0    0     11.0       0.0       0.0       0.0       0.0 
+    2   21    0    0     30.0       0.0       0.0       0.0       0.0 
+#
+#
+#
+#  compare if time is less than constant in signal 2
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
+    3   18    1    2       0.0       0.0       0.0       0.0       0.0
 #    
 # ##############################################################################
 #                                                                              #
@@ -2623,21 +2623,12 @@ INCONT     5     1     0
     4  -71    1    2   
 #
 #
-# get the outlet flowrate of channel 1 (inner core) for use in determining the 
-# variable tau value.
 #
-#
-#        66, core channel coolant flowrate
-#        |    1, inner core
-#        |    |
-#        |    |    2, outlet
-#        |    |    |
+#  define constant of -0.99 for step change
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
+    5   21    0    0     -0.99
 #
-    5  -66    1    2
-#
-#
-# define the value of tau at full flow conditions for use in un-normalizing the
+# define the value of tau at nominal conditions for use in un-normalizing the
 # value obtained from the normalized table
 #
 #   
@@ -2649,27 +2640,29 @@ INCONT     5     1     0
     6   21    0    0      2.66
 #
 #
-# gets flowrate at SS for use in normalizing the flowrate
-#        19, sample and hold the SS coolant outlet flowrate
-#        |    time signal
-#        |.   |.   outlet flowrate of inner core
-#        |.   |    |
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-    7   19    1    5
 #
 #
-# normalize the flowrate by the SS flowrate value
-#        3, divider
-#        |.   flowrate signal
-#        |.   |.   SS flowrate
-#        |.   |.   |.        constant multiple
-#        |.   |.   |.        |
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#
-    8    3    5    7       1.0
+#  multiply signals 3 and 5 to get value to put in summer for step change
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
+    7    2    3    5       1.0
 #
 #
-# lookup normalized tau as a function of the normalized flowrate from Table 2
+#
+#
+#
+#  define constant of 1.0 for use in summer to generate step change
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
+    8   21    0    0       1.0
+#
+#
+#
+#  sum signals 7 and 8 to get the normalized input for the tau function generator
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
+    9    1    7    8       1.0       1.0       1.0
+#
+#
+#
+# lookup normalized tau from Table 2 as a function of the step change
 #        8, function generator
 #        |.   normalized flowrate
 #        |.   |.   Table 2, normalized tau vs normalized flowrate
@@ -2677,7 +2670,7 @@ INCONT     5     1     0
 #        |    |.   |.        |
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
-    9    8    8    2       1.0
+   10    8    9    2       1.0
 #
 #
 # un-normalizes normalized tau
@@ -2688,7 +2681,8 @@ INCONT     5     1     0
 #        |    |.   |.        |
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
-   10    2    6    9       1.0
+   11    2    6   10       1.0
+#
 #
 #
 # #############################################################################
@@ -2741,7 +2735,7 @@ INCONT     5     1     0
 #        |    |    |         |                             |         |    
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
 #
-   13   23    4   10       1.0                         794.0  0.000001
+   13   23    4   11       1.0                         794.0  0.000001
 #
 #
 # #############################################################################
@@ -2750,18 +2744,6 @@ INCONT     5     1     0
 #                                                                             #
 # #############################################################################
 #
-#  This function gives the output 0 if the elapsed time is less than 100
-#  seconds, and 1 if its above
-#
-#       18, "Comparator" block
-#        |
-#        |    1, The elapsed time
-#        |    |    
-#        |    |    2, 11 seconds
-#        |    |    | 
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
-#
-   14   18    1    2 
 #
 #  We define the expected coolant outlet temperature to compare
 #
@@ -2797,19 +2779,7 @@ INCONT     5     1     0
 # 
    16    1   13   15       1.0      -1.0       1.0       0.0       0.0 
 #
-#  We multiply the temperature difference from steady state with the value
-#  from the comparator block (18), which gives the result 0 if we are 
-#  not yet at 11 seconds of simulation
 #
-#        2, "Multiplier" block
-#        |
-#        |   14, The comparator value (0 or 1)
-#        |    |    
-#        |    |   16, The lag compensator difference from steady state
-#        |    |    | 
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
-#
-   17    2   14   16       1.0
 #
 # #############################################################################
 #                                                                             #
@@ -2827,7 +2797,7 @@ INCONT     5     1     0
 #        |    |    |         |       
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
 #
-   18    8   17    1     1.0
+   18    8   16    1     1.0
 #
 #       -1, Send signal to reactivity control
 #        |
@@ -2839,7 +2809,7 @@ INCONT     5     1     0
 #   |    |    |    |                                                 |             
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
 #
-  19   -1   18    0       0.0       0.0       0.0       0.0   0.00003 
+   19   -1   18    0       0.0       0.0       0.0       0.0   0.00003 
 #
 #
   999
@@ -2898,7 +2868,6 @@ INCONT     5     1     0
 #                      |           |       signal over a subinterval
   8001     2         0.1         0.1 
     -1    
-
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
 ENDJOB    -1
