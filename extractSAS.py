@@ -30,6 +30,7 @@ matlabExe = 'matlab' #for running on savio
 from os import chdir
 from os import getcwd
 from os import mkdir
+from os import remove
 from subprocess import Popen
 from sys import argv
 
@@ -284,3 +285,9 @@ for channel in channelNums:
     chdir('../')
 
 print('data extraction complete')
+
+#####
+#delete mini.out
+#####
+
+remove('mini.out')
