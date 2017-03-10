@@ -37,6 +37,13 @@
 #     5. DTMIN table commented out so that SAS determines time step sizes on its
 #        own. done to avoid oscillations in the reflector channel coolant temp
 #
+# Mar 10 2017 - 
+#     6. DTMPTB changed to have constant SG outlet temp at nominal for duration
+#        of transient. nominal value of 604.87 K taken from null transient
+#        temp in pipe element 18
+#     7. ISGCLC changed to make ITAB table 1 be SG outlet temp vs time instead
+#        of normalized temp drop vs time
+#
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
  ABR REFERENCE OXIDE FUEL STARTUP CORE                                  5.1
@@ -2149,7 +2156,7 @@ INPMR4     3     1     0
 #                   STEAM GENERATOR
    839     1     1         NSGN, NUMBER OF STEAM GENERATORS
    840     1    17        IELSGN, ELEMENT NUMBER
-   852     1     1        ISGCLC, TABLE LOOK-UP, TABLE 1
+   852     1    -1        ISGCLC, TABLE LOOK-UP, TABLE 1
    864     1     3        IEVAP, ONCE-THROUGH STEAM GENERATOR
 #                   PRINTS
    890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
@@ -2627,7 +2634,7 @@ PMR4IN    18     1     0
   2253     5 0.          11.0        11.1        13.0        100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
-  2937     4 1.0         1.0         1.0         1.0         DTMPTB, TEMP. DROP
+  2937     4 604.87      604.87      604.87      604.87         DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
   3273     4 0.          10.         11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
