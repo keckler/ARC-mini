@@ -44,7 +44,7 @@
 #     7. ISGCLC changed to make ITAB table 1 be SG outlet temp vs time instead
 #        of normalized temp drop vs time
 # Mar 20 2017 -
-#     8. MAXSTP changed to be 99999 from 70000 so that simulation will run 
+#     8. MAXSTP changed to be 99990 from 70000 so that simulation will run 
 #        longer and hopefully reach a steady state
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
@@ -2774,7 +2774,7 @@ INPCOM     1     1     1
      8     1     0            IPOWER
     11     1     0            MAXSTP
     11     1 10000            MAXSTP
-    11     1 99999            MAXSTP
+    11     1 100000            MAXSTP
     12     1    10            IPO
     18     1     3            NPREAT
     18     1    20            NPREAT
