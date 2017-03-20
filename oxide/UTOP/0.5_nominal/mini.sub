@@ -45,5 +45,5 @@
 # -----------------------------------------------------------------------------                                                                                                   
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
-~/bin/mini-5.1/mini-5.1-Linux.x < /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/UTOP/0.5/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP.inp > mini.out
+~/bin/mini-5.2/mini-5.x-2522-Linux.x < /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/UTOP/0.5_nominal/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP.inp > mini.out
 /global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py mini.out
