@@ -42,17 +42,25 @@ runDir = getcwd()+'/'
 i = 0
 for transient in transients:
     #write header in results file
-    fr = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
-    fr.write('transient = '+transient+'\n')
-    fr.close()
+    fm = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/max.txt', 'a')
+    fm.write('transient = '+transient+'\n')
+    fm.close()
+
+    fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asmptotic.txt', 'a')
+    fa.write('transient = '+transient+'\n')
+    fa.close()
 
     mkdir('./'+transient)
     i += 1
     for worth in worths:
         #write subheader in results file
-        fr = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
-        fr.write('worth = '+str(worth)+'\n')
-        fr.close()
+        fm = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/max.txt', 'a')
+        fm.write('worth = '+str(worth)+'\n')
+        fm.close()
+        
+        fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asmptotic.txt', 'a')
+        fa.write('transient = '+transient+'\n')
+        fa.close()
 
         mkdir('./'+transient+'/'+str(worth))
         for temp in actuationTemps:
