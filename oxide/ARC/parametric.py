@@ -27,7 +27,7 @@ miniExe = '~/bin/mini-5.1/mini-5.1-Linux.x'
 from os import chdir
 from os import getcwd
 from os import mkdir
-from shutil import copy
+from shutil import copyfile
 from subprocess import Popen
 from sys import argv
 
