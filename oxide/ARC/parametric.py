@@ -30,6 +30,7 @@ from os import mkdir
 from shutil import copyfile
 from subprocess import Popen
 from sys import argv
+from time import sleep
 
 #####
 #do stuff
@@ -74,6 +75,9 @@ for transient in transients:
             fb.close()
 
             #run it
-            Popen(['sbatch', 'mini.sub'])            
+            Popen(['sbatch', 'mini.sub'])
+
+            #pause so that memory limits are not exceeded
+            sleep(150)
 
             chdir('../../../') #move out of there
