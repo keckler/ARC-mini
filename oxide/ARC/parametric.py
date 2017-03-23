@@ -38,11 +38,22 @@ from time import sleep
 
 runDir = getcwd()+'/'
 
+#loop through all different variations
 i = 0
 for transient in transients:
+    #write header in results file
+    fr = open('results.txt', 'a')
+    fr.write('transient = '+transient+'\n')
+    fr.close()
+
     mkdir('./'+transient)
     i += 1
     for worth in worths:
+        #write subheader in results file
+        fr = open('results.txt', 'a')
+        fr.write('worth = '+worth+'\n')
+        fr.close()
+
         mkdir('./'+transient+'/'+str(worth))
         for temp in actuationTemps:
             mkdir('./'+transient+'/'+str(worth)+'/'+str(temp)) #make directory for fun
