@@ -287,7 +287,7 @@ for channel in channelNums:
 print('data extraction complete')
 
 #print max temp
-fr = open('~/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
+fr = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
 fr.write(str(max(primaryTab[5]))+'\n')
 fr.close()
 

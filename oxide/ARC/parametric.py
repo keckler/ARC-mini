@@ -42,7 +42,7 @@ runDir = getcwd()+'/'
 i = 0
 for transient in transients:
     #write header in results file
-    fr = open('~/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
+    fr = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
     fr.write('transient = '+transient+'\n')
     fr.close()
 
@@ -50,7 +50,7 @@ for transient in transients:
     i += 1
     for worth in worths:
         #write subheader in results file
-        fr = open('~/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
+        fr = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
         fr.write('worth = '+str(worth)+'\n')
         fr.close()
 
