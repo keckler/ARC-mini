@@ -18,7 +18,7 @@ transients = ['ULOHS', 'UTOP', 'ULOF'] #names of transients to run
 worths = [0.25, 0.50, 0.75, 1.00, 1.25, 1.50] #total worths of ARC systems, $
 actuationTemps = [10, 20, 30, 40, 50] #temperature above SS of actuation of ARC system, C. actuation span is kept constant at 65 C
 
-miniExe = '~/bin/mini-5.1/mini-5.1-Linux.x'
+miniExe = '~/bin/mini-5.2/mini-5.x-2522-Linux.x'
 
 #####
 #imports
