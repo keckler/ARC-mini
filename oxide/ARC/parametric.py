@@ -88,7 +88,7 @@ for transient in transients:
             #run it
             Popen(['sbatch', 'mini.sub'])
 
-            #pause so that memory limits are not exceeded
-            sleep(150)
+            #pause to wait for job to finish so that memory limits are not exceeded
+            sleep(240)
 
             chdir('../../../') #move out of there
