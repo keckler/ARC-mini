@@ -59,7 +59,7 @@ for transient in transients:
         fm.close()
         
         fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asymptotic.txt', 'a')
-        fa.write('transient = '+transient+'\n')
+        fa.write('worth = '+str(worth)+'\n')
         fa.close()
 
         mkdir('./'+transient+'/'+str(worth))
