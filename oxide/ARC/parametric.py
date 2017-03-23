@@ -46,7 +46,7 @@ for transient in transients:
     fm.write('transient = '+transient+'\n')
     fm.close()
 
-    fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asmptotic.txt', 'a')
+    fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asymptotic.txt', 'a')
     fa.write('transient = '+transient+'\n')
     fa.close()
 
@@ -58,7 +58,7 @@ for transient in transients:
         fm.write('worth = '+str(worth)+'\n')
         fm.close()
         
-        fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asmptotic.txt', 'a')
+        fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asymptotic.txt', 'a')
         fa.write('transient = '+transient+'\n')
         fa.close()
 
