@@ -67,10 +67,10 @@ for transient in transients:
             fin.close()
 
             #copy over slurm script and add commands at end
-            copyfile('/global/home/users/ckeckler/docs/mini/mini_tmp.sub', './mini.sub')
+            copyfile('/global/home/users/ckeckler/docs/mini/ARC-mini/mini_tmp.sub', './mini.sub')
             fb = open('./mini.sub', 'a')
             fb.write(miniExe+' < '+newPath+' > mini.out\n')
-            fb.write('/global/home/users/ckeckler/docs/mini/extractSAS.py mini.out')
+            fb.write('/global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py mini.out')
             fb.close()
 
             #run it
