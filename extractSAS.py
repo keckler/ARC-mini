@@ -288,7 +288,7 @@ print('data extraction complete')
 
 #print max temp
 fr = open('~/docs/mini/ARC-mini/oxide/ARC/results.txt', 'a')
-fr.write(str(max(primaryTab[5])))
+fr.write(str(max(primaryTab[5]))+'\n')
 fr.close()
 
 #####
