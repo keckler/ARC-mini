@@ -15,8 +15,8 @@
 #####
 
 transients = ['ULOHS', 'UTOP', 'ULOF'] #names of transients to run
-worths = [0.25, 0.50, 0.75, 1.00, 1.25, 1.50] #total worths of ARC systems, $
-actuationTemps = [10, 20, 30, 40, 50] #temperature above SS of actuation of ARC system, C. actuation span is kept constant at 65 C
+worths = [0.12, 0.25, 0.37, 0.50, 0.62, 0.75, 0.87, 1.00, 1.12, 1.25, 1.37, 1.50] #total worths of ARC systems, $
+actuationTemps = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60] #temperature above SS of actuation of ARC system, C. actuation span is kept constant at 65 C
 
 miniExe = '~/bin/mini-5.2/mini-5.x-2522-Linux.x'
 
@@ -97,6 +97,6 @@ for transient in transients:
             Popen(['sbatch', 'mini.sub'])
 
             #pause to wait for job to finish so that memory limits are not exceeded
-            sleep(240)
+            sleep(300)
 
             chdir('../../../') #move out of there
