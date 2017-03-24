@@ -1,0 +1,49 @@
+#!/bin/bash                                                                                                                                                                       
+
+# -----------------------------------------------------------------------------                                                                                                   
+# job options                                                                                                                                                                     
+# -----------------------------------------------------------------------------                                                                                                   
+
+# job name                                                                                                                                                                        
+#SBATCH --job-name=parametric                                                                                                                                                        
+
+# output name                                                                                                                                                                     
+#SBATCH --output=parametric.log                                                                                                                                                      
+
+# wall time, in minutes                                                                                                                                                           
+#SBATCH --time=1800                                                                                                                                                             
+
+# -----------------------------------------------------------------------------                                                                                                   
+# SLURM options                                                                                                                                                                   
+# -----------------------------------------------------------------------------                                                                                                   
+# for a full list of partition, quality of service, and account options, type:                                                                                                    
+# sacctmgr -p show associations user=$USER                                                                                                                                        
+
+# account                                                                                                                                                                         
+#SBATCH --account=co_nuclear                                                                                                                                                   
+# #SBATCH --account=fc_neutronics
+
+# partition                                                                                                                                                                       
+#SBATCH --partition=savio                                                                                                                                                         
+
+# quality of service                                                                                                                                                              
+#SBATCH --qos=nuclear_normal                                                                                                                                                   
+# #SBATCH --qos=savio_normal
+
+# number of nodes                                                                                                                                                                 
+#SBATCH --nodes=1                                                                                                                                                                 
+
+# number of tasks on each node, savio has 20 cores per node, savio2 has 24                                                                                                        
+#SBATCH --ntasks-per-node=20                                                                                                                                                      
+
+# email me                                                                                                                                                                        
+#SBATCH --mail-type=all                                                                                                                                                           
+
+# email address                                                                                                                                                                   
+#SBATCH --mail-user=keckler@berkeley.edu                                                                                                                                          
+
+# -----------------------------------------------------------------------------                                                                                                   
+# job execution                                                                                                                                                                   
+# -----------------------------------------------------------------------------                                                                                                   
+
+./parametric.py /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOF_ARC.inp /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOHS_ARC.inp /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP_ARC.inp
