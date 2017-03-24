@@ -46,4 +46,4 @@
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
 
-./parametric.py /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOF_ARC.inp /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOHS_ARC.inp /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP_ARC.inp
+./parametric.py ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOF_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOHS_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP_ARC.inp
