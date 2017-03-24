@@ -27,7 +27,7 @@
 #SBATCH --partition=savio                                                                                                                                                         
 
 # quality of service                                                                                                                                                              
-#SBATCH --qos=nuclear_normal                                                                                                                                                   
+# #SBATCH --qos=nuclear_normal                                                                                                                                                   
 # #SBATCH --qos=savio_normal
 
 # number of nodes                                                                                                                                                                 
