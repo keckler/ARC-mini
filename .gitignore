@@ -2,3 +2,6 @@
 *.dat
 *.out
 runs/
+oxide/ARC/ULOF/
+oxide/ARC/ULOHS/
+oxide/ARC/UTOP/
