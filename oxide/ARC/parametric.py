@@ -27,7 +27,9 @@ miniExe = '~/bin/mini-5.2/mini-5.x-2522-Linux.x'
 from os import chdir
 from os import getcwd
 from os import mkdir
+from os import remove
 from shutil import copyfile
+from shutil import rmtree
 from subprocess import Popen
 from sys import argv
 from time import sleep
@@ -98,5 +100,11 @@ for transient in transients:
 
             #pause to wait for job to finish so that memory limits are not exceeded
             sleep(300)
+
+            #remove excess files to preserver memory
+            remove('./RESTART.dat')
+            remove('./PRIMAR4.dat')
+            remove('./CHANNEL.dat')
+            rmtree('./globalPlots')
 
             chdir('../../../') #move out of there
