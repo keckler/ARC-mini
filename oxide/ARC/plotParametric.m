@@ -21,6 +21,8 @@ maxTemps = [975.812 975.817 975.817 975.828 981.266;
             1179.021 1176.133 1218.083 1213.105 1196.287];
 maxTemps = maxTemps-273.15;
 
+colors = {'k', 'b', 'm'};
+
 figure;    zlim([550 950])
 grid on;
 xlabel('actuation temperature difference (C)')
@@ -32,10 +34,15 @@ hold on;
 
 i = 1;
 while i < length(transients)+1
-    surf(X,Y,maxTemps((i-1)*length(worths)+1:i*length(worths),:),i*ones(length(worths),length(actuationTemps)))
+    surf(X,Y,maxTemps((i-1)*length(worths)+1:i*length(worths),:), 'FaceColor', 'interp', 'FaceAlpha', i*1/length(transients), 'EdgeColor', colors{i});%,i*ones(length(worths),length(actuationTemps)))
     
     i = i + 1;
 end
+
+legend('ULOHS', 'UTOP', 'ULOF');
+zlim([min(min(maxTemps))-50, max(max(maxTemps))+20]);
+
+plot3([10 20 30 20 10],[0.25 0.50 0.75 1.0 1.25], [min(min(maxTemps))-50 min(min(maxTemps))-50 min(min(maxTemps))-50 min(min(maxTemps))-50 min(min(maxTemps))-50]);
 
 boilingTemp = fill3([actuationTemps(1), actuationTemps(1), actuationTemps(end), actuationTemps(end)], [worths(1), worths(end), worths(end), worths(1)], [880, 880, 880, 880], 'r');
 alpha(boilingTemp, 0.15)
