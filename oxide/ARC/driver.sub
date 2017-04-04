@@ -46,4 +46,4 @@
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
 
-./parametric.py ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOF_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOHS_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP_ARC.inp
+./parametric.py ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOHS_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_UTOP_ARC.inp ABR.TW08Aug.Oxide.Startup.2007-07.PRIMAR.PLOF20sec-redacted.inp_ULOF_ARC.inp
