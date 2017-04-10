@@ -287,12 +287,12 @@ for channel in channelNums:
 print('data extraction complete')
 
 #print max temp
-fm = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/max.txt', 'a')
+fm = open('../../../max.txt', 'a')
 fm.write(str(max(primaryTab[5]))+'\n')
 fm.close()
 
 #print asmptotic temp
-fa = open('/global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/asymptotic.txt', 'a')
+fa = open('../../../asymptotic.txt', 'a')
 fa.write(str(max(primaryTab[-1]))+'\n')
 fa.close()
 
