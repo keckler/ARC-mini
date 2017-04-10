@@ -106,7 +106,7 @@ for span in actuationSpans:
                 Popen(['sbatch', 'mini.sub'])
     
                 #pause to wait for job to finish so that memory limits are not exceeded
-                sleep(300)
+                sleep(500)
     
                 #remove excess files to preserver memory
                 remove('./RESTART.dat')
