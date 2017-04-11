@@ -85,11 +85,13 @@ for span in actuationSpans:
                     if line[:26] == '   18    8   17    1      ': #if its line with worth
                         fin.write('   18    8   17    1      '+str(worth)+'\n')
                     elif line[:32] == '  6001     5         0.0        ': #if its line with temp table
-                        fin.write('  6001     5         0.0          '+str(temp)+'          '+str(temp+(span/13*2))+'          '+str(temp+(span/13*3))+'          '+str(temp+(span/13*4))+'\n')
+                        fin.write('  6001     5         0.0          '+str(temp)+'          '+str(temp+(span/18*2))+'          '+str(temp+(span/18*3))+'          '+str(temp+(span/18*4))+'\n')
                     elif line[:12] == '  6006     5':
-                        fin.write('  6006     5          '+str(temp+(span/13*5))+'          '+str(temp+(span/13*6))+'          '+str(temp+(span/13*7))+'          '+str(temp+(span/13*8))+'          '+str(temp+(span/13*9))+'\n')
+                        fin.write('  6006     5          '+str(temp+(span/18*5))+'          '+str(temp+(span/18*6))+'          '+str(temp+(span/18*7))+'          '+str(temp+(span/18*8))+'          '+str(temp+(span/18*9))+'\n')
                     elif line[:12] == '  6011     5':
-                        fin.write('  6011     5          '+str(temp+(span/13*10))+'          '+str(temp+(span/13*11))+'         '+str(temp+(span/13*12))+'         '+str(temp+(span/13*13))+'      '+str(10000)+'\n')
+                        fin.write('  6011     5          '+str(temp+(span/18*10))+'          '+str(temp+(span/18*11))+'          '+str(temp+(span/18*12))+'          '+str(temp+(span/18*13))+'          '+str(temp+(span/18*14))+'\n')
+                    elif line[:12] == '  6016     5':
+                        fin.write('  6016     5          '+str(temp+(span/18*15))+'          '+str(temp+(span/18*16))+'         '+str(temp+(span/18*17))+'         '+str(temp+(span/18*18))+'      '+str(10000)+'\n')
                     else: #else just copy it over
                         fin.write(line)
                 fi.close()
