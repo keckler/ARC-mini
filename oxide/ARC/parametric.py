@@ -108,12 +108,19 @@ for span in actuationSpans:
                 Popen(['sbatch', 'mini.sub'])
     
                 #pause to wait for job to finish so that memory limits are not exceeded
-                sleep(500)
+                sleep(240)
     
-                #remove excess files to preserver memory
+                #remove excess files to preserve memory
+                completedFlag = 0
+                while completedFlag == 0: #if /globalPlots is available to be delted, the job is done and delete everything
+                    try:
+                        rmtree('./globalPlots')
+                        completedFlag = 1
+                    except OSError:
+                        sleep(60)
+                
                 remove('./RESTART.dat')
                 remove('./PRIMAR4.dat')
                 remove('./CHANNEL.dat')
-                rmtree('./globalPlots')
-    
+                    
                 chdir('../../../../') #move out of there
