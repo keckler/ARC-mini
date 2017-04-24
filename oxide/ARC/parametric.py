@@ -85,13 +85,13 @@ for span in actuationSpans:
                     if line[:26] == '   18    8   17    1      ': #if its line with worth
                         fin.write('   18    8   17    1      '+str(worth)+'\n')
                     elif line[:32] == '  6001     5         0.0        ': #if its line with temp table
-                        fin.write('  6001     5         0.0'+"{:>12.1f}".format(temp)+"{:>12.1f}".format(temp+(span/18*2))+"{:>12.1f}".format(temp+(span/18*3))+"{:>12.1f}".format(temp+(span/18*4))+'\n')
+                        fin.write('  6001     5         0.0'+"{0:>12.1f}".format(temp)+"{0:>12.1f}".format(temp+(span/18*2))+"{0:>12.1f}".format(temp+(span/18*3))+"{0:>12.1f}".format(temp+(span/18*4))+'\n')
                     elif line[:12] == '  6006     5':
-                        fin.write('  6006     5'+"{:>12.1f}".format(temp+(span/18*5))+"{:>12.1f}".format(temp+(span/18*6))+"{:>12.1f}".format(temp+(span/18*7))+"{:>12.1f}".format(temp+(span/18*8))+"{:>12.1f}".format(temp+(span/18*9))+'\n')
+                        fin.write('  6006     5'+"{0:>12.1f}".format(temp+(span/18*5))+"{0:>12.1f}".format(temp+(span/18*6))+"{0:>12.1f}".format(temp+(span/18*7))+"{0:>12.1f}".format(temp+(span/18*8))+"{0:>12.1f}".format(temp+(span/18*9))+'\n')
                     elif line[:12] == '  6011     5':
-                        fin.write('  6011     5'+"{:>12.1f}".format(temp+(span/18*10))+"{:>12.1f}".format(temp+(span/18*11))+"{:>12.1f}".format(temp+(span/18*12))+"{:>12.1f}".format(temp+(span/18*13))+"{:>12.1f}".format(temp+(span/18*14))+'\n')
+                        fin.write('  6011     5'+"{0:>12.1f}".format(temp+(span/18*10))+"{0:>12.1f}".format(temp+(span/18*11))+"{0:>12.1f}".format(temp+(span/18*12))+"{0:>12.1f}".format(temp+(span/18*13))+"{0:>12.1f}".format(temp+(span/18*14))+'\n')
                     elif line[:12] == '  6016     5':
-                        fin.write('  6016     5'+"{:>12.1f}".format(temp+(span/18*15))+"{:>12.1f}".format(temp+(span/18*16))+"{:>12.1f}".format(temp+(span/18*17))+"{:>12.1f}".format(temp+(span/18*18))+' '+str(10000)+'\n')
+                        fin.write('  6016     5'+"{0:>12.1f}".format(temp+(span/18*15))+"{0:>12.1f}".format(temp+(span/18*16))+"{0:>12.1f}".format(temp+(span/18*17))+"{0:>12.1f}".format(temp+(span/18*18))+' '+str(10000)+'\n')
                     else: #else just copy it over
                         fin.write(line)
                 fi.close()
