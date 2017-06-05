@@ -6,3 +6,5 @@ oxide/ARC/ULOF/
 oxide/ARC/ULOHS/
 oxide/ARC/UTOP/
 *parametric.log
+*.DS_Store
+*._*

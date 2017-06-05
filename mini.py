@@ -71,7 +71,8 @@ fb = open(miniDir+'/runs/'+str(i)+'/mini.sub', 'a') #new batch file
 
 #add command lines to execute mini and plot results
 fb.write(miniExe+' < '+input+' > '+output+'\n')
-fb.write(miniDir+'/extractSAS.py '+output)
+#fb.write(miniDir+'/extractSAS.py '+output)
+fb.write(miniDir+'/csvPlot.py ')
 
 fb.close()
 

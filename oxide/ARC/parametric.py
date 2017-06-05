@@ -101,26 +101,30 @@ for span in actuationSpans:
                 copyfile('/global/home/users/ckeckler/docs/mini/ARC-mini/mini_tmp.sub', './mini.sub')
                 fb = open('./mini.sub', 'a')
                 fb.write(miniExe+' < '+newPath+' > mini.out\n')
-                fb.write('/global/home/users/ckeckler/docs/mini/ARC-mini/extractSAS.py mini.out')
+                fb.write('/global/home/users/ckeckler/docs/mini/ARC-mini/csvPlot.py')
                 fb.close()
     
                 #run it
                 Popen(['sbatch', 'mini.sub'])
     
-                #pause to wait for job to finish so that memory limits are not exceeded
-                sleep(240)
-    
                 #remove excess files to preserve memory
                 completedFlag = 0
                 while completedFlag == 0: #if /globalPlots is available to be delted, the job is done and delete everything
                     try:
-                        rmtree('./globalPlots')
+                        remove('./flag.txt')
                         completedFlag = 1
                     except OSError:
-                        sleep(60)
+                        sleep(30)
                 
                 remove('./RESTART.dat')
                 remove('./PRIMAR4.dat')
                 remove('./CHANNEL.dat')
+                remove('./mini.out')
+                remove('./primar4.csv')
+                remove('./Channel000001.csv')
+                remove('./Channel000002.csv')
+                remove('./Channel000003.csv')
+                remove('./Channel000004.csv')
+                remove('./WholeCore.csv')
                     
                 chdir('../../../../') #move out of there
