@@ -51,6 +51,9 @@
 #        printed into the binary output files
 #     10. altered NBINOT, IBINST, and IBINOT to print out only the core flow to 
 #        the PRIMAR4.dat file at every time step
+# Jun 12 2017 -
+#     11. cleaned up input to remove duplicate variable definitions and unused
+#         data
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
@@ -71,7 +74,6 @@
 #    |  |  |  |  |  |  |  |  IACNTL: Control System Module Storage Allocation Flag
 #    |  |  |  |  |  |  |  |  |  IALBOP: BOP Module Storage Allocation Flag
 #    |  |  |  |  |  |  |  |  |  |
-#    1  0  0  0  0  1  0  1  1  1
      4  0  0  0  0  1  0  1  0  1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -81,17 +83,17 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1     0                                           MAXSTP
+    11     1999999                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
-    12     2  1000  1000                                     IPO,IPOBOI
+    12     2 10000  1000                                     IPO,IPOBOI
 #
 #                NOREAC: Main Time Step Intevals between PSHORT Print
 #                |
-    41     1  1000
+    41     1   100
 #
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
@@ -117,7 +119,7 @@ OPCIN     11     0     0
 #
 #                      TIMAX: Maximum Problem Time (s)
 #                      |
-     7     1         0.0                                     TIMAX
+     7     1     50000.0                                     TIMAX
 #
 #                      EPSTEM: Steady-State Temperature Convergence
 #                      |
@@ -129,24 +131,12 @@ OPCIN     11     0     0
 #
 #                      DT0: Initial and Max Main Time Step Size
 #                      |
-     5     1        1.00                                     DT0
+     5     1         0.5                                     DT0
 #
 #                      DTFUEL: Max Fuel Temp Change per Heat-Transfer Time Step
 #                      |           DTCLAD: Max Clad Temp Change per HT Time Step
 #                      |           |
     10     2         5.0        30.0                         DTFUEL,DTCLAD
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#
-#  POWINA: Core Power Parameters (Floating Point)
-#
-POWINA    12     0     0
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#
-#  PMATCM: Materials Properties
-#
-PMATCM    13     0     0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -172,7 +162,7 @@ INPCOM     1     1     1
 #
 #                NPREAT: Number of Entries in PREA vs. Time Table
 #                |       (Power or Reactivity vs Time)
-    18     1     0                                           NPREAT
+    18     1    20                                           NPREAT
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 POWINA    12     1     1
@@ -319,7 +309,6 @@ POWINA    12     1     1
 #                      ACRDEX: Control-Rod Reactivity Feedback Parameter
 #                      |           BCRDEX: (Quadratic Term)
 #                      |           |
-    73     2      -33.32      -41.51                         ACRDEX,BCRDEX
     73     2      -43.86      -42.84                         ACRDEX,BCRDEX
 #
 #                      CRDMC: Control-Rod Drive Mass x Specific Heat
@@ -400,14 +389,18 @@ XNOTES
      TABLE 1, HT-9                                                              
     -1                                                                          
 PMATCM    13     1     0                                                        
-     1     3 1.10800D 04 2.04000D-05 8.70000D-09                                
-     4     5 2.10000D 00 2.88000D-03 2.52000D-05 5.83000D-10 5.75000D-02        
-     9     2 5.03000D-04 2.91000D-11                                            
-    11     5 2.49000D+01 2.54000D+01 2.59000D+01 2.63000D+01 2.68000D+01        
-    16     3 2.72000D+01 2.76000D+01 2.80000D+01                                
-    71     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
-    76     3 8.73000D+02 9.73000D+02 1.07300D+03                                
-    91     5 1.09606D 04 1.08782D 04 1.07805D 04 1.06674D 04 1.05401D 04        
+     1     3 1.10800D 04 2.04000D-05 8.70000D-09                 COEFDS               
+     4     5 2.10000D 00 2.88000D-03 2.52000D-05 5.83000D-10 5.75000D-02        COEFK
+     9     2 5.03000D-04 2.91000D-11                                            COEFK
+    11     5     25.5220     25.8456     26.0844     26.2384     26.3076        EXKTB
+    16     5     26.2920     26.1916     26.0064     25.7364     25.3816
+    21     5     24.9420     24.60       24.8160     25.4250     26.0340
+    26     1     26.6430 
+    71     5       500.0       550.0       600.0       650.0       700.0        EXKTM
+    76     5       750.0       800.0       850.0       900.0       950.0
+    81     5      1000.0      1030.0      1050.0      1100.0      1150.0
+    86     1      1200.0 
+    91     5 1.09606D 04 1.08782D 04 1.07805D 04 1.06674D 04 1.05401D 04        RHOTAB
     96     5 1.03974D 04 1.02415D 04 1.00702D 04 9.88690D 03 9.75626D 03        
    101     5 9.29485D 03 9.29485D 03 8.92916D 03 8.88086D 03 8.35182D 03        
    111     5 9.04246D 03 8.97453D 03 8.89392D 03 8.80064D 03 8.69558D 03        
@@ -419,10 +412,10 @@ PMATCM    13     1     0
    151     5 9.02443D 03 8.95694D 03 8.87667D 03 8.78378D 03 8.67851D 03        
    156     5 8.56136D 03 8.43241D 03 8.29208D 03 8.14067D 03 7.97841D 03        
    161     3 7.95203D 03 8.86000D 03 8.74092D 03                                
-   171     5 1.02058D 04 1.01295D 04 1.00387D 04 9.93365D 03 9.81460D 03        
-   176     5 9.68211D 03 9.53629D 03 9.37758D 03 9.20636D 03 9.02286D 03        
-   181     3 8.99303D 03 8.86000D 03 8.74092D 03                                
-   251     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
+   171     5 7.74233E+03 7.71614E+03 7.68742E+03 7.65665E+03 7.62433E+03        
+   176     5 7.59096E+03 7.55702E+03 7.52301E+03 9.86748D 03 9.67080D 03         
+   181     3 9.63883D 03 8.86000D 03 8.74092D 03                                
+   251     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        RHOTEM
    256     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 2.97515D 03        
    261     5 3.00000D 03 3.00000D 03 3.02515D 03 3.07315D 03 3.67315D 03        
    271     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
@@ -434,11 +427,11 @@ PMATCM    13     1     0
    311     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
    316     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 3.07315D 03        
    321     3 3.12015D 03 3.12015D 03 3.25015D 03                                
-   331     5 3.73150D 02 6.73150D 02 9.73150D 02 1.27315D 03 1.57315D 03        
-   336     5 1.87315D 03 2.17315D 03 2.47315D 03 2.77315D 03 3.07315D 03        
+   331     5        373.        473.        573.        673.        773.
+   336     5        873.        973.       1073. 2.77315D 03 3.07315D 03        
    341     3 3.12015D 03 3.12015D 03 3.25015D 03                                
-   419     1 3.00150D 02                                                        
-   420     5 1.07460D 01 6.18860D 00 4.36000D 00 3.38800D 00 2.80100D 00        
+   419     1       298.0                                                        TR
+   420     5 1.07460D 01 6.18860D 00 4.36000D 00 3.38800D 00 2.80100D 00        XKTAB
    425     5 2.42800D 00 2.19200D 00 2.05400D 00 1.99400D 00 1.99900D 00        
    430     5 2.06400D 00 2.18500D 00 2.36100D 00 2.59300D 00 2.88000D 00        
    440     5 1.07460D 01 6.18960D 00 4.36000D 00 3.38800D 00 2.80100D 00        
@@ -450,13 +443,15 @@ PMATCM    13     1     0
    480     5 7.06022D 00 5.31637D 00 4.20760D 00 3.44427D 00 2.88957D 00        
    485     5 2.47247D 00 2.15777D 00 1.93512D 00 1.81340D 00 1.81595D 00        
    490     5 1.97569D 00 2.33061D 00 2.91999D 00 2.87022D 00 2.83327D 00        
-   500     5 7.88149D 00 5.93479D 00 4.69705D 00 3.84492D 00 3.22570D 00        
-   505     5 2.76008D 00 2.40877D 00 2.16022D 00 2.02434D 00 2.02718D 00        
-   510     5 2.20551D 00 2.60171D 00 3.25966D 00 3.20409D 00 3.16285D 00        
-   580     5 2.73150D 02 4.73150D 02 6.73150D 02 8.73150D 02 1.07315D 03        
-   585     5 1.27315D 03 1.47315D 03 1.67315D 03 1.87315D 03 2.07315D 03        
-   590     5 2.27315D 03 2.47315D 03 2.67315D 03 2.87315D 03 3.07315D 03        
-   606     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
+   500     5     25.5220     25.8456     26.0844     26.2384     26.3076
+   505     5     26.2920     26.1916     26.0064     25.7364     25.3816
+   510     5     24.9420     24.60       24.8160     25.4250     26.0340
+   515     1     26.6430 
+   580     5       500.0       550.0       600.0       650.0       700.0        XKTEM
+   585     5       750.0       800.0       850.0       900.0       950.0
+   590     5      1000.0      1030.0      1050.0      1100.0      1150.0
+   595     1      1200.0 
+   606     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        CPFTAB
    611     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
    616     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
    626     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
@@ -468,205 +463,73 @@ PMATCM    13     1     0
    666     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
    671     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
    676     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
-   686     5 2.24688D 02 2.76104D 02 2.95143D 02 3.06360D 02 3.14853D 02        
-   691     5 3.22211D 02 3.29373D 02 3.37970D 02 3.51533D 02 3.76340D 02        
-   696     5 4.21481D 02 4.98140D 02 6.18439D 02 6.18667D 02 4.85000D 02        
-   766     5 2.73150D 02 4.73150D 02 6.73150D 02 8.73150D 02 1.07315D 03        
-   771     5 1.27315D 03 1.47315D 03 1.67315D 03 1.87315D 03 2.07315D 03        
-   776     5 2.27315D 03 2.47315D 03 2.67315D 03 3.12000D 03 3.12000D 03        
-   786     5 2.97515D 03 2.97515D 03 3.11015D 03 3.11015D 03 3.11015D 03        
-   794     5 3.02115D 03 3.02115D 03 3.13015D 03 3.13015D 03 3.13015D 03        
-   802     5 2.64896D 05 2.64896D 05 2.77037D 05 2.77037D 05 2.77037D 05        
-   810     1 1690.15                                                            
-   813     1 1710.15                                                            
-   816     1 2.683  D 05                                                        
-   819     5 4.82500D+02 5.21480D+02 5.63370D+02 6.15380D+02 6.84680D+02        
-   824     5 7.84960D+02 8.66080D+02 1.02150D+03 1.21000D+03 8.68340D+02        
-   829     2 7.47970D+02 7.62140D+02                                            
-   879     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
-   884     5 8.73000D+02 9.23000D+02 9.73000D+02 9.98000D+02 1.02300D+03        
-   889     2 1.07300D+03 1.08856D+03                                            
-   990     5 3.73566D+06 4.02379D+06 4.33085D+06 4.71178D+06 5.22021D+06        
-   995     5 5.95863D+06 6.55969D+06 7.71948D+06 9.13369D+06 6.54728D+06        
-  1000     2 5.62698D+06 5.72962D+06                                            
-  1050     5 3.73000D+02 4.73000D+02 5.73000D+02 6.73000D+02 7.73000D+02        
-  1055     5 8.73000D+02 9.23000D+02 9.73000D+02 9.98000D+02 1.02300D+03        
-  1060     2 1.07300D+03 1.08856D+03                                            
-  1086     1 8.31434D+00                                                        
-   171     5 1.09387D 04 1.08569D 04 1.07596D 04 1.06470D 04 1.05194D 04        
-   176     5 1.03774D 04 1.02211D 04 1.00510D 04 9.86748D 03 9.67080D 03        
-   181     3 9.63883D 03 8.86000D 03 8.74092D 03                                
-   600     4 1.31000D+02 2.46000D-01 1.97000D+02 6.00000D-01                    
-   604     2 1.20000D+00 2.00000D-02                                            
-   910     4 8.48000D+08 7.58000D+08 7.14000D+08 6.96000D+08                    
+   686     5      482.50      521.48      563.37      615.38      684.68
+   691     5      784.96      866.08      1021.5      1210.0      868.34
+   696     2      747.97      762.14 6.18439D 02 6.18667D 02 4.85000D 02            
+   766     5 373.        473.        573.        673.        773.               CPFTEM
+   771     5 873.        923.        973.        998.        1023.
+   776     5 1073.       1088.6      2.67315D 03 3.12000D 03 3.12000D 03        
+   786     5 2.97515D 03 2.97515D 03 3.11015D 03 3.11015D 03 1700.0             TFSOL
+   794     5 3.02115D 03 3.02115D 03 3.13015D 03 3.13015D 03 1710.0             TFLIQ
+   802     5 2.64896D 05 2.64896D 05 2.77037D 05 2.77037D 05 268000.0           UFMELT
+   810     1 1700.0                                                             TESOL
+   813     1 1710.0                                                             TELIQ
+   816     1    268000.0                                                        UEMELT
+   819     5 482.50      521.48      563.37      615.38      684.68             CPCTAB
+   824     5 784.96      866.08      1021.5      1210.0      868.34
+   829     2 747.97      762.14
+   879     5 373.        473.        573.        673.        773.               CPCTEM
+   884     5 873.        923.        973.        998.        1023.
+   889     2 1073.       1088.6  
+   990     5 3.73567E+06 4.02381E+06 4.33086E+06 4.71175E+06 5.22023E+06        CROETB
+   995     5 5.95860E+06 6.55971E+06 7.71949E+06 9.13369E+06 6.54728E+06
+  1000     2 5.62699E+06 5.72958E+06 
+  1050     5 373.        473.        573.        673.        773.               CROETM
+  1055     4 873.        923.        973.        998.        1023.
+  1060     2 1073.       1088.6      
+  1086     1 8.31434D+00                                                        RGASSI
+   600     4 1.31000D+02 2.46000D-01 1.97000D+02 6.00000D-01                    FGMM GATPF ENPF RLEQ
+   604     2 1.20000D+00 2.00000D-02                                            RUEQ PRSMIN
+   910     4 8.48000D+08 7.58000D+08 7.14000D+08 6.96000D+08                    YLDTAB
    914     4 6.76000D+08 6.36000D+08 4.62000D+08 2.62000D+08                    
    918     3 1.38000D+08 3.45000D+07 0.00000                                    
-   970     4 2.55350D+02 3.66450D+02 4.77550D+02 5.88750D+02                    
+   970     4 2.55350D+02 3.66450D+02 4.77550D+02 5.88750D+02                    YLDTEM
    974     4 6.99850D+02 8.10950D+02 9.22050D+02 1.03315D+03                    
    978     3 1.14425D+03 1.25535D+03 1.64815D+03                                
-  1073     5 0.132       0.175       0.132       0.175       0.067              
+  1073     4       0.115       0.115       0.115       0.115                    PRSTY
   1077     1 0.043                                                              
-  1083     4 2.07040D+01 4.52810D+05 1.50000D+00 8.31434D+00                    
-  1087     4 4.50000D-01 5.00000D+04 5.65065D+04 1.71700D+10                    
-  1091     4 3.87000D+05 1.45556D-08 2.67000D+05 2.23000D-03                    
-  1095     4 6.33750D+04 9.46900D+02 3.13000D+03 3.30000D-06                    
-  1099     1 1.78000D-06                                                        
-  1101     1 1.66667D+00                                                        
-  1103     4 1.00000D+00 1.50000D-01 8.05000D-01 1.00000D+00                    
-  1107     4 5.67000D-08 9.00000D-01 8.00000D-01 6.92000D+03                    
-  1111     4 3.39500D+01 3.38000D-01 1.48000D+04 9.57500D+00                    
-  1115     4 2.00000D-04 1.10000D+04 3.00000D-01 3.26500D-01                    
-  1119     2 1.00000D+00 3.77000D+05                                            
-  1124     1 6.50000D+01                                                        
-  1225     2 4.00000D+00 3.00000D-03                                            
-  1258     2 1.00000D+00 2.00000D-01                                            
-  1261     3 1.00000D-01 6.00000D-01 1.00000D+00                                
-  1275     1 1.00000D-01                                                        
+  1083     4 2.07040D+01 4.52810D+05 1.50000D+00 8.31434D+00                    APORE QPORE ABC RGASSI
+  1087     4 4.50000D-01 5.00000D+04 5.65065D+04 1.71700D+10                    GAMMA APG QPG GK
+  1091     4 3.87000D+05 1.45556D-08 2.67000D+05 2.23000D-03                    QV GK1 QV1 GRAINK
+  1095     4 6.33750D+04 9.46900D+02 3.13000D+03 3.30000D-06                    GRAINQ CVXE CVHE ROFF
+  1099     1 1.78000D-06                                                        ROFC
+  1101     1 1.66667D+00                                                        GAMGS
+  1103     4 1.00000D+00 1.50000D-01 8.05000D-01 1.00000D+00                    ET ACCHE ACCXE CZERO
+  1107     4 5.67000D-08 9.00000D-01 8.00000D-01 6.92000D+03                    STEBOL EMSF EMSC QA1
+  1111     4 3.39500D+01 3.38000D-01 1.48000D+04 9.57500D+00                    QA2 QA3 QA4 QA5
+  1115     4 2.00000D-04 1.10000D+04 3.00000D-01 3.26500D-01                    ALFSS BETSS CNU FNU
+  1119     2 1.00000D+00 3.77000D+05                                            AM QLAX
+  1124     1 6.50000D+01                                                        RGAS
+  1225     2 4.00000D+00 3.00000D-03                                            HEMM EPSSFP
+  1258     2 1.00000D+00 2.00000D-01                                            FAXIAL FCLDWK
+  1261     3 1.00000D-01 6.00000D-01 1.00000D+00                                FSTRAN FTMPCH EXPCOF
+  1275     1 1.00000D-01                                                        FGFI
     -1                                                                          
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#
-#    FUEL PROPERTIES (ABR OXIDE CORE)
-#
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-PMATCM    13     1     1
-#
-#            TR: Reference Design Temperature
-#                      |
-   419     1      298.00                                     TR
-#
-#            FGMM: Molecular Weight of Fission Gas
-#                      |
-   600     1      131.00                                     FGMM
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-PMATCM    13     1     1
-#
-#            PRSTY(IFUEL): As-Fabricated Porosity for Each Fuel Type
-#                      |           |           |           |
-  1073     4       0.115       0.115       0.115       0.115 PRSTY
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#
-#    HT-9 "FUEL" PROPERTIES (Fuel Type 5)
-#
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-PMATCM    13     1     1
-#
-#            RHOTAB(L,IFUEL): Theoretical Fuel (Cladding) Density
-#                      |           |           |           |
-   171     4 7.74233E+03 7.71614E+03 7.68742E+03 7.65665E+03 RHOTAB(L,5)
-   175     4 7.62433E+03 7.59096E+03 7.55702E+03 7.52301E+03 RHOTAB(L,5)
-#
-#            RHOTEM(L,IFUEL): Temperature for RHOTAB(L,IFUEL)
-#                      |           |           |           |
-   331     4        373.        473.        573.        673. RHOTEM(L,5)
-   335     4        773.        873.        973.       1073. RHOTEM(L,5)
-#
-#            XKTAB(L,IFUEL): Fuel (Cladding) Thermal Conductivity
-#                      |           |           |           |
-   500     4     25.5220     25.8456     26.0844     26.2384 XKTAB(L,5)
-   504     4     26.3076     26.2920     26.1916     26.0064 XKTAB(L,5)
-   508     4     25.7364     25.3816     24.9420     24.60   XKTAB(L,5)
-   512     4     24.8160     25.4250     26.0340     26.6430 XKTAB(L,5)
-#
-#            XKTEM(L): Temperature for XKTAB(L,*)
-#                      |           |           |           |
-   580     4       500.0       550.0       600.0       650.0 XKTEM(L)
-   584     4       700.0       750.0       800.0       850.0 XKTEM(L)
-   588     4       900.0       950.0      1000.0      1030.0 XKTEM(L)
-   592     4      1050.0      1100.0      1150.0      1200.0 XKTEM(L)
-#
-#            CPFTAB(L,IFUEL): Fuel (Cladding) Specific Heat:
-#                      |           |           |           |
-   686     4 482.50      521.48      563.37      615.38      CPFTAB(L,5)
-   690     4 684.68      784.96      866.08      1021.5      CPFTAB(L,5)
-   694     4 1210.0      868.34      747.97      762.14      CPFTAB(L,5)
-#
-#            CPFTEM(L): Temperature for CPFTAB(L,*)
-#                      |           |           |           |
-   766     4 373.        473.        573.        673.        CPCTEM(L)
-   770     4 773.        873.        923.        973.        CPCTEM(L)
-   774     4 998.        1023.       1073.       1088.6      CPCTEM(L)
-#
-#            TFSOL(IFUEL): Fuel (Cladding) Solidus Temperature
-#                      |
-   790     1      1700.0                                     TFSOL(5)
-#
-#            TFLIQ(IFUEL): Fuel (Cladding) Liquidus Temperature
-#                      |
-   798     1      1710.0                                     TFLIQ(5)
-#
-#            UFMELT(IFUEL): Fuel (Cladding) Heat of Fusion
-#                      |
-   806     1    268000.0                                     UFMELT(5)
-    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 #    HT-9 CLADDING PROPERTIES
 #
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-PMATCM    13     1     1
 #
 #    Thermal Conductivity is From:
 #    L. Leibowitz and R. A. Blomquist, "Thermal Conductivity and Thermal
 #    Expansion of Stainless Steels D9 and HT9," International Journal of
 #    Thermophysics, Vol. 9, No. 5, September 1988.
 #
-#            EXKTB(L,ICLAD): Thermal Conductivity of Cladding at
-#                            Temperature L for Cladding Type ICLAD
-#                      |           |           |           |
-    11     4     25.5220     25.8456     26.0844     26.2384 EXKTB
-    15     4     26.3076     26.2920     26.1916     26.0064 EXKTB
-    19     4     25.7364     25.3816     24.9420     24.60   EXKTB
-    23     4     24.8160     25.4250     26.0340     26.6430 EXKTB
-#
-#            EXKTM(L): Temperature for EXKTB(L,*)
-#                      |           |           |           |
-    71     4       500.0       550.0       600.0       650.0 EXKTM
-    75     4       700.0       750.0       800.0       850.0 EXKTM
-    79     4       900.0       950.0      1000.0      1030.0 EXKTM
-    83     4      1050.0      1100.0      1150.0      1200.0 EXKTM
-#
-#            TESOL(ICLAD): Cladding Solidus Temperature
-#                      |
-   810     1      1700.0                                     TESOL
-#
-#            TELIQ(ICLAD): Cladding Liquidus Temperature
-#                      |
-   813     1      1710.0                                     TELIQ
-#
-#            UEMELT(ICLAD): Cladding Heat of Fusion
-#                      |
-   816     1    268000.0                                     UEMELT
-#
 #   Specific Heat and Density is From: (redacted)
-#
-#            CPCTAB(L,ICLAD): Cladding Specific Heat
-#                      |           |           |           |
-   819     4 482.50      521.48      563.37      615.38      CPCTAB
-   823     4 684.68      784.96      866.08      1021.5      CPCTAB
-   827     4 1210.0      868.34      747.97      762.14      CPCTAB
-#
-#            CPCTEM(L): Temperature for CPCTAB.
-#                      |           |           |           |
-   879     4 373.        473.        573.        673.        CPCTEM
-   883     4 773.        873.        923.        973.        CPCTEM
-   887     4 998.        1023.       1073.       1088.6      CPCTEM
 #
 #   Note: Density is being extrapolated past 650C (923K)
 #
-#            CROETB(L,ICLAD): Specific Heat x Density for Cladding
-#                      |           |           |           |
-   990     4 3.73567E+06 4.02381E+06 4.33086E+06 4.71175E+06 CROETB
-   994     4 5.22023E+06 5.95860E+06 6.55971E+06 7.71949E+06 CROETB
-   998     4 9.13369E+06 6.54728E+06 5.62699E+06 5.72958E+06 CROETB
-#
-#            CROETM(L): Temperature for CROETB
-#                      |           |           |           |
-  1050     4 373.        473.        573.        673.        CROETM
-  1054     4 773.        873.        923.        973.        CROETM
-  1058     4 998.        1023.       1073.       1088.6      CROTEM
-    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
 #
@@ -686,13 +549,6 @@ PMATCM    13     1     1
 #            #     # #     # #     # #    ## #    ## #       #
 #             #####  #     # #     # #     # #     # ####### #######
 #
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-INPCOM     1     1     1
-#
-#                NCHAN: Number of Channels
-#                |
-     1     1     1                                           NCHAN
-    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 XNOTES
 
@@ -735,9 +591,9 @@ INPCHN    51     1     0
     15     3     1     0     1                               IFUELV,ICLADV
 #
 #                NPIN: Number of Pins per Assembly
-#                |     NSUBAS: Number of Subassemblies in Channel
-#                |     |
-    25     2   271   180                                      NPIN,NSUBAS
+#                |
+#                |
+    25     2   271                                           NPIN
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
@@ -853,7 +709,7 @@ GEOMIN    61     1     0
 #
 #            ROUTFP(J): Fuel Outer Radius for Axial Segment J
 #                      |           |           |           |
-   128     1 3.21500E-03                                     ROUTFP
+   128     1 3.13313E-03                                     ROUTFP
 #
 #            ZONEL(KZ): Length of Zone KZ
 #                      |           |           |           |
@@ -892,12 +748,8 @@ GEOMIN    61     1     0
 #            RINFP: Fuel inner radius for axial segment 
 #                      | (Minimum of 1.0E-6 if ISSFUE = 1).
 #                      |
-   104     1 1.00000E-06                                     RERPL
+   104     1 1.00000E-06                                     RINFP
 #
-#            ROUTFP(J): Fuel Outer Radius for Axial Segment J
-#                       85% pin smear density, 89.5% pellet density
-#                      |           |           |           |
-   128     1 3.13313E-03                                     ROUTFP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -930,10 +782,6 @@ POWINC    62     1     0
     34     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
     38     2 1.00000D+00 1.00000D+00                         PSHAPR
 #
-#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-#                    Over All Subassemblies
-#                      |
-   256     1     5.55556                                     PRSHAP
 #
 #       DEFORM-4 Parameters
 #
@@ -971,7 +819,7 @@ PMATCH    63     1     0
 #                      |           |           HBPAR: Bond conductance = HBPAR/gap.
 #                      |           |           | If all three parameters in locations 
 #                      |           |           | 2-4 are zero     
-     5     3 8.00000D 03 8.00000D 03 2.86000D-02            HBMAX,HBMIN,HBPAR                           
+     5     3 3.00000D+04 1.00000D+02 2.86000D-02            HBMAX,HBMIN,HBPAR                           
 #
 #   Structure Thermal Conductivity based on HT-9.
 #
@@ -986,11 +834,11 @@ PMATCH    63     1     0
 #                      DEL: Stefan-Boltzmann's constant*emissivity
 #                      |          DGO: Initial grain size
 #                      |          |
-    25     2   4.818D-08        0.0                          DEL,DGO
+    25     2   4.818D-08 1.0000D-05                          DEL,DGO
 #
 #            P0GAS: Initial Plenum Gas Pressure at Reference Temperature TR
 #                      |
-    27     1 1.     D 05                                     P0GAS
+    27     1 1.01325D+05                                     P0GAS
 #
 #            XKRF(KZ): Reflector Thermal Coductivity for Zone KZ
 #                      |           |           |
@@ -1019,18 +867,6 @@ PMATCH    63     1     0
 #
 #       DEFORM-4 Parameters
 #
-#                      HBMAX: Maximum value of bond conductance when a gap 
-#                      |  exists; minimum value when a gap does not exist.
-#                      |           HBMIN: Minimum value of bond conductance. 
-#                      |           |         
-     5     2 3.00000D+04 1.00000D+02                       HBMAX,HBMIN
-#
-#                      DGO: Initial grain size
-#                      |           P0GAS: Initial Plenum Gas Pressure at 
-#                      |           |  Reference Temperature TR
-#                      |           |         
-    26     2 1.00000D-05 1.01325D+05                         DGO,P0GAS
-#
 #                      FGMIN: Fraction of retained fission gas that assists 
 #                      |  nonequilibrium fission gas bubble induced fuel 
 #                      |  swelling
@@ -1051,9 +887,8 @@ COOLIN    64     1     0
 #
 #            AFR, BFR: Liquid Slug Friction Factor Coefficients
 #                      |           |
-     1     2       0.316       -0.25                         AFR,BFR
+     1     2    0.361198       -0.25                         AFR,BFR
 #            Include effect of wire wrap: 0.316 x 1.143
-     1     1    0.361198                                     AFR
 #
 #            C1, C2, C3: Coefficients for Convection Heat-Transfer Coefficient
 #                      |           |           |
@@ -1065,12 +900,7 @@ COOLIN    64     1     0
 #                      |           |      and Laminar Friction Factor
 #                      |           |           AFLAM: Laminar Friction Factor =
 #                      |           |           |      AFLAM/Re
-     6     3 1.00000D-01 2.40000D+03 6.40000D+01             DWMAX,RELAM,AFLAM
-     7     2 1874.       90.                                 RELAM,AFLAM
-#
-#                      W0: Steady-State Coolant Flow Rate per Pin
-#                      |
-    47     1    0.103613                                     W0
+     6     3 1.00000D-01       1874.         90.             DWMAX,RELAM,AFLAM
 #
 #                      XKORV: EXPANSION AND CONTRACTION ORIFICE 
 #                      |      LOSSES AT THE SA INLET AND OUTLET
@@ -1120,7 +950,7 @@ INPCHN    51     1     1
 #
 #                IAXEXP: Simple Axial Expansion Feedback Model Flag
 #                |       (0/1/2=No/Calculate/Calculate and Print)
-   181     1     1                                           IAXEXP
+   181     1     0                                           IAXEXP
 #
 #                JSTRDX: Axial Structure Node Corresponding to Above-Core
 #                |       Load Pad
@@ -1138,90 +968,6 @@ INPCHN    51     1     1
 #                |
    365     1     1                                           IREACZ
 #
-#       DEFORM-4 Parameters
-#
-#                IAXEXP: Simple axial expansion reactivity feedback model.  
-#                |      Can not be used with DEFORM-4.
-#                |      (=0, No simple axial expansion feedback)
-   181     1     0                                                              
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-POWINC    62     1     1
-#
-#                      ADOP: Flooded Doppler Coefficient
-#                      |           BDOP: Voided Doppler Coefficient
-#                      |           |
-    62     2  -7.021E-03  -5.228E-03                         ADOP,BDOP
-#
-#   WDOPA(J): Axial Doppler Weighting Factor
-#
-#   Values are region averaged for each axial segment. No fine-meshed
-#   values were available. Values are based on flooded Doppler axial
-#   distribution.
-#
-#                      |           |           |           |           |
-    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-#
-    69     4      0.0622      0.0622      0.0622      0.0622             D
-    73     4      0.0760      0.0760      0.0760      0.0760             E
-    77     4      0.0655      0.0655      0.0655      0.0655             F
-    81     4      0.0337      0.0337      0.0337      0.0337             G
-    85     4      0.0126      0.0126      0.0126      0.0126             H
-#
-#   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
-#
-#   Whole-core coolant reactovity worth is entered on the coolant mesh
-#   to characterize the axial dependence of the density worth. Only
-#   region-averaged values were available.
-#
-#                      |           |           |           |           |
-   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
-   117     4  5.5236E-06  5.5236E-06  5.5236E-06  5.5236E-06             D
-   121     4  2.3345E-05  2.3345E-05  2.3345E-05  2.3345E-05             E
-   125     4  2.1645E-05  2.1645E-05  2.1645E-05  2.1645E-05             F
-   129     4  7.5399E-06  7.5399E-06  7.5399E-06  7.5399E-06             G
-   133     4 -2.2748E-06 -2.2748E-06 -2.2748E-06 -2.2748E-06             H
-   137     1 -2.2066E-06                                                 BOND
-   138     5 -3.1132E-07 -3.1132E-07 -3.1132E-07 -3.1132E-07 -3.1132E-07 PLNM
-   143     5  5.9447E-12  5.9447E-12  5.9447E-12  5.9447E-12  5.9447E-12 UPPRF
-#
-#   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
-#
-#   Whole-core cladding worth includes contributions from wire-wrap.
-#   Cladding worth per kg: -6.10087E-06
-#   Cladding + wire wrap worth per kg of cladding: -6.77579E-06
-#   The second value above is weighted by the square of the axial
-#   power distribution from the assembly in position IC34.
-#
-#   Whole-core cladding worth should be -10.65 $.
-#
-#                      |           |           |           |           |
-   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-#
-   165     4 -3.6118E-06 -4.5523E-06 -5.5248E-06 -6.4876E-06             D
-   169     4 -7.3974E-06 -8.2113E-06 -8.8896E-06 -9.3975E-06             E
-   173     4 -9.7073E-06 -9.7998E-06 -9.6657E-06 -9.3062E-06             F
-   177     4 -8.7333E-06 -7.9699E-06 -7.0489E-06 -6.0122E-06             G
-   181     4 -4.9094E-06 -3.7953E-06 -2.7283E-06 -1.7673E-06             H
-#
-#   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
-#
-#   Whole-core fuel worth is calculated using the SAS basis for
-#   fuel density, a MOX fuel is assumed, with a density
-#   of 9.785 g/cc. Core-average fuel worth is 2.37643E-05 per kg.
-#   This is weighted by the square of the axial power distribution
-#   from the assembly in position IC34.
-#
-#   Whole-core fuel worth should be 118.10 $.
-#
-#                      |           |           |           |           |
-   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-#
-   213     4  1.2667E-05  1.5966E-05  1.9377E-05  2.2754E-05             D
-   217     4  2.5944E-05  2.8799E-05  3.1178E-05  3.2959E-05             E
-   221     4  3.4046E-05  3.4370E-05  3.3900E-05  3.2639E-05             F
-   225     4  3.0630E-05  2.7952E-05  2.4722E-05  2.1086E-05             G
-   229     4  1.7218E-05  1.3311E-05  9.5689E-06  6.1984E-06             H
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     1     1
@@ -1256,7 +1002,7 @@ INPCOM     1     1     1
 #
 #                IPRION: PRIMAR-4 Option Flag
 #                |
-    27     1     0                                           IPRION
+    27     1     4                                           IPRION
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1268,14 +1014,14 @@ OPCIN     11     1     1
 #                      DTP0: Initial PRIMAR Time Step Size
 #                      |           DTPMAX: Maximum PRIMAR Time Step Size Before
 #                      |           |       Boiling Starts
-    13     2        0.25        0.25                         DTP0,DTPMAX
+    13     2         0.5         1.0                         DTP0,DTPMAX
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PRIMIN    14     0     0
 #
 #            PX: Coolant Exit Pressure at ZPLENU
 #                      |
-     1     1   1.503E+05                                     PX
+     1     1    1.49E+05                                     PX
 #
 #            T0TAB(L): Inlet Temperature at Time T0TME(L)
 #                      |           |
@@ -1311,56 +1057,10 @@ INPCOM     1     1     1
 #                |
      8     1     0
 #
-#                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
-#                |       Time Steps
-    11     1     0                                           MAXSTP
-#
-#                IPO: Number of Steps between Prints before IBLPRT or Boiling
-#                |     IPOBOI: Number of Steps between Prints after IBLPRT or Boiling
-#                |     |
-    12     2   500   500                                     IPO,IPOBOI
-#
-#                NPREAT: Number of Entries in PREA vs. Time Table
-#                |       (Power or Reactivity vs Time)
-    18     1     4                                           NPREAT
-#
-#                NOREAC: Main Time Step Intevals between PSHORT Print
-#                |
-    41     1   500
-#
 #                IFIT(K): Input Table Lookup Options (K=1: Power/Reac vs. Time)
 #                |        (0=Linear Fit)
     95     1     0                                           IFIT(1)
     -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#POWINA    12     1     1
-#
-#                      PREATB: Transient External Reactivity or Normalized Power
-#                      |           |           |           |           |
-#    29     4        0.00        0.00        0.00        0.00             PREATB
-#
-#                      PREATM: Transient Problem Times for PREATB
-#                      |           |           |           |           |
-#    49     4         0.0      1000.0      2000.0      4000.0             PREATM
-#    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-OPCIN     11     1     1
-#
-#                      TIMAX: Maximum Problem Time (s)
-#                      |
-     7     1      1000.0                                     TIMAX
-#
-#                      DTMIN: Time Step Sizes vs. Time
-#                      |           |           |           |
-    95     4         0.1         0.2         0.5         0.5
-#
-#                      TDTMIN: Time for Time Step Sizes
-#                      |           |           |           |
-   105     4      1000.0      1000.0      2000.0      4000.0
-    -1
-#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-#ENDJOB    -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 #   CHANNEL   REGION
@@ -1404,7 +1104,7 @@ INPCHN    51     1     1
 #
 #                NSUBAS: Number of Subassemblies in Channel
 #                |
-    26     1    78                                           NSUBAS
+    26     1    77                                           NSUBAS
     -1
 INPCHN    51     2     1                                                
 #
@@ -1427,7 +1127,7 @@ POWINC    62     1     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     6.17462                                     PRSHAP
+   256     1     6.18195                                     PRSHAP
     -1
 POWINC    62     2     1                                                
 #
@@ -1446,7 +1146,7 @@ COOLIN    64     1     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.107153                                     W0
+    47     1    0.107342                                     W0
     -1
 COOLIN    64     2     1                                                
 #
@@ -1482,7 +1182,7 @@ POWINC    62     1     1
 #                      ADOP: Flooded Doppler Coefficient
 #                      |           BDOP: Voided Doppler Coefficient
 #                      |           |
-    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
+    62     2  -4.584E-03  -3.371E-03                         ADOP,BDOP
 #
 #   WDOPA(J): Axial Doppler Weighting Factor
 #
@@ -1660,13 +1360,6 @@ INPCHN    51     3     0
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
     25     2    91    81                                     NPIN,NSUBAS
-#
-#                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
-#                |     JNEN: Axial Node of Cladding Output for Plotting
-#                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
-#                |     |     |     JNSN: Axial Coolant Node of Structure
-#                |     |     |     |     Output for Plotting
-#    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
 #
 #                IRHOK: Fuel Properties Correlation Selection Flag
 #                |      (0=Use Tabular Input)
@@ -1898,13 +1591,6 @@ XNOTES
 
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-INPCHN    51     1     1                                                
-#
-#                NSUBAS: Number of Subassemblies in Channel
-#                |
-    26     1    78                                           NSUBAS
-    26     1    77                                           NSUBAS
-    -1
 INPCHN    51     4     1                                                
 #
 #                NSUBAS: Number of Subassemblies in Channel
@@ -1917,14 +1603,6 @@ GEOMIN    61     1     1
 GEOMIN    61     4     1                                                
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-POWINC    62     1     1                                                
-#
-#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-#                    Over All Subassemblies
-#                      |
-   256     1     6.17462                                     PRSHAP
-   256     1     6.18195                                     PRSHAP
-    -1
 POWINC    62     4     1                                                
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
@@ -1938,13 +1616,6 @@ PMATCH    63     1     1
 PMATCH    63     4     1                                                
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-COOLIN    64     1     1                                                
-#
-#                      W0: Steady-State Coolant Flow Rate per Pin
-#                      |
-    47     1    0.107153                                     W0
-    47     1    0.107342                                     W0
-    -1
 COOLIN    64     4     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
@@ -1955,20 +1626,11 @@ COOLIN    64     4     1
 #
 #   PEAK CHANNEL FEEDBACK ADJUSTMENTS
 #
-POWINC    62     1     1
-#
-#                      ADOP: Flooded Doppler Coefficient
-#                      |           BDOP: Voided Doppler Coefficient
-#                      |           |
-    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
-    62     2  -4.584E-03  -3.371E-03    = 77/78              ADOP,BDOP
-    -1
 POWINC    62     4     4
 #
 #                      ADOP: Flooded Doppler Coefficient
 #                      |           BDOP: Voided Doppler Coefficient
 #                      |           |
-    62     2  -4.644E-03  -3.415E-03                         ADOP,BDOP
     62     2  -5.953E-05  -4.378E-05    = 1/78               ADOP,BDOP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
@@ -1976,47 +1638,14 @@ XNOTES
       THIS SECTION COMPLETES CORE DESIGN
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-#ENDJOB    -1
-######## ####### ####### ####### ####### ####### ####### ####### ####### #######
 XNOTES
        PRIMAR-4 MODEL
        POOL DESIGN
        SMALL DRACS IN COLD POOL
     -1
-INPCOM     1     1     1
-    27     1     4                              IPRION
-    -1
 OPCIN     11     1     1
-    26     1 1.0                               DTSSCP, NULL TRANS. STEP SIZE
     26     1 20.                               DTSSCP, NULL TRANS. STEP SIZE
-    27     1      1.0-12                       EPSSCP, CONVERGENCE CRITERION
     27     1 -1.0                              EPSSCP, CONVERGENCE CRITERION
-    -1
-PRIMIN    14     1     1
-#
-#            PX: Coolant Exit Pressure at ZPLENU
-#                      |
-     1     1 1.9    D 05                                     PX
-     1     1 1.49   D 05                                     PX
-#
-#            T0TAB(L): Inlet Temperature at Time T0TME(L)
-#                      |           |
-    45     2      628.15      628.15                         T0TAB
-#
-#            T0TME(L): Time for Inlet Temperature T0TAB(L)
-#                      |           |
-    65     2         0.0   1000000.0                         T0TME
-#
-#            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
-#                      |           |
-    87     2       -0.60        2.30                         ZPLENL,ZPLENU
-    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
-    87     2     -1.1176       3.302                         ZPLENL,ZPLENU    
-#
-#            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
-#                      |
-    96     1         0.8                                     THT2VL
     -1
 INPMR4     3     1     0
      1     1     5                                           NCVP
@@ -2167,13 +1796,8 @@ INPMR4     3     1     0
    852     1    -1        ISGCLC, TABLE LOOK-UP, TABLE 1
    864     1     3        IEVAP, ONCE-THROUGH STEAM GENERATOR
 #                   PRINTS
-   890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
    890     1200000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
 #                   BINARY OUTPUT ON fort.15
-#   891     1    10        NBINOT
-#   892     1     2        IBINST
-#   892     1   200        IBINST
-#   893    10245001     9 15002    10185001     2395001     2770001780001  IBINOT
 #                   print only the core flow
    891     1     1       NBINOT
    892     1     1       IBINST
@@ -2182,24 +1806,17 @@ INPMR4     3     1     0
    991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
    992     1    22        IELDHX, ELEMENT NUMBER
 #                   Control Rod Drive Expansion Reactivity Feedback
-  1008     1     2        NEXPFB
   1008     1     1        NEXPFB
   1009     1    -3        IEXPFB(1)
   1010     1    -5        IEXPFB(2)
 #                   COMPONENT-COMPONENT HEAT TRANSFER
-  1052     1    -1        IELHT
-  1082     1    -4        IELHT2
   1052     1     0        IELHT
   1082     1     0        IELHT2
 #                   COMMON COVER GAS PRESSURES
   1153     1     2        NCCV
   1154     1     2        ICCVFS
 #                   NULL TRANSIENT
-  1288     1   200        ISSCPC
-  1288     1  2000        ISSCPC
   1288     1  1000        ISSCPC
-  1289     1   100        ISST15
-  1289     1  1000        ISST15
   1289     1   500        ISST15
 #                   STRATIFIED COMPRESSIBLE VOLUMES
   1313     1     0        NSTRCV
@@ -2232,7 +1849,6 @@ PMR4IN    18     1     0
      9     1 1290.        FLOSSL(8)
     10     1 1290.        FLOSSL(9)
     11     1 0.           FLOSSL(10)
-    42     1 -1.2446      ZINL(1), INLET ELEVATION
     42     1 -1.1176      ZINL(1), INLET ELEVATION
     43     1 7.31         ZINL(2)
     44     1 2.016        ZINL(3)
@@ -2282,7 +1898,6 @@ PMR4IN    18     1     0
    185     1 2.263        ZOUTEL(24)
    186     1 4.763        ZOUTEL(25)
    187     1 22.0         ZOUTEL(26)
-   302     1 4.573        XLENEL(1), ELEMENT LENGTH
    302     1 4.419        XLENEL(1), ELEMENT LENGTH
    303     1 4.78         XLENEL(2)
    304     1 .7172        XLENEL(3)
@@ -2599,21 +2214,6 @@ PMR4IN    18     1     0
   2661     1 10.          CMWALL(8)
   2662     1 10.          CMWALL(9)
 #                PUMPS
-  1899     2 900.        500.             PMPINR
-  1899     2 920.        80.              PMPINR
-  1899     2 930.        160.             PMPINR
-  1899     2 930.        250.             PMPINR
-  1899     2 930.        270.             PMPINR
-  1899     2 930.        275.             PMPINR
-  1899     2 225.        275.             PMPINR
-  1899     2 500.        275.             PMPINR
-  1899     2 400.        200.             PMPINR
-  1899     2 200.        100.             PMPINR
-  1899     2 220.        50.              PMPINR
-  1899     2 218.        25.              PMPINR
-  1899     2 218.        15.              PMPINR
-  1899     2 218.        10.              PMPINR
-  1899     2 218.        9.               PMPINR
   1899     2 930.        9.               PMPINR
   1911     2 370000.     160000.          HEADR
   1923     2 125.7       125.7            PMPSPR
@@ -2651,7 +2251,6 @@ PMR4IN    18     1     0
   3273     4 0.          10.         11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
 #                 IHX, DRACS
-  3445     2 815992.     218000.                                         PRSIHX
   3445     2 706348.     243000.                                         PRSIHX
   3455     5 .125        .25         .5          1.0         1.0         DZSHPX
   3460     5 1.          1.          1.          1.          1.
@@ -2680,53 +2279,20 @@ PMR4IN    18     1     0
   3801     1 .017525                                                     RITB
   3805     1 .02108                                                      ROTB
   3809     1 9.7                                                         XKTB
-  3813     1 15.6                                                        HOTB
-  3813     1 31.8                                                        HOTB
-  3813     1 25.8                                                        HOTB
-  3813     1 20.0                                                        HOTB
-  3813     1 23.7                                                        HOTB
-  3813     1 24.0                                                        HOTB
   3813     1 24.00                                                       HOTB
   3817     1 5200.                                                       HITB
-  3821     1 170.                                                        AHT
-  3821     1 255.5                                                       AHT
-  3821     1 1000.                                                       AHT
-  3821     1 450.                                                        AHT
-  3821     1 400.                                                        AHT
-  3821     1 437.                                                        AHT
-  3821     1 500.                                                        AHT
-  3821     1 480.                                                        AHT
-  3821     1 486.                                                        AHT
   3821     1 474.                                                        AHT
   3825     1 5.                                                          SRLEN
-  3825     1 15.                                                         SRLEN
-  3825     1 18.                                                         SRLEN
-  3825     1 20.                                                         SRLEN
-  3825     1 22.                                                         SRLEN
-  3825     1 25.                                                         SRLEN
-  3825     1 10.                                                         SRLEN
-  3825     1 11.                                                         SRLEN
-  3825     1 5.                                                          SRLEN
-  3829     1 1.16                                                        XKHXLS
-  3829     1 2.22                                                        XKHXLS
   3829     1 1.306                                                       XKHXLS
   3833     1 1.0                                                         XKRLS
   3837     1 .2                                                          XKSOLS
-  3841     1 4.69                                                        AHX
-  3841     1 7.038                                                       AHX
-  3841     1 28.                                                         AHX
   3841     1 15.                                                         AHX
-  3845     1 15.                                                         AR
-  3845     1 60.                                                         AR
   3845     1 30.                                                         AR
-  3849     1 11.61                                                       ASI
-  3849     1 17.42                                                       ASI
   3849     1 50.                                                         ASI
   3853     4 10000.      10000.      0.5         0.5                     XKSILS
   3893     4 0.          2.          3.          9999999.                XKSILS
   3933     1 300.                                                        AIRTMP
 #              CONTROL ROD DIRVE REACTIVITY FEEDBACK
-  4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
   4175     1 2.7     -05   VSLEXP(2), DZ = 2.7, EXP. COEF. = 1.0-5
   4174     1 8.7     -05   VSLEXP(1), DZ = 8.7, EXP. COEF. = 1.0-5
 #              COMPONENT-TO-COMPONENT HEAT TRANSFER
@@ -2749,63 +2315,18 @@ PMR4IN    18     1     0
   5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
   5180     1 2.973                                                       ZINST(1)
   5181     1 -1.6                                                        ZINST(2)
-  5186     1 10.                                                         EPSTST
   5186     2 2.0         2.0                                             EPSTST  
-  5189     1 20.                                                         XLENTR
   5189     2 100.        100.                                            XLENTR
     -1
-XNOTES
-     fort.15 output from PRIMAR-4                         07/05 FED
-     each record contains:  ISTEP, IPRSTP, NBNTOT, (ARRAY(I),I=1,NBNTOT)
-        ISTEP = main time step
-        IPRSTP = primar time step
-
-     I     ARRAY(I)
-     1     TIMEP2 = time at the end of the PRIMAR time step
-   2-10    TLQCV2(ICV = 1-9) = liquid temperature in compressible volume
-  11-19    FLOSL2(ISGL=2-10) = coolant flow rate
-  20-21    HEADP2(IPMP=1-2) = pump head, primary pump
-  22-23    PSPED2(IPMP=1-2) = pump speed, primary pump
-    24     QQ(1) = heat removal from air dump heat exchanger connected to DRACS
-    25     WAIR(1) = air flow rate through the air dump heat exchanger
-
-
-        NBNTOT = 25
-        ICV = COMPRESSIBLE VOLUME
-        ISGL = LIQUID SEGMENT
-        IPMP = PUMP
-    -1
-XNOTES
-     PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
-    -1
 INPCOM     1     1     1
-    41     1     0            NOREAC
-     8     1     0            IPOWER
-    11     1     0            MAXSTP
-    11     1 10000            MAXSTP
-    11     1999999            MAXSTP
-    12     1    10            IPO
-    18     1     3            NPREAT
-    18     1    20            NPREAT
-    15     1   100            NSTEP
-    41     1   100            NOREAC
-    41     1   100            NOREAC        
-    12     1 10000            IPO    
     15     1   100            NSTEP
    107     1   700            MSTPLA    
-   108     1 10000            MSTPLB
    108     1 15000            MSTPLB
    109     1     1            MSTPL1
    110     1    20            MSTPL2
    111     1    40            MSTPL3 
     -1
 OPCIN     11     1     1
-     5     1 .5               DT0     
-     7     1 500.             TIMAX
-     7     1 2000.            TIMAX
-     7     1 50000.           TIMAX
-    13     1 .5               DTP0
-    14     1 1.               DTPMAX
     95     4 .01         .01         .01         .01          DTMIN
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
