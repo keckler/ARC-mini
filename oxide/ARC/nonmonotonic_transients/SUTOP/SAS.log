@@ -2177,7 +2177,7 @@
     2177:   #                   print only the core flow                                        
     2178:      891     1     1       NBINOT                                                     
     2179:      892     1     1       IBINST                                                     
-    2180:      893     1 50001       IBINOT                                                     
+    2180:      893     1 90001       IBINOT                                                     
     2181:   #                   AIR DUMP HEAT EXCHANGER                                         
     2182:      991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS                  
     2183:      992     1    22        IELDHX, ELEMENT NUMBER                                    
