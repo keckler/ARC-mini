@@ -45,5 +45,5 @@
 # -----------------------------------------------------------------------------                                                                                                   
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
-~/bin/mini-5.2/mini-5.x-2522-Linux.x < /global/home/users/ckeckler/docs/mini/ARC-mini/UPS_0.87_10.inp > mini.out
+~/bin/mini-5.2/mini-5.x-2522-Linux.x < /global/home/users/ckeckler/docs/mini/ARC-mini/oxide/ARC/nonmonotonic_transients/UPS/ARC/UPS_0.87_10.inp > mini.out
 /global/home/users/ckeckler/docs/mini/ARC-mini/csvPlot.py 
