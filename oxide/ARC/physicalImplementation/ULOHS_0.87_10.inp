@@ -910,14 +910,14 @@ COOLIN    64     1     0
     48     1         0.5                         XKORV(1,1)
 #    49     1                                     XKORV(2,1)
 #    50     1                                     XKORV(3,1)
-    51     1         1.0                         XKORV(4,1)
-    52     1         0.5                         XKORV(5,1)
+    51     1         0.5                         XKORV(4,1)
+    52     1        0.25                         XKORV(5,1)
     53     1         1.0                         XKORV(6,1)
     56     1         1.0                         XKORV(1,2)
 #    57     1                                     XKORV(2,2)
 #    58     1                                     XKORV(3,2)
-    59     1         0.5                         XKORV(4,2)
-    60     1         1.0                         XKORV(5,2)
+    59     1        0.25                         XKORV(4,2)
+    60     1         0.5                         XKORV(5,2)
     61     1         0.5                         XKORV(6,2)
 #
 #            DZIAB, DZIAT: Effective Coolant Inertial Term Below/Above
