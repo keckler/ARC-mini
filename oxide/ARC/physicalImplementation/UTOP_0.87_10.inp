@@ -832,7 +832,7 @@ PMATCH    63     1     0
 #
 #            XKSTOZ(KZ): Outer Structure Thermal Conductivity for Zone KZ
 #                      |           |           |
-    18     3         26.         26.         26.         26.         26. XKSTOZ
+    18     5         26.         26.         26.         26.         26. XKSTOZ
 #
 #                      DEL: Stefan-Boltzmann's constant*emissivity
 #                      |          DGO: Initial grain size
