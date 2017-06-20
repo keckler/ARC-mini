@@ -49,6 +49,9 @@
 # Jun 12 2017 -
 #     10. cleaned up input to remove duplicate variable definitions and unused
 #         data
+# Jun 15 2017 - 
+#     11. added/edited to include the ARC system in the thermal-hydraulic
+#         modeling. see variables.xlsx to know what all was changed
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
@@ -321,7 +324,7 @@ POWINA    12     1     1
 #                      RDEXPC: Coefficient in Simple Radial Expansion Feedback Model
 #                      |           XMCXAC: Ratio of Distances XMC/XAC
 #                      |           |       (Nozzle-Midplane/Nozzle-Load Pad)
-    78     2   -0.002202        0.80                         RDEXPC,XMCXAC
+    78     2   -0.002202      0.8431                         RDEXPC,XMCXAC
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -571,11 +574,11 @@ INPCHN    51     1     0
 #                |     NREFB: Number of Reflector Zones below Pin
 #                |     |     NREFT: Number of Reflector Zones above Pin
 #                |     |     |      (Note: Below + Above <= 6)
-     4     3     6     1     1                               NPLN,NREFB,NREFT
+     4     3     6     1     3                               NPLN,NREFB,NREFT
 #
 #                NZNODE(KZ): Number of Segments in Zone KZ
 #                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
-     7     3     5    26     5                               NZNODE
+     7     5     5    26     1     1     5                   NZNODE
 #
 #                NT: Number of Radial Temperature Nodes in Fuel
 #                |
@@ -660,7 +663,7 @@ GEOMIN    61     1     0
 #
 #            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
 #                      |           |           |           |
-     1     3 2.50266E-05 2.50266E-05 2.50266E-05             ACCZ
+     1     5 2.50266E-05 2.50266E-05 7.09719E-05 5.56361E-05 2.50266E-05 ACCZ
 #
 #            AXHI(J): Length of Axial Segment J in Core and Blanket
 #                      |           |           |           |
@@ -672,17 +675,17 @@ GEOMIN    61     1     0
 #
 #            DHZ(KZ): Hydraulic Diameter for Zone KZ
 #                      |           |           |           |
-    32     3 3.36149E-03 3.36149E-03 3.36149E-02             DHZ
+    32     5 3.36149E-03 3.36149E-03 1.42313E-01 5.76981E-02 3.36149E-02 DHZ
 # DH in upper reflector is increased by 10x compared to that in core
 # to reduce the pressure drop through the upper structure of the assembly
 #
 #            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
 #                      |           |           |           |
-    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
+    39     5 4.49555E-04 4.49555E-04 4.49555E-04 4.49555E-04 4.49555E-04 DSTIZ (10% Nom+Gap)
 #
 #            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
 #                      |           |           |           |
-    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
+    46     5 7.45760E-03 4.04599E-03 4.04599E-03 4.04599E-03 4.04599E-03 DSTOZ (90% Nom+Gap)
 #
 #            PLENL: Length of Fission-Gas Plenum
 #                      |
@@ -711,11 +714,11 @@ GEOMIN    61     1     0
 #
 #            ZONEL(KZ): Length of Zone KZ
 #                      |           |           |           |
-   152     3      1.1176      2.6670       0.635             ZONEL
+   152     5      1.1176      2.6670 3.00000E-01 1.50000E-01      0.635 ZONEL
 #
 #            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
 #                      |           |           |           |
-   159     3 2.21004E-03 2.21004E-03 2.21004E-03             SRFSTZ
+   159     5 2.21004E-03 2.21004E-03 2.21004E-03 2.21004E-03 2.21004E-03 SRFSTZ
 #
 #            AREAPC: Coolant Plus Pin Area per Pin
 #                      |
@@ -731,15 +734,15 @@ GEOMIN    61     1     0
 #
 #            SER(KZ): Reflector/Pin Perimeter
 #                      |           |           |           |
-   182     3 2.37190E-02 2.37190E-02 2.37190E-02             SER
+   182     5 2.37190E-02 2.37190E-02 8.76400E-05 1.94987E-03 2.37190E-02 SER
 #
 #            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
 #                      |           |           |           |
-   169     3 9.43750E-04 5.60000E-04 9.43750E-04             DRFO
+   169     5 9.43750E-04 5.60000E-04 1.00000E-06 7.95000E-03 9.43750E-04 DRFO
 #
 #            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
 #                      |           |           |           |
-   189     3 9.43750E-04 0.00000E+00 9.43750E-04             DRFI
+   189     5 9.43750E-04 0.00000E+00 1.00000E-06 7.95000E-03 9.43750E-04 DRFI
 #
 #       DEFORM-4 Parameters
 #
@@ -823,11 +826,11 @@ PMATCH    63     1     0
 #
 #            XKSTIZ(KZ): Inner Structure Thermal Conductivity for Zone KZ
 #                      |           |           |
-    11     3         26.         26.         26.             XKSTIZ
+    11     5         26.         26.         26.         26.         26. XKSTIZ
 #
 #            XKSTOZ(KZ): Outer Structure Thermal Conductivity for Zone KZ
 #                      |           |           |
-    18     3         26.         26.         26.             XKSTOZ
+    18     5         26.         26.         26.         26.         26. XKSTOZ
 #
 #                      DEL: Stefan-Boltzmann's constant*emissivity
 #                      |          DGO: Initial grain size
@@ -840,7 +843,7 @@ PMATCH    63     1     0
 #
 #            XKRF(KZ): Reflector Thermal Coductivity for Zone KZ
 #                      |           |           |
-    28     3       19.78         26.       19.78             XKRF
+    28     5       19.78         26. 1.00000E-05 3.56800E+01       19.78 XKRF
 #
 #            DENSS: Density of Solid Cladding at Reference Temperature TR
 #                      |
@@ -848,15 +851,15 @@ PMATCH    63     1     0
 #
 #            RHOCSI(KZ): Density x Heat Capacity for Inner Structure
 #                 ~350C|      ~425C|      ~510C|
-    37     3 4.52000E+06 4.82000E+06 5.26000E+06             RHOCSI
+    37     5 4.52000E+06 4.82000E+06 5.26000E+06 5.26000E+06 5.26000E+06 RHOCSI
 #
 #            RHOCSO(KZ): Density x Heat Capacity for Outer Structure
 #                 ~350C|      ~425C|      ~510C|
-    44     3 4.52000E+06 4.82000E+06 5.26000E+06             RHOCSO
+    44     5 4.52000E+06 4.82000E+06 5.26000E+06 5.26000E+06 5.26000E+06 RHOCSO
 #
 #            RHOCR(KZ): Density x Heat Capacity for Reflector
 #                      |           |           |
-    51     3 4.55000D 06 4.82000E+06 4.55000D 06             RHOCR
+    51     5 4.55000D 06 4.82000E+06 1.00000E+00 5.57673E+05 4.55000D 06 RHOCR
 #
 #                      RHOCG: Desity x Heat Capacity for Gas in Plenum
 #                      |           RG: Thermal Resistance of Plenum Gas
@@ -905,9 +908,17 @@ COOLIN    64     1     0
 #                      |      (FROM FED CHANGES)	
 #                      |
     48     1         0.5                         XKORV(1,1)
-    51     1         1.0                         XKORV(4,1)
+#    49     1                                     XKORV(2,1)
+#    50     1                                     XKORV(3,1)
+    51     1        0.37                         XKORV(4,1)
+    52     1       0.185                         XKORV(5,1)
+    53     1         1.0                         XKORV(6,1)
     56     1         1.0                         XKORV(1,2)
-    59     1         0.5                         XKORV(4,2)
+#    57     1                                     XKORV(2,2)
+#    58     1                                     XKORV(3,2)
+    59     1       0.185                         XKORV(4,2)
+    60     1        0.37                         XKORV(5,2)
+    61     1         0.5                         XKORV(6,2)
 #
 #            DZIAB, DZIAT: Effective Coolant Inertial Term Below/Above
 #                      |           |  Subassembly Inlet/Outlet
@@ -1019,7 +1030,7 @@ PRIMIN    14     0     0
 #
 #            PX: Coolant Exit Pressure at ZPLENU
 #                      |
-     1     1 1.49   D 05                                     PX
+     1     1 1.44529E+05                                     PX
 #
 #            T0TAB(L): Inlet Temperature at Time T0TME(L)
 #                      |           |
@@ -1031,7 +1042,7 @@ PRIMIN    14     0     0
 #
 #            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
 #                      |           |
-    87     2     -1.1176       3.302                         ZPLENL,ZPLENU
+    87     2     -1.1176       3.852                         ZPLENL,ZPLENU
 #
 #            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
 #                      |
@@ -1204,7 +1215,8 @@ POWINC    62     1     1
    133     4 -2.3895E-06 -2.3895E-06 -2.3895E-06 -2.3895E-06             H
    137     1 -3.3382E-06                                                 BOND
    138     5 -4.7421E-07 -4.7421E-07 -4.7421E-07 -4.7421E-07 -4.7421E-07 PLNM
-   143     5  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11 UPPRF
+   143     2  1.0354E-11  1.0354E-11                                     ARC
+   145     5  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11  1.0354E-11 UPPRF
 #
 #   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
 #
@@ -1265,7 +1277,8 @@ POWINC    62     2     2
    133     4 -2.1871E-06 -2.1871E-06 -2.1871E-06 -2.1871E-06             H
    137     1 -1.3412E-06                                                 BOND
    138     5 -1.8675E-07 -1.8675E-07 -1.8675E-07 -1.8675E-07 -1.8675E-07 PLNM
-   143     5  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12 UPPRF
+   143     2  2.5727E-12  2.5727E-12                                     ARC
+   145     5  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12  2.5727E-12 UPPRF
 #
 #   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
 #
@@ -1338,11 +1351,11 @@ INPCHN    51     3     0
 #                |     NREFB: Number of Reflector Zones below Pin
 #                |     |     NREFT: Number of Reflector Zones above Pin
 #                |     |     |      (Note: Below + Above <= 6)
-     4     3     6     1     1                               NPLN,NREFB,NREFT
+     4     3     6     1     3                               NPLN,NREFB,NREFT
 #
 #                NZNODE(KZ): Number of Segments in Zone KZ
 #                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
-     7     3     5    26     5                               NZNODE
+     7     5     5    26     1     1     5                   NZNODE
 #
 #                NT: Number of Radial Temperature Nodes in Fuel
 #                |
@@ -1375,7 +1388,7 @@ GEOMIN    61     3     0
 #
 #            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
 #                      |           |           |           |
-     1     3 2.53990E-05 2.53990E-05 2.53990E-05             ACCZ
+     1     5 2.53990E-05 2.53990E-05 2.53990E-05 2.53990E-05 2.53990E-05 ACCZ
 #
 #            AXHI(J): Length of Axial Segment J in Core and Blanket
 #                      |           |           |           |
@@ -1387,17 +1400,17 @@ GEOMIN    61     3     0
 #
 #            DHZ(KZ): Hydraulic Diameter for Zone KZ
 #                      |           |           |           |
-    32     3 1.87820E-03 1.87820E-03 1.87820E-02             DHZ
+    32     5 1.87820E-03 1.87820E-03 1.87820E-02 1.87820E-02 1.87820E-02 DHZ
 # DH in upper reflector is increased by 10x compared to that in core
 # to reduce the pressure drop through the upper structure of the assembly
 #
 #            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
 #                      |           |           |           |
-    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
+    39     5 4.49555E-04 4.49555E-04 4.49555E-04 4.49555E-04 4.49555E-04 DSTIZ (10% Nom+Gap)
 #
 #            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
 #                      |           |           |           |
-    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
+    46     5 4.04599E-03 4.04599E-03 4.04599E-03 4.04599E-03 4.04599E-03 DSTOZ (90% Nom+Gap)
 #
 #            PLENL: Length of Fission-Gas Plenum
 #                      |
@@ -1425,11 +1438,11 @@ GEOMIN    61     3     0
 #
 #            ZONEL(KZ): Length of Zone KZ
 #                      |           |           |           |
-   152     3      1.1176      2.6670       0.635             ZONEL
+   152     5      1.1176      2.6670 3.00000E-01 1.50000E-01      0.635 ZONEL
 #
 #            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
 #                      |           |           |           |
-   159     3 5.68037E-03 5.68037E-03 5.68037E-03             SRFSTZ
+   159     5 5.68037E-03 5.68037E-03 5.68037E-03 5.68037E-03 5.68037E-03 SRFSTZ
 #
 #            AREAPC: Coolant Plus Pin Area per Pin
 #                      |
@@ -1445,15 +1458,15 @@ GEOMIN    61     3     0
 #
 #            SER(KZ): Reflector/Pin Perimeter
 #                      |           |           |           |
-   182     3 4.84119E-02 4.84119E-02 4.84119E-02             SER
+   182     5 4.84119E-02 4.84119E-02 4.84119E-02 4.84119E-02 4.84119E-02 SER
 #
 #            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
 #                      |           |           |           |
-   169     3 1.92625E-03 7.02600E-04 1.92625E-03             DRFO
+   169     5 1.92625E-03 7.02600E-04 1.92625E-03 1.92625E-03 1.92625E-03 DRFO
 #
 #            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
 #                      |           |           |           |
-   189     3 1.92625E-03 0.00000E+00 1.92625E-03             DRFI
+   189     5 1.92625E-03 0.00000E+00 1.92625E-03 1.92625E-03 1.92625E-03 DRFI
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1516,6 +1529,23 @@ COOLIN    64     3     2
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
     47     1 8.06243E-03                                     W0
+#
+#                      XKORV: EXPANSION AND CONTRACTION ORIFICE 
+#                      |      LOSSES AT THE SA INLET AND OUTLET
+#                      |      (FROM FED CHANGES)    
+#                      |
+    48     1         0.5                         XKORV(1,1)
+#    49     1                                     XKORV(2,1)
+#    50     1                                     XKORV(3,1)
+    51     1      1.0E-5                         XKORV(4,1)
+    52     1      1.0E-5                         XKORV(5,1)
+    53     1         1.0                         XKORV(6,1)
+    56     1         1.0                         XKORV(1,2)
+#    57     1                                     XKORV(2,2)
+#    58     1                                     XKORV(3,2)
+    59     1      1.0E-5                         XKORV(4,2)
+    60     1      1.0E-5                         XKORV(5,2)
+    61     1         0.5                         XKORV(6,2)
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -2390,8 +2420,9 @@ INCONT     5     1     0
 # ##############################################################################
 #
 #  ARC is actuated by a temperature change that is driven by the coolant outlet
-#  temperature. The signal for core channel outlet temperature is JTYPE -71
-#  The outlet temperature of each fuelled core-channel needs to be collected.
+#  temperature. The signal for average coolant temperature (i.e. in middle of 
+#  MZC mesh node points) is JTYPE -111. taken at point above node 33, next to
+#  ARC system reservoir
 #
 #        71, Core channel outlet temperature signal
 #        |
@@ -2401,7 +2432,7 @@ INCONT     5     1     0
 #        |    |    | 
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8 
 #
-    4  -71    1    2   
+    4 -111    1   33   
 #
 #
 # get the outlet flowrate of channel 1 (inner core) for use in determining the 
