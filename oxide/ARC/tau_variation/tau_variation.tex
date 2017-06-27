@@ -23,7 +23,7 @@
 \begin{document}
 \maketitle
 
-After the optimal ARC design for the 1000 MWth oxide-fuelled ABR was chosen through parametric analysis (see \cite{2017ANSWinter_ARC}), the sensitivity of the design to the ARC heat transfer constant, $\tau$, was examined.
+After the optimal ARC design for the 1000 MWth oxide-fuelled ABR was chosen through parametric analysis to have $w = \$0.87$, $S = 65$ C, and $\Delta T_{act} = 10$ C (see \cite{2017ANSWinter_ARC}), the sensitivity of the design to the ARC heat transfer constant, $\tau$, was examined.
 Through COMSOL multiphysics finite element simulations, the time constant for heat transfer from the primary coolant to the ARC upper reservoir fluid was optimized down to 1.3 s \cite{1stARC_paper}.
 This is accomplished through the use of an annular upper reservoir designed specifically for the fuel assembly present in ABR cores. 
 Using $\tau=1.3$ s, it was determined that no oscillations are induced into the system response to the ULOHS, UTOP, and ULOF transient scenarios. 
@@ -84,10 +84,14 @@ None of the examined $\tau$ values introduce oscillations into the UTOP response
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ULOF}
-Figure \ref{fig:ULOF_peak} shows the peak coolant temperatures with time of each ULOF simulation for all $\tau$ values on a single plot.
-As $\tau$ is increased, small oscillations in the coolant peak temperature are introduced in the early phase of the transient (i.e. $<$ 500 s).
-These oscillations do not become significantly larger as $\tau$ is increased, and none of them grow as the transient progresses.
+Figure \ref{fig:ULOF_peak} shows the peak coolant temperatures with time of each ULOF simulation for all $\tau$ values on a single plot over the first hour of the transient, while Figure \ref{fig:ULOF_peakShortTerm} shows the same curves zoomed in on the first 400 s to show in more detail the early phase oscillations.
+For these simulations, the variable-lag-compensator in SAS was used along with the $\tau$ vs flow correlation developed by Qvist et. al \cite{1stARC_paper} to account for the reduced convective heat transfer from coolant to reservoir as the flow rate drops off.
+As $\tau$ is increased, the small coolant peak temperature oscillations in the early phase of the transient (i.e. $<$ 500 s) remain stable, and none of the oscillations grow as the transient progresses. 
+These oscillations become somewhat smaller and less pronounced as $\tau$ is increased.
+In fact, examination of Figure \ref{fig:ULOF_rho} shows that the oscillations in both ARC and net reactivity are reduced as $\tau$ is increased.
 The oscillations which are present due to the transition from forced to natural circulation at ~700 s are not impacted significantly by the increased $\tau$.
+For further discussion of the cause and nature of these oscillations, see the detailed report by Keckler \cite{ULOF_oscillationsReport}.
+
 Furthermore, as $\tau$ is increased, the peak coolant temperatures at later stages in the transient actually slightly decrease.
 This is due to a cancelling effect within the reactivity feedbacks, which ends up dampening the net reactivity response and keeping the reactor state at a lower net reactivity for longer during the early transient phase, which later shows through as a slightly lower temperature at the asymptotic state.
 This is depicted in Figure \ref{fig:ULOF_rho}.
@@ -95,17 +99,25 @@ The change with increasing $\tau$ is likely easier to see in the ULOF than the o
 This very long time delay allows for more heat transfer from the oxide fuel to the coolant, which allows the coolant temperature to change more as the ARC reservoir is slowly heating up. 
 This makes the different cases easier to differentiate from each other.
 
-For the ULOF, a previous study by Qvist et al. has examined the sensitivity of the ARC response to the heat transfer time delay between coolant and ARC reservoir \cite{ARC_Annals}.
-Qvist et al. investigated the size magnitude of oscillations induced by having an increasing mass of steel between the fuel and the ARC upper reservoir (effectively a longer time delay for heat transfer) and found that oscillations can be avoided for a particular $\tau$ if the equilibrium temperatures following the ULOF transient are allowed to be high enough.
+For the ULOF, a previous study by Qvist et al. has examined the sensitivity of the ARC response to the delay for temperature communication to the ARC upper reservoir \cite{ARC_Annals}.
+Qvist et al. investigated the magnitude of oscillations induced by having an increasing mass of steel between the fuel and the ARC upper reservoir (effectively a longer time delay for heat transfer) and found that oscillations can be avoided for a particular $\tau$ if the equilibrium temperatures following the ULOF transient are allowed to be high enough.
 Qvist et al. found that the equilibrium coolant temperatures should be ~725 C to avoid oscillations, no matter the $\tau$.
-The current study agrees with these previously reported results, as the asymptotic coolant temperature for the oxide ABR core with the optimal ARC design installed is roughly 710 C. 
-This is close to the values reported by Qvist et al., and supports the result that the transient ULOF performance is rather insensitive to $\tau$.
+This study cannot be directly compared with the results of \cite{ARC_Annals}, however, due to the differing nature of the variations. 
+Qvist et. al varies the time that it takes for the coolant temperature to be communicated from the top of the core to the axial level of the ARC reservoir, whereas this study varies the amount of time it takes for the coolant temperature to be communicated from the coolant \textit{already at the level of the reservoir} to the expander fluid within the upper reservoir.
+A discussion of the difference between these two difference heat transfer delay mechanisms is given in \cite{ULOF_oscillationsReport}.
 
 \begin{figure}[h!]
 \includegraphics[width=10cm]{ULOF_peak}
 \centering
-\caption{Peak coolant temperature in the oxide ABR ULOF scenario for $\tau=[1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3, 4.8]$ s.}
+\caption{Peak coolant temperature in the oxide ABR ULOF scenario for $\tau=[1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3, 4.8]$ s over the first hour of the transient.}
 \label{fig:ULOF_peak}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=10cm]{ULOF_peakShortTerm}
+\centering
+\caption{Peak coolant temperature in the oxide ABR ULOF scenario for $\tau=[1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3, 4.8]$ s in the first 400 s.}
+\label{fig:ULOF_peakShortTerm}
 \end{figure}
 
 \begin{figure}[h!]
@@ -134,6 +146,9 @@ S. Qvist, C. Hellesen, R. Thiele, A. Dubberley, M Gradecka, E. Greenspan. "Auton
 
 \bibitem{ARC_Annals}
 S. Qvist, C. Hellesen, M Gradecka, A Dubberley, T. Fanning, E. Greenspan, "Tailoring the response of Autonomous Reactivity Control (ARC) systems," Annals of Nuclear Energy (2016).
+
+\bibitem{ULOF_oscillationsReport}
+C. Keckler, "Oscillations in the Oxide-fuelled ABR ULOF with ARC System Implementation," Internal memo, 2017.
 
 \end{thebibliography}
 

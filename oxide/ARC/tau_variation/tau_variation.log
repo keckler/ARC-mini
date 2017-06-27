@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  8 JUN 2017 09:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  26 JUN 2017 10:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -348,43 +348,57 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2 <./ULOHS_peak.png (PNG copy)> <./ULOHS_rho.png (PNG copy)>] [3 <./UTOP_peak.
 png (PNG copy)> <./UTOP_rho.png (PNG copy)>]
-<ULOF_peak.png, id=22, 578.16pt x 433.62pt>
+<ULOF_peak.png, id=23, 578.16pt x 433.62pt>
 File: ULOF_peak.png Graphic file (type png)
  <use ULOF_peak.png>
-Package pdftex.def Info: ULOF_peak.png used on input line 105.
+Package pdftex.def Info: ULOF_peak.png used on input line 110.
 (pdftex.def)             Requested size: 284.52756pt x 213.39536pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 112--112
 []\OT1/cmr/m/n/10.95 Figure 5: Peak coolant tem-per-a-ture in the ox-ide ABR UL
 OF sce-nario for $\OML/cmm/m/it/10.95 ^^\ \OT1/cmr/m/n/10.95 =
  []
 
-<ULOF_rho.png, id=23, 578.16pt x 433.62pt>
+<ULOF_peakShortTerm.png, id=24, 578.16pt x 433.62pt>
+File: ULOF_peakShortTerm.png Graphic file (type png)
+
+<use ULOF_peakShortTerm.png>
+Package pdftex.def Info: ULOF_peakShortTerm.png used on input line 117.
+(pdftex.def)             Requested size: 284.52756pt x 213.39536pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--119
+[]\OT1/cmr/m/n/10.95 Figure 6: Peak coolant tem-per-a-ture in the ox-ide ABR UL
+OF sce-nario for $\OML/cmm/m/it/10.95 ^^\ \OT1/cmr/m/n/10.95 =
+ []
+
+<ULOF_rho.png, id=25, 578.16pt x 433.62pt>
 File: ULOF_rho.png Graphic file (type png)
  <use ULOF_rho.png>
-Package pdftex.def Info: ULOF_rho.png used on input line 112.
+Package pdftex.def Info: ULOF_rho.png used on input line 124.
 (pdftex.def)             Requested size: 284.52756pt x 213.39536pt.
- [4 <./ULOF_peak.png (PNG copy)> <./ULOF_rho.png (PNG copy)>] [5] (./tau_variat
-ion.aux) ) 
+ [4 <./ULOF_peak.png (PNG copy)> <./ULOF_peakShortTerm.png (PNG copy)>] [5 <./U
+LOF_rho.png (PNG copy)>] (./tau_variation.aux) ) 
 Here is how much of TeX's memory you used:
- 4098 strings out of 493014
- 57147 string characters out of 6133351
- 131632 words of memory out of 5000000
- 7584 multiletter control sequences out of 15000+600000
- 12392 words of font info for 48 fonts, out of 8000000 for 9000
+ 4107 strings out of 493014
+ 57349 string characters out of 6133351
+ 131643 words of memory out of 5000000
+ 7591 multiletter control sequences out of 15000+600000
+ 12738 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,6n,32p,382b,222s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-bx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
-fb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
->
-Output written on tau_variation.pdf (5 pages, 340164 bytes).
+ 38i,6n,32p,409b,222s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2016/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2016/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmti10.pfb>
+Output written on tau_variation.pdf (5 pages, 402355 bytes).
 PDF statistics:
- 50 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 59 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
