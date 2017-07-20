@@ -20,13 +20,13 @@
 #         50000 sec transient
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 # Jul 19 2017 -
-#    Model obtained by Chris Keckler from Tom Fanning. Began changes to turn
-#    the metal ABR model into one for the 3500MW B&B core.
+#    Metallic ABR model obtained by Chris Keckler from Tom Fanning. Began 
+#    changes to turn the metal ABR model into one for the 3500MW B&B core.
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
- ABR REFERENCE METAL FUEL STARTUP CORE                                  DEV
- SAS4A/SASSYS Model - Null transient in PRIMAR4
+ B&B metal core developed by Chris Keckler                                  DEV
+ Based upon metal ABR deck originally from Tom Fanning
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 # STORAGE ALLOCATION RECORDS
@@ -1010,6 +1010,13 @@ PRIMIN    14     0     0
 #                      |
      1     1   1.503E+05                                     PX
 #
+#            PRETAB(L): normalized inlet coolant driving pressure at PRETME(L)
+#                      |           |           |           |
+     5     4         1.0         1.0         0.5         0.5 PRETAB
+#
+#            PRETME(L): time for inlet pressure PRETAB(L)
+#                      |           |           |           |
+    25     4         0.0         5.0         10.    1000000. PRETME
 #            T0TAB(L): Inlet Temperature at Time T0TME(L)
 #                      |           |
     45     2      628.15      628.15                         T0TAB
@@ -1046,7 +1053,7 @@ INPCOM     1     1     1
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1     0                                           MAXSTP
+    11     1   500                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT or Boiling
@@ -1057,13 +1064,18 @@ INPCOM     1     1     1
 #                |       (Power or Reactivity vs Time)
     18     1     4                                           NPREAT
 #
+#                NPRES: Number of entries in coolant pressure vs. time table
+#                |
+    19     1     4                                           NPRES    
+#
 #                NOREAC: Main Time Step Intevals between PSHORT Print
 #                |
     41     1   500
 #
 #                IFIT(K): Input Table Lookup Options (K=1: Power/Reac vs. Time)
-#                |        (0=Linear Fit)
-    95     1     0                                           IFIT(1)
+#                |     IFIT(K): Input Table Lookup Options (K=2: PRIMAR-1 pump head or channel flow vs. Time)
+#                |     |   (0=Linear Fit)
+    95     2     0     0                                     IFIT(1)
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 POWINA    12     1     1
