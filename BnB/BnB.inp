@@ -25,7 +25,7 @@
 #
 # PRIMARY AND SECONDARY TITLE RECORDS
 #                                                                       Version
- B&B metal core developed by Chris Keckler                                  DEV
+ B&B metal core developed by Chris Keckler                              DEV
  Based upon metal ABR deck originally from Tom Fanning
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -523,16 +523,15 @@ INPCOM     1     1     1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 XNOTES
 
-    Average Channel is based on 180 assembly core from 29-JUNE-2007
-    (source redacted)
+    Average Channel is based on 504 assembly 3500 MWth B&B core from paper by 
+    Qvist et al titled 'Design and performance of 2D and 3D shuffled breed and
+    burn cores
     
-    Power:        1000 MWth
-    # Assmbly:    180 (78 Inner, 102 Outer)
-    Pins/Assmbly: 271
-    Pin OD:       0.755 cm
-    Core Height:  81.28 cm
-    
-    THF
+    Power:        3500 MWth
+    # Assmbly:    504 (12 batches of 42 assemblies)
+    Pins/Assmbly: 169
+    Pin P/D:      1.114
+    Core Height:  3 m
 
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
@@ -545,7 +544,7 @@ INPCHN    51     1     0
 #                |     NREFB: Number of Reflector Zones below Pin
 #                |     |     NREFT: Number of Reflector Zones above Pin
 #                |     |     |      (Note: Below + Above <= 6)
-     4     3     6     1     1                               NPLN,NREFB,NREFT
+     4     3     2     1     1                               NPLN,NREFB,NREFT
 #
 #                NZNODE(KZ): Number of Segments in Zone KZ
 #                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
@@ -564,7 +563,7 @@ INPCHN    51     1     0
 #                NPIN: Number of Pins per Assembly
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
-    25     2   271   180                                      NPIN,NSUBAS
+    25     2   169   504                                      NPIN,NSUBAS
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
@@ -597,82 +596,83 @@ GEOMIN    61     1     0
 #
 #            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
 #                      |           |           |           |
-     1     3 2.50266E-05 2.50266E-05 2.50266E-05             ACCZ
+     1     3 1.02579E-04 1.02579E-04 1.02579E-04             ACCZ
 #
 #            AXHI(J): Length of Axial Segment J in Core and Blanket
 #                      |           |           |           |
-     8     4     0.04064     0.04064     0.04064     0.04064 AXHI
-    12     4     0.04064     0.04064     0.04064     0.04064 AXHI
-    16     4     0.04064     0.04064     0.04064     0.04064 AXHI
-    20     4     0.04064     0.04064     0.04064     0.04064 AXHI
-    24     4     0.04064     0.04064     0.04064     0.04064 AXHI
+     8     4       0.125       0.125       0.125       0.125 AXHI
+    12     4       0.125       0.125       0.125       0.125 AXHI
+    16     4       0.125       0.125       0.125       0.125 AXHI
+    20     4       0.125       0.125       0.125       0.125 AXHI
+    24     4       0.125       0.125       0.125       0.125 AXHI
+    28     4       0.125       0.125       0.125       0.125 AXHI
 #
 #            DHZ(KZ): Hydraulic Diameter for Zone KZ
 #                      |           |           |           |
-    32     3 3.36149E-03 3.36149E-03 3.36149E-02             DHZ
+    32     3 9.53120E-03 9.53120E-03 9.53120E-02             DHZ
 # DH in upper reflector is increased by 10x compared to that in core
 # to reduce the pressure drop through the upper structure of the assembly
 #
 #            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
 #                      |           |           |           |
-    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
+    39     3     3.5E-04     3.5E-04     3.5E-04             DSTIZ (10% Nom+Gap)
 #
 #            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
 #                      |           |           |           |
-    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
+    46     3    3.15E-03    3.15E-03    3.15E-03             DSTOZ (90% Nom+Gap)
 #
 #            PLENL: Length of Fission-Gas Plenum
 #                      |
-    53     1      1.2446                                     PLENL
+    53     1        0.10                                     PLENL
 #
 #            RBR(J): Cladding Inner Radius for Axial Segment J
 #                      |           |           |           |
-    54     1 3.21500E-03                                     RBR
+    54     1  5.4976E-03                                     RBR
 #
 #            RER(J): Cladding Outer Radius for Axial Segment J
 #                      |           |           |           |
-    78     1 3.77500E-03                                     RER
+    78     1  6.1085E-03                                     RER
 #
 #            RBRPL: Cladding Inner Radius in Fission-Gas Plenum
 #                      |
-   102     1 3.21500E-03                                     RBRPL
+   102     1  5.4976E-03                                     RBRPL
 #
 #            RERPL: Cladding Outer Radius in Fission-Gas Plenum
 #                      |
-   103     1 3.77500E-03                                     RERPL
+   103     1  6.1085E-03                                     RERPL
 #
 #            ROUTFP(J): Fuel Outer Radius for Axial Segment J
 # Expended fuel is assumed
 #                      |           |           |           |
-   128     1 3.21500E-03                                     ROUTFP
+   128     1  5.4976E-03                                     ROUTFP
 #
 #            ZONEL(KZ): Length of Zone KZ
 #                      |           |           |           |
-   152     3      1.2446      2.0574      1.1176             ZONEL
+   152     3        0.05         3.1         0.1             ZONEL
 #
 #            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
 #                      |           |           |           |
-   159     3 2.21004E-03 2.21004E-03 2.21004E-03             SRFSTZ
+   159     3 4.26036E-03 4.26036E-03 4.26036E-03             SRFSTZ
 #
 #            AREAPC: Coolant Plus Pin Area per Pin
 #                      |
-   166     1 6.97962E-05                                     AREAPC
+   166     1 2.21325E-04                                     AREAPC
 #
 #                      RBR0: Nominal Cladding Inner Radius
 #                      |           RER0: Nominal Cladding Outer Radius
 #                      |           |
-   180     2 3.21500E-03 3.77500E-03                         RBR0,RER0
+   180     2  5.4976E-03  6.1085E-03                         RBR0,RER0
 #
 #  NOTE: Pins in the reflector region are assumed to be identical in
 #        size to the pins in the core region:
 #
 #            SER(KZ): Reflector/Pin Perimeter
 #                      |           |           |           |
-   182     3 2.37190E-02 2.37190E-02 2.37190E-02             SER
+   182     3 3.83808E-02 3.83808E-02 3.83808E-02             SER
 #
 #            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
 #                      |           |           |           |
-   169     3 9.43750E-04 5.60000E-04 9.43750E-04             DRFO
+   169     3 9.43750E-04   6.109E-04 9.43750E-04             DRFO
 #
 #            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
 #                      |           |           |           |
