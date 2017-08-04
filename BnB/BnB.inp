@@ -42,8 +42,8 @@
 #    |  |  |  |  |  |  |  |  IACNTL: Control System Module Storage Allocation Flag
 #    |  |  |  |  |  |  |  |  |  IALBOP: BOP Module Storage Allocation Flag
 #    |  |  |  |  |  |  |  |  |  |
-     1  0  0  0  0  1  1  1  1  1
-#     4  0  0  0  0  1  1  1  1  1
+#     1  0  0  0  0  1  1  1  1  1
+     4  0  0  0  0  1  1  1  1  1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 #  INPCOM: Channel Independent Variables (Integer)
@@ -139,7 +139,7 @@ POWINA    12     1     1
 #
 #                      POWTOT: Total Reactor Power
 #                      |
-     3     1  1000.0D+06                                     POWTOT
+     3     1  3500.0D+06                                     POWTOT
 #
 #                      FRPR: Fraction of Total Power Represented by All Channels
 #                      |           FRFLOW: Fraction of Total Flow Represented
@@ -224,20 +224,20 @@ POWINA    12     1     1
 #
 #                      GENTIM: Prompt Neutron Lifetime
 #                      |
-#          13-JUL-2007: BOEC Value from TK Kim:
-     2     1    3.65E-07                                     GENTIM
+#          value taken from ADJ_IFP_LIFETIME from Serpent 2 results
+     2     1  1.91407E-7                                     GENTIM
 #
 #                      BETADN(L): Effective Delayed Neutron Fract. for Family L
 #                      |           |           |           |
-#          13-JUL-2007: BOEC Value from TK Kim:
-     4     4  8.1001E-05  5.8791E-04  5.0738E-04  1.2053E-03 BETADN
-     8     2  7.1130E-04  2.6155E-04
+#          value taken from ADJ_IFP_ANA_BETA_EFF from Serpent 2 results
+     4     4  6.4926E-05  6.4715E-04  5.3395E-04  1.5638E-03 BETADN
+     8     2  6.6112E-04  1.6731E-04
 #
 #                      DECCON(L): Decay Constant for Precursor Family L
 #                      |           |           |           |
-#          13-JUL-2007: BOEC Value from TK Kim:
-    10     4  1.3377E-02  3.1026E-02  1.1763E-01  3.0917E-01   DECCON
-    14     2  8.8605E-01  2.9416E+00
+#          value taken from ADJ_IFP_ANA_LAMBDA from Serpent 2 results
+    10     4  1.2527E-02  3.0099E-02  1.1189E-01  3.3211E-01   DECCON
+    14     2  1.3103E+00  9.7948E+00
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -289,12 +289,12 @@ POWINA    12     1     1
 #
 #                      UIVOL: Coolant Volume in Upper Internal Structure
 #                      |
-    77     1        13.0                                     UIVOL
+    77     1        36.2                                     UIVOL
 #
 #                      RDEXPC: Coefficient in Simple Radial Expansion Feedback Model
 #                      |           XMCXAC: Ratio of Distances XMC/XAC
 #                      |           |       (Nozzle-Midplane/Nozzle-Load Pad)
-    78     2   -0.002694        0.80                         RDEXPC,XMCXAC
+    78     2   -0.002694      0.5041                         RDEXPC,XMCXAC
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -328,7 +328,6 @@ INPCOM     1     1     1
 #                IFUEL1: Number of Fuel Types
 #                |     ICLAD1: Number of Cladding Types
 #                |     |
-     3     2     4     1                                     IFUEL1,ICLAD1
      3     2     5     1                                     IFUEL1,ICLAD1
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
@@ -356,13 +355,10 @@ PMATCM    13     1     1
 #            *** METAL FUEL PROPERTIES ***
 #
 #            PUZRTP(L,IFUEL): L: 1/2=Pu/Zr Weight Fractions
-#
-#           f(Pu)=TRU_enrichment*(1-f_Zr)
-#          17-JUL-2007: TRU Enrichments from TK Kim: 
-#                       12.84% (IC), -(MC), 17.60%(OC), 15.54%(Av)
+#                channels 1,2,3,4 (no average channel provided)
 #                      |           |           |           |
-  1300     4     0.11556         0.1     0.11556         0.1  PUZRTP
-  1304     4     0.15840         0.1     0.13986         0.1  PUZRTP
+  1300     4    1.790E-2    3.596E-4    4.080E-2    2.822E-3  PUZRTP
+  1304     4    4.242E-2    3.946E-3    6.797E-3    1.139E-4  PUZRTP
 #
 #            RHOZN(IFUEL): Metal Fuel Theoretical Density at Reference T (TR)
 #                      |           |           |           |
@@ -693,15 +689,14 @@ POWINC    62     1     0
 #                      |           |
      4     2 1.00000D-05 1.00000D-05                         GAMTNC,GAMTNE
 #
-#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak.
-#            Shape is from 4-th order polynomial fit of average power
-#            density for assembly IC34
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4 8.38196E-01 8.99017E-01 9.58004E-01 1.01312E+00 PSHAPE (D)
-    10     4 1.06256E+00 1.10475E+00 1.13837E+00 1.16231E+00 PSHAPE (E)
-    14     4 1.17572E+00 1.17797E+00 1.16866E+00 1.14764E+00 PSHAPE (F)
-    18     4 1.11499E+00 1.07101E+00 1.01627E+00 9.51544E-01 PSHAPE (G)
-    22     4 8.77851E-01 7.96447E-01 7.08822E-01 6.16700E-01 PSHAPE (H)
+     6     4     0.00649     0.01638     0.03562     0.07243 PSHAPE
+    10     4     0.13348     0.26960     0.50097     0.79063 PSHAPE
+    14     4     1.36426     1.80187     2.24694     2.59415 PSHAPE
+    18     4     2.74110     2.68246     2.45773     2.12385 PSHAPE
+    22     4     1.59417     1.18999     0.75226     0.33500 PSHAPE
+    26     4     0.16743     0.07079     0.02859     0.02387 PSHAPE
 #
 #            PSHAPR(I): Radial Power Shape within Pin
 #                      |           |           |           |
@@ -712,7 +707,7 @@ POWINC    62     1     0
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     5.55556                                     PRSHAP
+   256     1      6.7474                                     PRSHAP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -752,7 +747,7 @@ PMATCH    63     1     0
 #
 #            P0GAS: Initial Plenum Gas Pressure at Reference Temperature TR
 #                      |
-    27     1 1.     D 05                                     P0GAS
+    27     1   0.04955E6                                     P0GAS
 #
 #            XKRF(KZ): Reflector Thermal Coductivity for Zone KZ
 #                      |           |           |
@@ -806,7 +801,7 @@ COOLIN    64     1     0
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.103613                                     W0
+    47     1      0.2171                                     W0
 #
 #                      XKORV: EXPANSION AND CONTRACTION ORIFICE 
 #                      |      LOSSES AT THE SA INLET AND OUTLET
@@ -1027,7 +1022,7 @@ PRIMIN    14     0     0
 #
 #            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
 #                      |           |
-    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
+#    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
 #
 #            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
 #                      |
@@ -1105,122 +1100,206 @@ OPCIN     11     1     1
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NCHAN: Number of Channels
+#                |
+     1     1     4                                           NCHAN
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                ######  ######    ###   #     # ####### ######
+#                #     # #     #    #    #     # #       #     #
+#                #     # #     #    #    #     # #       #     #
+#                #     # ######     #    #     # #####   ######
+#                #     # #   #      #     #   #  #       #   #
+#                #     # #    #     #      # #   #       #    #
+#                ######  #     #   ###      #    ####### #     #
+#
+#         #####  #     #    #    #     # #     # ####### #        #####
+#        #     # #     #   # #   ##    # ##    # #       #       #     #
+#        #       #     #  #   #  # #   # # #   # #       #       #
+#        #       ####### #     # #  #  # #  #  # #####   #        #####
+#        #       #     # ####### #   # # #   # # #       #             #
+#        #     # #     # #     # #    ## #    ## #       #       #     #
+#         #####  #     # #     # #     # #     # ####### #######  #####
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     1     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     1                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    42                                           NSUBAS
+    -1
+INPCHN    51     2     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     2                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    84                                           NSUBAS
+    -1
+INPCHN    51     3     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     3                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1   126                                           NSUBAS
+    -1    
+INPCHN    51     4     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |
+    15     1     4                                           IFUELV
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1   252                                           NSUBAS
+    -1    
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+GEOMIN    61     1     1                                                
+    -1
+GEOMIN    61     2     1                                                
+    -1
+GEOMIN    61     3     1                                                
+    -1
+GEOMIN    61     4     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     1     1                                                
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
+#                      |           |           |           |
+     6     4     0.00180     0.00500     0.01260     0.02930 PSHAPE
+    10     4     0.06260     0.14860     0.31790     0.57930 PSHAPE
+    14     4     1.17490     1.71560     2.36420     2.92860 PSHAPE
+    18     4     3.16420     3.07700     2.72200     2.20630 PSHAPE
+    22     4     1.42320     0.93500     0.50230     0.28860 PSHAPE
+    26     4     0.17370     0.09080     0.04480     0.03180 PSHAPE
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     5.51242                                     PRSHAP
+    -1
+POWINC    62     2     1                                                
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
+#                      |           |           |           |
+     6     4     0.00125     0.00375     0.01165     0.03135 PSHAPE
+    10     4     0.06960     0.19270     0.43290     0.73455 PSHAPE
+    14     4     1.39220     1.85205     2.29210     2.61435 PSHAPE
+    18     4     2.74780     2.71280     2.51970     2.19235 PSHAPE
+    22     4     1.61305     1.17130     0.66580     0.36855 PSHAPE
+    26     4     0.22145     0.10045     0.03760     0.02080 PSHAPE
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1    18.20722                                     PRSHAP
+    -1
+POWINC    62     3     1                                                
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
+#                      |           |           |           |
+     6     4     0.00247     0.00673     0.02003     0.05120 PSHAPE
+    10     4     0.10360     0.26697     0.55983     0.87037 PSHAPE
+    14     4     1.47913     1.87223     2.20160     2.42767 PSHAPE
+    18     4     2.52897     2.50890     2.36857     2.11807 PSHAPE
+    22     4     1.69737     1.31463     0.81677     0.41343 PSHAPE
+    26     4     0.22933     0.09300     0.03113     0.01803 PSHAPE
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1    12.47571                                     PRSHAP
+    -1
+POWINC    62     4     1                                                
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
+#                      |           |           |           |
+     6     4     0.01103     0.02730     0.05523     0.10393 PSHAPE
+    10     4     0.18152     0.31672     0.52473     0.80468 PSHAPE
+    14     4     1.32907     1.76433     2.23502     2.61492 PSHAPE
+    18     4     2.77442     2.69337     2.43760     2.09017 PSHAPE
+    22     4     1.56477     1.17640     0.79048     0.29233 PSHAPE
+    26     4     0.11743     0.04647     0.02162     0.02648 PSHAPE
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     0.77497                                     PRSHAP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     1     1                                                
+    -1
+PMATCH    63     2     1                                                
+    -1
+PMATCH    63     3     1                                                
+    -1
+PMATCH    63     4     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+COOLIN    64     1     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.140351                                     W0
+    -1
+COOLIN    64     2     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.528778                                     W0
+    -1
+COOLIN    64     3     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.417818                                     W0
+    -1
+COOLIN    64     4     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.025620                                     W0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                ######  ######    ###   #     # ####### ######
+#                #     # #     #    #    #     # #       #     #
+#                #     # #     #    #    #     # #       #     #
+#                #     # ######     #    #     # #####   ######
+#                #     # #   #      #     #   #  #       #   #
+#                #     # #    #     #      # #   #       #    #
+#                ######  #     #   ###      #    ####### #     #
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
 ENDJOB    -1
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##   CHANNEL   REGION
-##         1   INNER CORE
-##         2   OUTER CORE
-##         3   REFLECTORS 
-##         4   PEAK CORE CHANNEL (IC43)
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#INPCOM     1     1     1
-##
-##                NCHAN: Number of Channels
-##                |
-#     1     1     4                                           NCHAN
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##===============================================================================
-##
-##                ######  ######    ###   #     # ####### ######
-##                #     # #     #    #    #     # #       #     #
-##                #     # #     #    #    #     # #       #     #
-##                #     # ######     #    #     # #####   ######
-##                #     # #   #      #     #   #  #       #   #
-##                #     # #    #     #      # #   #       #    #
-##                ######  #     #   ###      #    ####### #     #
-##
-##         #####  #     #    #    #     # #     # ####### #        #####
-##        #     # #     #   # #   ##    # ##    # #       #       #     #
-##        #       #     #  #   #  # #   # # #   # #       #       #
-##        #       ####### #     # #  #  # #  #  # #####   #        #####
-##        #       #     # ####### #   # # #   # # #       #             #
-##        #     # #     # #     # #    ## #    ## #       #       #     #
-##         #####  #     # #     # #     # #     # ####### #######  #####
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#INPCHN    51     1     1                                                
-##
-##                IFUELV: Table Number of Property Value for Driver Fuel
-##                |
-#    15     1     1                                           IFUELV
-##
-##                NSUBAS: Number of Subassemblies in Channel
-##                |
-#    26     1    78                                           NSUBAS
-#    -1
-#INPCHN    51     2     1                                                
-##
-##                IFUELV: Table Number of Property Value for Driver Fuel
-##                |
-#    15     1     3                                           IFUELV
-##
-##                NSUBAS: Number of Subassemblies in Channel
-##                |
-#    26     1   102                                           NSUBAS
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#GEOMIN    61     1     1                                                
-#    -1
-#GEOMIN    61     2     1                                                
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#POWINC    62     1     1                                                
-##
-##            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-##                    Over All Subassemblies
-##                      |
-#   256     1     6.05962                                     PRSHAP
-#   256     1     6.06584                                     PRSHAP
-#    -1
-#POWINC    62     2     1                                                
-##
-##            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-##                    Over All Subassemblies
-##                      |
-#   256     1     4.98147                                     PRSHAP
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#PMATCH    63     1     1                                                
-#    -1
-#PMATCH    63     2     1                                                
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#COOLIN    64     1     1                                                
-##
-##                      W0: Steady-State Coolant Flow Rate per Pin
-##                      |
-#    47     1    0.106713                                     W0
-#    -1
-#COOLIN    64     2     1                                                
-##
-##                      W0: Steady-State Coolant Flow Rate per Pin
-##                      |
-#    47     1    0.097743                                     W0
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##===============================================================================
-##
-##                ######  ######    ###   #     # ####### ######
-##                #     # #     #    #    #     # #       #     #
-##                #     # #     #    #    #     # #       #     #
-##                #     # ######     #    #     # #####   ######
-##                #     # #   #      #     #   #  #       #   #
-##                #     # #    #     #      # #   #       #    #
-##                ######  #     #   ###      #    ####### #     #
-##
-##        ####### ####### ####### ######  ######     #     #####  #    #
-##        #       #       #       #     # #     #   # #   #     # #   #
-##        #       #       #       #     # #     #  #   #  #       #  #
-##        #####   #####   #####   #     # ######  #     # #       ###
-##        #       #       #       #     # #     # ####### #       #  #
-##        #       #       #       #     # #     # #     # #     # #   #
-##        #       ####### ####### ######  ######  #     #  #####  #    #
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ##
 ##   INNER CORE
 ##
