@@ -24,7 +24,7 @@ from sys import argv
 
 runDir = getcwd() #directory that mini is being run from
 miniDir = '/global/home/users/ckeckler/docs/mini/ARC-mini' #directory that all mini shit is stored
-miniExe = '~/bin/mini-5.2/mini-5.x-2522-Linux.x'
+miniExe = '~/bin/mini-5.2/mini-5.x-Linux-2742M.x'
 input = str(argv[-1])
 output = 'mini.out'
 
