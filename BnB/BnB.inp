@@ -43,7 +43,9 @@
 #    |  |  |  |  |  |  |  |  |  IALBOP: BOP Module Storage Allocation Flag
 #    |  |  |  |  |  |  |  |  |  |
 #     1  0  0  0  0  1  1  1  1  1
-     4  0  0  0  0  1  1  1  1  1
+#     4  0  0  0  0  1  1  1  1  1
+#     5  0  0  0  0  1  1  1  1  1
+     7  0  0  0  0  1  1  1  1  1     
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
 #  INPCOM: Channel Independent Variables (Integer)
@@ -1022,7 +1024,7 @@ PRIMIN    14     0     0
 #
 #            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
 #                      |           |
-#    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
+    87     2       -0.05         3.2                         ZPLENL,ZPLENU
 #
 #            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
 #                      |
@@ -1298,514 +1300,432 @@ COOLIN    64     4     1
 #
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#    ######  ####### ####### #       #######  #####  ####### ####### ######
+#    #     # #       #       #       #       #     #    #    #     # #     #
+#    #     # #       #       #       #       #          #    #     # #     #
+#    ######  #####   #####   #       #####   #          #    #     # ######
+#    #   #   #       #       #       #       #          #    #     # #   #
+#    #    #  #       #       #       #       #     #    #    #     # #    #
+#    #     # ####### #       ####### #######  #####     #    ####### #     #
+#
+#             #####  #     #    #    #     # #     # ####### #
+#            #     # #     #   # #   ##    # ##    # #       #
+#            #       #     #  #   #  # #   # # #   # #       #
+#            #       ####### #     # #  #  # #  #  # #####   #
+#            #       #     # ####### #   # # #   # # #       #
+#            #     # #     # #     # #    ## #    ## #       #
+#             #####  #     # #     # #     # #     # ####### #######
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+
+    Reflector channel represents power and geometry from Reflectors
+                                 
+    Reflector Assemblies: 108
+    Pins/Assmbly: 37
+    Pin OD: 1.965 cm
+    
+    Reflector axial mesh is identical to the driver channels. 
+    Fission gas heat capacity is set to that of HT-9.
+    Control assemblies are not considered, as they generate very little power
+    and they should be barely inserted into the core.
+    Shield assemblies are not included.    
+
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NCHAN: Number of Channels
+#                |
+     1     1     5                                           NCHAN
+    -1
+#
+#  INPCHN: Channel-Dependent Input (Integer)
+#
+INPCHN    51     5     1                                                
+#
+#                IFUELV: Table Number of Property Value for Driver Fuel
+#                |     IFUELB: Table Number of Property Value for Blanket Fuel
+#                |     |     ICLADV: Table Number for Cladding
+#                |     |     |
+    15     3     5     0     1                               IFUELV,ICLADV
+#
+#                NPIN: Number of Pins per Assembly
+#                |     NSUBAS: Number of Subassemblies in Channel
+#                |     |
+    25     2    37   108                                     NPIN,NSUBAS
+#
+#                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
+#                |     JNEN: Axial Node of Cladding Output for Plotting
+#                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
+#                |     |     |     JNSN: Axial Coolant Node of Structure
+#                |     |     |     |     Output for Plotting
+    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
+#
+#                IRHOK: Fuel Properties Correlation Selection Flag
+#                |      (0=Use Tabular Input)
+     3     1     0                                           IRHOK
+#
+#                IDKCRV: Power or Decay Heat Curve for this Channel
+#                |
+   203     1     0                                           IDKCRV
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  GEOMIN: Geometry Input for Channel (Floating Point)
+#
+GEOMIN    61     5     1                                                
+#
+#            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
+#                      |           |           |           |
+     1     3 6.56259E-04 6.56259E-04 6.56259E-04             ACCZ
+#
+#            DHZ(KZ): Hydraulic Diameter for Zone KZ
+#                      |           |           |           |
+    32     3 2.46250E-02 2.46250E-02 2.46250E-01             DHZ
+# DH in upper reflector is increased by 10x compared to that in core
+# to reduce the pressure drop through the upper structure of the assembly
+#
+#            RBR(J): Cladding Inner Radius for Axial Segment J
+#                      |           |           |           |
+    54     1 8.82500E-03                                     RBR
+#
+#            RER(J): Cladding Outer Radius for Axial Segment J
+#                      |           |           |           |
+    78     1 9.82500E-03                                     RER
+#
+#            RBRPL: Cladding Inner Radius in Fission-Gas Plenum
+#                      |
+   102     1 8.82500E-03                                     RBRPL
+#
+#            RERPL: Cladding Outer Radius in Fission-Gas Plenum
+#                      |
+   103     1 9.82500E-03                                     RERPL
+#
+#            ROUTFP(J): Fuel Outer Radius for Axial Segment J
+#                      |           |           |           |
+   128     1 8.82500E-03                                     ROUTFP
+#
+#            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
+#                      |           |           |           |
+   159     3 1.94595E-02 1.94595E-02 1.94595E-02             SRFSTZ
+#
+#            AREAPC: Coolant Plus Pin Area per Pin
+#                      |
+   166     1 1.01092E-03                                     AREAPC
+#
+#                      RBR0: Nominal Cladding Inner Radius
+#                      |           RER0: Nominal Cladding Outer Radius
+#                      |           |
+   180     2 8.82500E-03 9.82500E-03                         RBR0,RER0
+#
+#  NOTE: Pins in the reflector region are assumed to be identical in
+#        size to the pins in the core region:
+#
+#            SER(KZ): Reflector/Pin Perimeter
+#                      |           |           |           |
+   182     3 6.17323E-02 6.17323E-02 6.17323E-02             SER
+#
+#            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
+#                      |           |           |           |
+   169     3 1.92625E-03        1E-3 1.92625E-03             DRFO
+#
+#            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
+#                      |           |           |           |
+   189     3 1.92625E-03 0.00000E+00 1.92625E-03             DRFI
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  POWINC: Channel-Dependent Power Input (Floating Point)
+#
+POWINC    62     5     0                                                
+#
+#                      GAMSS: Fraction of Power from Direct Heating of Structure
+#                      |
+     2     1 1.00000D-05                                     GAMSS
+#
+#                      GAMTNC: Fraction of Power from Direct Heating of Coolant
+#                      |           GAMTNE: Fraction of Heating in Cladding
+#                      |           |
+     4     2 1.00000D-05 1.00000D-05                         GAMTNC,GAMTNE
+#
+#            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
+#                      |           |           |           |
+     6     4      0.0416      0.0814      0.1447      0.2388 PSHAPE
+    10     4      0.3836      0.5768      0.7901      1.0783 PSHAPE
+    14     4      1.4077      1.7169      2.0167      2.2002 PSHAPE
+    18     4      2.2863      2.2957      2.1395      1.9108 PSHAPE
+    22     4      1.6341      1.3314      1.0284      0.3957 PSHAPE
+    26     4      0.1413      0.0590      0.0506      0.0502 PSHAPE
+#
+#            PSHAPR(I): Radial Power Shape within Pin
+#                      |           |           |           |
+    30     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    34     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
+    38     2 1.00000D+00 1.00000D+00                         PSHAPR
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1   0.0013446                                     PRSHAP
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  PMATCH: Channel-Dependent Properties Input (Floating Point)
+#
+PMATCH    63     5     1                                                
+#
+#                      RHOCG: Desity x Heat Capacity for Gas in Plenum
+#                      |           RG: Thermal Resistance of Plenum Gas ?
+#                      |           |
+    58     2 5.26000E+06 6.00000E-02                         RHOCG,RG
+#   The above values are meant to represent HT-9.8/1 Change per Floyd for PLOF
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#  COOLIN: Channel-Dependent Coolant Input (Floating Point)
+#
+COOLIN    64     5     1                                                
+#
+#            AFR, BFR: Liquid Slug Friction Factor Coefficients
+#                      |           |
+     1     2       0.316       -0.25                         AFR,BFR
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1 1.81842E-04                                     W0
+    -1                                                                  
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#    ######  ####### ####### #       #######  #####  ####### ####### ######
+#    #     # #       #       #       #       #     #    #    #     # #     #
+#    #     # #       #       #       #       #          #    #     # #     #
+#    ######  #####   #####   #       #####   #          #    #     # ######
+#    #   #   #       #       #       #       #          #    #     # #   #
+#    #    #  #       #       #       #       #     #    #    #     # #    #
+#    #     # ####### #       ####### #######  #####     #    ####### #     #
+#
+#        ####### ####### ####### ######  ######     #     #####  #    #
+#        #       #       #       #     # #     #   # #   #     # #   #
+#        #       #       #       #     # #     #  #   #  #       #  #
+#        #####   #####   #####   #     # ######  #     # #       ###
+#        #       #       #       #     # #     # ####### #       #  #
+#        #       #       #       #     # #     # #     # #     # #   #
+#        #       ####### ####### ######  ######  #     #  #####  #    #
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     3     3
+#
+#                IAXEXP: Simple Axial Expansion Feedback Model Flag
+#                |       (0/1/2=No/Calculate/Calculate and Print)
+   181     1     0                                           IAXEXP
+#
+#                JSTRDX: Axial Structure Node Corresponding to Above-Core
+#                |       Load Pad
+   183     1    26                                           JSTRDX
+#
+#                IRDEXP: 0/1=Use/Skip this Channel in Radial Expansion Feedback
+#                |
+   187     1     1                                           IRDEXP
+#
+#                ICHUIS: 0/1=Use/Exclude Coolant from this Channel in
+#                |       Control-Rod Driveline Feedback
+   362     1     1
+#
+#                IREACZ: Axial Reactivity Worth Input Option. 0/1=MZ/MZC Mesh
+#                |
+   365     1     1                                           IREACZ
+    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#===============================================================================
+#
+#                        ######  #######    #    #    #
+#                        #     # #         # #   #   #
+#                        #     # #        #   #  #  #
+#                        ######  #####   #     # ###
+#                        #       #       ####### #  #
+#                        #       #       #     # #   #
+#                        #       ####### #     # #    #
+#
+#             #####  #     #    #    #     # #     # ####### #        #####
+#            #     # #     #   # #   ##    # ##    # #       #       #     #
+#            #       #     #  #   #  # #   # # #   # #       #       #
+#            #       ####### #     # #  #  # #  #  # #####   #        #####
+#            #       #     # ####### #   # # #   # # #       #             #
+#            #     # #     # #     # #    ## #    ## #       #       #     #
+#             #####  #     # #     # #     # #     # ####### #######  #####
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+
+    Two peak channels are modeled. One for the assembly with peak power/flow
+    and another for the assembly with peak power. Because the power varies so
+    much over the core but the coolant temperatures are generally the same,
+    the peak fuel temperature does not take place in the same channel as the
+    peak coolant temperature.
+    Axial power profile is taken as same as channel 1.
+    Geometry is the same as other fuel channels.
+    All parameters are copied from channel 1 unless overwritten below.
+
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCOM     1     1     1
+#
+#                NCHAN: Number of Channels
+#                |
+     1     1     7                                           NCHAN
+    -1
+#
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+# PEAK POWER/FLOW CHANNEL
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     1     1                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    41                                           NSUBAS
+    -1
+INPCHN    51     6     1                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1     1                                           NSUBAS
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+GEOMIN    61     1     1                                                
+    -1
+GEOMIN    61     6     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     1     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     5.57020                                     PRSHAP
+    -1
+POWINC    62     6     1                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1       3.220                                     PRSHAP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     1     1                                                
+    -1
+PMATCH    63     6     1                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+COOLIN    64     1     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.141949                                     W0
+    -1
+COOLIN    64     6     1                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.074852                                     W0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+# PEAK POWER CHANNEL
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+INPCHN    51     2     2                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1    83                                          NSUBAS
+    -1
+INPCHN    51     7     2                                                
+#
+#                NSUBAS: Number of Subassemblies in Channel
+#                |
+    26     1     1                                           NSUBAS
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+GEOMIN    61     2     2                                                
+    -1
+GEOMIN    61     7     2                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+POWINC    62     2     2                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1     18.1802                                       PRSHAP
+    -1
+POWINC    62     7     2                                                
+#
+#            PRSHAP: Ratio of Average Power per Subassembly to Average Power
+#                    Over All Subassemblies
+#                      |
+   256     1       20.45                                       PRSHAP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+PMATCH    63     2     2                                                
+    -1
+PMATCH    63     7     2                                                
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+COOLIN    64     2     2                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.528329                                     W0
+    -1
+COOLIN    64     7     2                                                
+#
+#                      W0: Steady-State Coolant Flow Rate per Pin
+#                      |
+    47     1    0.565976                                     W0
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+#
+#   PEAK CHANNELS FEEDBACK ADJUSTMENTS
+#
+POWINC    62     1     1
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
+    62     2  -2.115E-03  -1.346E-03    = 77/78              ADOP,BDOP
+    -1
+POWINC    62     6     6
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
+    62     2  -2.747E-05  -1.748E-05    = 1/78               ADOP,BDOP
+    -1
+POWINC    62     7     7
+#
+#                      ADOP: Flooded Doppler Coefficient
+#                      |           BDOP: Voided Doppler Coefficient
+#                      |           |
+    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
+    62     2  -2.747E-05  -1.748E-05    = 1/78               ADOP,BDOP
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+XNOTES
+      THIS SECTION COMPLETES CORE DESIGN
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
 ENDJOB    -1
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-##
-##   INNER CORE
-##
-#POWINC    62     1     1
-##
-##                      ADOP: Flooded Doppler Coefficient
-##                      |           BDOP: Voided Doppler Coefficient
-##                      |           |
-#    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
-##
-##   WDOPA(J): Axial Doppler Weighting Factor
-##
-##                      |           |           |           |           |
-#    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#    69     4      0.0741      0.0741      0.0741      0.0741             D
-#    73     4      0.0621      0.0621      0.0621      0.0621             E
-#    77     4      0.0563      0.0563      0.0563      0.0563             F
-#    81     4      0.0363      0.0363      0.0363      0.0363             G
-#    85     4      0.0212      0.0212      0.0212      0.0212             H
-##
-##   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
-##
-##                      |           |           |           |           |
-#   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
-#   117     4  2.2382E-05  2.2382E-05  2.2382E-05  2.2382E-05             D
-#   121     4  6.2179E-05  6.2179E-05  6.2179E-05  6.2179E-05             E
-#   125     4  6.4162E-05  6.4162E-05  6.4162E-05  6.4162E-05             F
-#   129     4  3.0994E-05  3.0994E-05  3.0994E-05  3.0994E-05             G
-#   133     4 -4.2498E-06 -4.2498E-06 -4.2498E-06 -4.2498E-06             H
-#   137     1 -8.9779E-06                                                 BOND
-#   138     5 -6.7244E-07 -6.7244E-07 -6.7244E-07 -6.7244E-07 -6.7244E-07 PLNM
-#   143     5  1.3147E-10  1.3147E-10  1.3147E-10  1.3147E-10  1.3147E-10 UPPRF
-##
-##   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
-##
-##   Inner-core cladding worth is -6.92 $.
-##
-##                      |           |           |           |           |
-#   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#   165     4 -9.6987E-06 -1.1157E-05 -1.2669E-05 -1.4169E-05             D
-#   169     4 -1.5586E-05 -1.6848E-05 -1.7889E-05 -1.8650E-05             E
-#   173     4 -1.9082E-05 -1.9155E-05 -1.8854E-05 -1.8182E-05             F
-#   177     4 -1.7162E-05 -1.5835E-05 -1.4258E-05 -1.2499E-05             G
-#   181     4 -1.0638E-05 -8.7566E-06 -6.9358E-06 -5.2502E-06             H
-##
-##   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
-##
-##   Inner-core fuel worth is 69.66 $.
-##
-##                      |           |           |           |           |
-#   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#   213     4  2.3825E-05  2.7408E-05  3.1122E-05  3.4806E-05             D
-#   217     4  3.8286E-05  4.1387E-05  4.3944E-05  4.5812E-05             E
-#   221     4  4.6875E-05  4.7055E-05  4.6314E-05  4.4663E-05             F
-#   225     4  4.2157E-05  3.8898E-05  3.5023E-05  3.0704E-05             G
-#   229     4  2.6132E-05  2.1510E-05  1.7038E-05  1.2897E-05             H
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##   OUTER CORE
-##
-#POWINC    62     2     2
-##
-##                      ADOP: Flooded Doppler Coefficient
-##                      |           BDOP: Voided Doppler Coefficient
-##                      |           |
-#    62     2  -1.230E-03  -8.769E-04                         ADOP,BDOP
-##
-##   WDOPA(J): Axial Doppler Weighting Factor
-##
-##                      |           |           |           |           |
-#    64     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#    69     4      0.0780      0.0780      0.0780      0.0780             D
-#    73     4      0.0678      0.0678      0.0678      0.0678             E
-#    77     4      0.0575      0.0575      0.0575      0.0575             F
-#    81     4      0.0304      0.0304      0.0304      0.0304             G
-#    85     4      0.0163      0.0163      0.0163      0.0163             H
-##
-##   VOIDRA(J): Coolant Reactivity Worth per Unit Coolant Mass
-##
-##                      |           |           |           |           |
-#   112     5  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 LOWRF
-#   117     4  2.6600E-07  2.6600E-07  2.6600E-07  2.6600E-07             D
-#   121     4  1.4600E-05  1.4600E-05  1.4600E-05  1.4600E-05             E
-#   125     4  1.4434E-05  1.4434E-05  1.4434E-05  1.4434E-05             F
-#   129     4  2.0970E-06  2.0970E-06  2.0970E-06  2.0970E-06             G
-#   133     4 -5.6159E-06 -5.6159E-06 -5.6159E-06 -5.6159E-06             H
-#   137     1 -3.9412E-06                                                 BOND
-#   138     5 -2.7413E-07 -2.7413E-07 -2.7413E-07 -2.7413E-07 -2.7413E-07 PLNM
-#   143     5  2.3104E-11  2.3104E-11  2.3104E-11  2.3104E-11  2.3104E-11 UPPRF
-##
-##   CLADRA(J): Cladding Reactivity Worth per Unit Cladding Mass
-##
-##   Outer-core cladding worth is -1.85 $.
-##
-##                      |           |           |           |           |
-#   160     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#   165     4 -1.9828E-06 -2.2810E-06 -2.5902E-06 -2.8968E-06             D
-#   169     4 -3.1864E-06 -3.4445E-06 -3.6573E-06 -3.8128E-06             E
-#   173     4 -3.9013E-06 -3.9162E-06 -3.8545E-06 -3.7171E-06             F
-#   177     4 -3.5086E-06 -3.2373E-06 -2.9148E-06 -2.5554E-06             G
-#   181     4 -2.1749E-06 -1.7902E-06 -1.4180E-06 -1.0734E-06             H
-##
-##   FUELRA(J): Fuel Reactivity Worth per Unit Fuel Mass
-##
-##   Outer-core fuel worth is 63.88 $.
-##
-##                      |           |           |           |           |
-#   208     5        0.00        0.00        0.00        0.00        0.00 LOWRF
-##
-#   213     4  1.6708E-05  1.9221E-05  2.1826E-05  2.4410E-05             D
-#   217     4  2.6850E-05  2.9025E-05  3.0819E-05  3.2129E-05             E
-#   221     4  3.2874E-05  3.3000E-05  3.2480E-05  3.1323E-05             F
-#   225     4  2.9565E-05  2.7279E-05  2.4562E-05  2.1533E-05             G
-#   229     4  1.8327E-05  1.5086E-05  1.1949E-05  9.0447E-06             H
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##===============================================================================
-##
-##    ######  ####### ####### #       #######  #####  ####### ####### ######
-##    #     # #       #       #       #       #     #    #    #     # #     #
-##    #     # #       #       #       #       #          #    #     # #     #
-##    ######  #####   #####   #       #####   #          #    #     # ######
-##    #   #   #       #       #       #       #          #    #     # #   #
-##    #    #  #       #       #       #       #     #    #    #     # #    #
-##    #     # ####### #       ####### #######  #####     #    ####### #     #
-##
-##             #####  #     #    #    #     # #     # ####### #
-##            #     # #     #   # #   ##    # ##    # #       #
-##            #       #     #  #   #  # #   # # #   # #       #
-##            #       ####### #     # #  #  # #  #  # #####   #
-##            #       #     # ####### #   # # #   # # #       #
-##            #     # #     # #     # #    ## #    ## #       #
-##             #####  #     # #     # #     # #     # ####### #######
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#XNOTES
-#
-#    Reflector channel represents power from Reflector+Control
-#                                 and geometry from Reflector
-#                                 
-#    Non-Driver Power:             19.24 MWth 
-#    Reflector+Control Assemblies: 133
-#    Pins/Assmbly: 91
-#    Pin OD:       1.541 cm
-#    
-#    Reflector axial mesh and power distribution are assumed to be identical
-#    to the driver channels. Fission gas heat capacity is set to that of HT-9.
-#    
-#
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##  INPCHN: Channel-Dependent Input (Integer)
-##
-#INPCHN    51     3     0                                                
-##
-##                NPLN: Number of Segments in Gas Plenum
-##                |     NREFB: Number of Reflector Zones below Pin
-##                |     |     NREFT: Number of Reflector Zones above Pin
-##                |     |     |      (Note: Below + Above <= 6)
-#     4     3     6     1     1                               NPLN,NREFB,NREFT
-##
-##                NZNODE(KZ): Number of Segments in Zone KZ
-##                |     |     |     |     |     |     | (KZ<=7, SUM<=48)
-#     7     3     5    26     5                               NZNODE
-##
-##                NT: Number of Radial Temperature Nodes in Fuel
-##                |
-#    14     1    10                                           NT
-##
-##                IFUELV: Table Number of Property Value for Driver Fuel
-##                |     IFUELB: Table Number of Property Value for Blanket Fuel
-##                |     |     ICLADV: Table Number for Cladding
-##                |     |     |
-#    15     3     5     0     1                               IFUELV,ICLADV
-##
-##                NPIN: Number of Pins per Assembly
-##                |     NSUBAS: Number of Subassemblies in Channel
-##                |     |
-#    25     2    91    81                                     NPIN,NSUBAS
-##
-##                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
-##                |     JNEN: Axial Node of Cladding Output for Plotting
-##                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
-##                |     |     |     JNSN: Axial Coolant Node of Structure
-##                |     |     |     |     Output for Plotting
-#    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
-##
-##                IRHOK: Fuel Properties Correlation Selection Flag
-##                |      (0=Use Tabular Input)
-#     3     1     0                                           IRHOK
-##
-##                IDKCRV: Power or Decay Heat Curve for this Channel
-##                |
-#   203     1     0                                           IDKCRV
-#    -1                                                                  
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##  GEOMIN: Geometry Input for Channel (Floating Point)
-##
-#GEOMIN    61     3     0                                                
-##
-##            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
-##                      |           |           |           |
-#     1     3 2.53990E-05 2.53990E-05 2.53990E-05             ACCZ
-##
-##            AXHI(J): Length of Axial Segment J in Core and Blanket
-##                      |           |           |           |
-#     8     4     0.04064     0.04064     0.04064     0.04064 AXHI
-#    12     4     0.04064     0.04064     0.04064     0.04064 AXHI
-#    16     4     0.04064     0.04064     0.04064     0.04064 AXHI
-#    20     4     0.04064     0.04064     0.04064     0.04064 AXHI
-#    24     4     0.04064     0.04064     0.04064     0.04064 AXHI
-##
-##            DHZ(KZ): Hydraulic Diameter for Zone KZ
-##                      |           |           |           |
-#    32     3 1.87820E-03 1.87820E-03 1.87820E-02             DHZ
-## DH in upper reflector is increased by 10x compared to that in core
-## to reduce the pressure drop through the upper structure of the assembly
-##
-##            DSTIZ(KZ): Thickness of Inner Structure Node in Zone KZ
-##                      |           |           |           |
-#    39     3 4.49555E-04 4.49555E-04 4.49555E-04             DSTIZ (10% Nom+Gap)
-##
-##            DSTOZ(KZ): Thickness of Outer Structure Node in Zone KZ
-##                      |           |           |           |
-#    46     3 4.04599E-03 4.04599E-03 4.04599E-03             DSTOZ (90% Nom+Gap)
-##
-##            PLENL: Length of Fission-Gas Plenum
-##                      |
-#    53     1      1.2446                                     PLENL
-##
-##            RBR(J): Cladding Inner Radius for Axial Segment J
-##                      |           |           |           |
-#    54     1 6.93450E-03                                     RBR
-##
-##            RER(J): Cladding Outer Radius for Axial Segment J
-##                      |           |           |           |
-#    78     1 7.70500E-03                                     RER
-##
-##            RBRPL: Cladding Inner Radius in Fission-Gas Plenum
-##                      |
-#   102     1 6.93450E-03                                     RBRPL
-##
-##            RERPL: Cladding Outer Radius in Fission-Gas Plenum
-##                      |
-#   103     1 7.70500E-03                                     RERPL
-##
-##            ROUTFP(J): Fuel Outer Radius for Axial Segment J
-##                      |           |           |           |
-#   128     1 6.93450E-03                                     ROUTFP
-##
-##            ZONEL(KZ): Length of Zone KZ
-##                      |           |           |           |
-#   152     3      1.2446      2.0574      1.1176             ZONEL
-##
-##            SRFSTZ(KZ): Structure Perimeter per Pin in Zone KZ
-##                      |           |           |           |
-#   159     3 5.68037E-03 5.68037E-03 5.68037E-03             SRFSTZ
-##
-##            AREAPC: Coolant Plus Pin Area per Pin
-##                      |
-#   166     1 2.11906E-04                                     AREAPC
-##
-##                      RBR0: Nominal Cladding Inner Radius
-##                      |           RER0: Nominal Cladding Outer Radius
-##                      |           |
-#   180     2 6.93450E-03 7.70500E-03                         RBR0,RER0
-##
-##  NOTE: Pins in the reflector region are assumed to be identical in
-##        size to the pins in the core region:
-##
-##            SER(KZ): Reflector/Pin Perimeter
-##                      |           |           |           |
-#   182     3 4.84119E-02 4.84119E-02 4.84119E-02             SER
-##
-##            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
-##                      |           |           |           |
-#   169     3 1.92625E-03 7.02600E-04 1.92625E-03             DRFO
-##
-##            DRFI(KZ): Thickness of Inner Reflector Node in Zone KZ
-##                      |           |           |           |
-#   189     3 1.92625E-03 0.00000E+00 1.92625E-03             DRFI
-#    -1                                                                  
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##  POWINC: Channel-Dependent Power Input (Floating Point)
-##
-#POWINC    62     3     0                                                
-##
-##                      GAMSS: Fraction of Power from Direct Heating of Structure
-##                      |
-#     2     1 1.00000D-05                                     GAMSS
-##
-##                      GAMTNC: Fraction of Power from Direct Heating of Coolant
-##                      |           GAMTNE: Fraction of Heating in Cladding
-##                      |           |
-#     4     2 1.00000D-05 1.00000D-05                         GAMTNC,GAMTNE
-##
-##            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak.
-##            Shape is from 4-th order polynomial fit of average power
-##            density for assembly IC34
-##                      |           |           |           |
-#     6     4 8.38196E-01 8.99017E-01 9.58004E-01 1.01312E+00 PSHAPE (D)
-#    10     4 1.06256E+00 1.10475E+00 1.13837E+00 1.16231E+00 PSHAPE (E)
-#    14     4 1.17572E+00 1.17797E+00 1.16866E+00 1.14764E+00 PSHAPE (F)
-#    18     4 1.11499E+00 1.07101E+00 1.01627E+00 9.51544E-01 PSHAPE (G)
-#    22     4 8.77851E-01 7.96447E-01 7.08822E-01 6.16700E-01 PSHAPE (H)
-##
-##            PSHAPR(I): Radial Power Shape within Pin
-##                      |           |           |           |
-#    30     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
-#    34     4 1.00000D+00 1.00000D+00 1.00000D+00 1.00000D+00 PSHAPR
-#    38     2 1.00000D+00 1.00000D+00                         PSHAPR
-##
-##            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-##                    Over All Subassemblies
-##                      |
-#   256     1   0.1446617                                     PRSHAP
-#   256     1   0.1378947                                     PRSHAP
-#    -1                                                                  
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##  PMATCH: Channel-Dependent Properties Input (Floating Point)
-##
-#PMATCH    63     3     2                                                
-##
-##                      RHOCG: Desity x Heat Capacity for Gas in Plenum
-##                      |           RG: Thermal Resistance of Plenum Gas ?
-##                      |           |
-#    58     2 5.26000E+06 6.00000E-02                         RHOCG,RG
-##   The above values are meant to represent HT-9.8/1 Change per Floyd for PLOF
-#    -1                                                                  
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##  COOLIN: Channel-Dependent Coolant Input (Floating Point)
-##
-#COOLIN    64     3     2                                                
-##
-##            AFR, BFR: Liquid Slug Friction Factor Coefficients
-##                      |           |
-#     1     2       0.316       -0.25                         AFR,BFR
-##
-##                      W0: Steady-State Coolant Flow Rate per Pin
-##                      |
-#    47     1 8.26072E-03                                     W0
-#    -1                                                                  
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##    ######  ####### ####### #       #######  #####  ####### ####### ######
-##    #     # #       #       #       #       #     #    #    #     # #     #
-##    #     # #       #       #       #       #          #    #     # #     #
-##    ######  #####   #####   #       #####   #          #    #     # ######
-##    #   #   #       #       #       #       #          #    #     # #   #
-##    #    #  #       #       #       #       #     #    #    #     # #    #
-##    #     # ####### #       ####### #######  #####     #    ####### #     #
-##
-##        ####### ####### ####### ######  ######     #     #####  #    #
-##        #       #       #       #     # #     #   # #   #     # #   #
-##        #       #       #       #     # #     #  #   #  #       #  #
-##        #####   #####   #####   #     # ######  #     # #       ###
-##        #       #       #       #     # #     # ####### #       #  #
-##        #       #       #       #     # #     # #     # #     # #   #
-##        #       ####### ####### ######  ######  #     #  #####  #    #
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#INPCHN    51     3     3
-##
-##                IAXEXP: Simple Axial Expansion Feedback Model Flag
-##                |       (0/1/2=No/Calculate/Calculate and Print)
-#   181     1     0                                           IAXEXP
-##
-##                JSTRDX: Axial Structure Node Corresponding to Above-Core
-##                |       Load Pad
-#   183     1    26                                           JSTRDX
-##
-##                IRDEXP: 0/1=Use/Skip this Channel in Radial Expansion Feedback
-##                |
-#   187     1     1                                           IRDEXP
-##
-##                ICHUIS: 0/1=Use/Exclude Coolant from this Channel in
-##                |       Control-Rod Driveline Feedback
-#   362     1     1
-##
-##                IREACZ: Axial Reactivity Worth Input Option. 0/1=MZ/MZC Mesh
-##                |
-#   365     1     1                                           IREACZ
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##===============================================================================
-##
-##                        ######  #######    #    #    #
-##                        #     # #         # #   #   #
-##                        #     # #        #   #  #  #
-##                        ######  #####   #     # ###
-##                        #       #       ####### #  #
-##                        #       #       #     # #   #
-##                        #       ####### #     # #    #
-##
-##             #####  #     #    #    #     # #     # ####### #
-##            #     # #     #   # #   ##    # ##    # #       #
-##            #       #     #  #   #  # #   # # #   # #       #
-##            #       ####### #     # #  #  # #  #  # #####   #
-##            #       #     # ####### #   # # #   # # #       #
-##            #     # #     # #     # #    ## #    ## #       #
-##             #####  #     # #     # #     # #     # ####### #######
-##
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#XNOTES
-#
-#    The peak channel is based on the the peak power/flow assembly. 
-#    Flow is based on batch-averaged assembly flow for the peak assembly, 
-#    but power is based on fresh assembly power.
-#    The peak assembly is IC43 (inner core) 
-#    
-#    AM
-#
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#INPCHN    51     1     1                                                
-##
-##                NSUBAS: Number of Subassemblies in Channel
-##                |
-#    26     1    78                                           NSUBAS
-#    26     1    77                                           NSUBAS
-#    -1
-#INPCHN    51     4     1                                                
-##
-##                NSUBAS: Number of Subassemblies in Channel
-##                |
-#    26     1     1                                           NSUBAS
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#GEOMIN    61     1     1                                                
-#    -1
-#GEOMIN    61     4     1                                                
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#POWINC    62     1     1                                                
-##
-##            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-##                    Over All Subassemblies
-##                      |
-#   256     1     6.05962                                     PRSHAP
-#   256     1     6.05416                                     PRSHAP
-#    -1
-#POWINC    62     4     1                                                
-##
-##            PRSHAP: Ratio of Average Power per Subassembly to Average Power
-##                    Over All Subassemblies
-##                      |
-#   256     1      6.8100                                     PRSHAP
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#PMATCH    63     1     1                                                
-#    -1
-#PMATCH    63     4     1                                                
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#COOLIN    64     1     1                                                
-##
-##                      W0: Steady-State Coolant Flow Rate per Pin
-##                      |
-#    47     1    0.106713                                     W0
-#    47     1    0.106709                                     W0
-#    -1
-#COOLIN    64     4     1                                                
-##
-##                      W0: Steady-State Coolant Flow Rate per Pin
-##                      |
-#    47     1    0.107011                                     W0
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-##
-##   PEAK CHANNEL FEEDBACK ADJUSTMENTS
-##
-#POWINC    62     1     1
-##
-##                      ADOP: Flooded Doppler Coefficient
-##                      |           BDOP: Voided Doppler Coefficient
-##                      |           |
-#    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
-#    62     2  -2.115E-03  -1.346E-03    = 77/78              ADOP,BDOP
-#    -1
-#POWINC    62     4     4
-##
-##                      ADOP: Flooded Doppler Coefficient
-##                      |           BDOP: Voided Doppler Coefficient
-##                      |           |
-#    62     2  -2.143E-03  -1.363E-03                         ADOP,BDOP
-#    62     2  -2.747E-05  -1.748E-05    = 1/78               ADOP,BDOP
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-#XNOTES
-#      THIS SECTION COMPLETES CORE DESIGN
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-######### ####### ####### ####### ####### ####### ####### ####### ####### #######
-##ENDJOB    -1
-######### ####### ####### ####### ####### ####### ####### ####### ####### #######
 #XNOTES
 #       PRIMAR-4 MODEL
 #       POOL DESIGN
