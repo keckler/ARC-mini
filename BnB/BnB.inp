@@ -54,13 +54,13 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1     0                                           MAXSTP
+    11     1  1000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
-    12     2  1000  1000                                     IPO,IPOBOI
+    12     2    10  1000                                     IPO,IPOBOI
 #
 #                NOREAC: Main Time Step Intevals between PSHORT Print
 #                |
@@ -1009,7 +1009,7 @@ PRIMIN    14     0     0
 #
 #            PRETAB(L): normalized inlet coolant driving pressure at PRETME(L)
 #                      |           |           |           |
-     5     4         1.0         1.0         0.5         0.5 PRETAB
+     5     4         1.0         1.0         1.0         1.0 PRETAB
 #
 #            PRETME(L): time for inlet pressure PRETAB(L)
 #                      |           |           |           |
@@ -1047,15 +1047,6 @@ INPCOM     1     1     1
 #                IPOWER: 0/1 = Reactivity/Power vs Time from PREA
 #                |
      8     1     0
-#
-#                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
-#                |       Time Steps
-    11     1   500                                           MAXSTP
-#
-#                IPO: Number of Steps between Prints before IBLPRT or Boiling
-#                |     IPOBOI: Number of Steps between Prints after IBLPRT or Boiling
-#                |     |
-    12     2   500   500                                     IPO,IPOBOI
 #
 #                NPREAT: Number of Entries in PREA vs. Time Table
 #                |       (Power or Reactivity vs Time)
@@ -1724,227 +1715,188 @@ XNOTES
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-ENDJOB    -1
+#ENDJOB    -1
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
-#XNOTES
-#       PRIMAR-4 MODEL
-#       POOL DESIGN
-#       SMALL DRACS IN COLD POOL
-#    -1
-#INPCOM     1     1     1
-#    27     1     4                              IPRION
-#    -1
-#OPCIN     11     1     1
-#    26     1 1.0                               DTSSCP, NULL TRANS. STEP SIZE
-#    26     1 20.                               DTSSCP, NULL TRANS. STEP SIZE
-#    27     1      1.0-12                       EPSSCP, CONVERGENCE CRITERION
-#    27     1 -1.0                              EPSSCP, CONVERGENCE CRITERION
-#    -1
-#PRIMIN    14     1     1
-##
-##            PX: Coolant Exit Pressure at ZPLENU
-##                      |
-#     1     1 1.9    D 05                                     PX
-#     1     1 1.49   D 05                                     PX
-##
-##            T0TAB(L): Inlet Temperature at Time T0TME(L)
-##                      |           |
-#    45     2      628.15      628.15                         T0TAB
-##
-##            T0TME(L): Time for Inlet Temperature T0TAB(L)
-##                      |           |
-#    65     2         0.0   1000000.0                         T0TME
-##
-##            ZPLENL/ZPLENU: Inlet/Outlet Plenum Elevation
-##                      |           |
-#    87     2       -0.60        2.30                         ZPLENL,ZPLENU
-#    87     2     -1.2446       3.175                         ZPLENL,ZPLENU
-##
-##            THT2VL: Minimum Degree of Implicitness in PRIMAR-4
-##                      |
-#    96     1         0.8                                     THT2VL
-#    -1
-#INPMR4     3     1     0
-#     1     1     5                                           NCVP
-#     2     1     4                                           NCVS
-#     4     1     6                                           NSEGLP
-#     5     1     4                                           NSEGLS
-#    10     1    26                                           NELEMT
-##                  COMPRESSIBLE VOLUMES
-#    11     1     1    ITYPCV(1), INLET PLENUM
-#    12     1     7    ITYPCV(2), OUTLET PLENUM WITH COVER GAS
-#    13     1     8    ITYPCV(3), POOL WITH COVER GAS, UPPER ANNULUS OF COLD POOL
-#    14     1     2    ITYPCV(4), COMPRESSIBLE LIQUID, NO GAS, LOWER PART OF COLD POOL
-#    15     1     2    ITYPCV(5), COMPRESSIBLE LIQUID, NO GAS, MAIN COLD POOl     
-#    16     1     9    ITYPCV(6), PUMP BOWL WITH COVER GAS, INTERMEDIATE PUMP
-#    17     1     2    ITYPCV(7), COMPRESSIBLE LIQUID, NO GAS, UPPER HALF OF STEAM GENERATOR
-#    18     1     2    ITYPCV(8), COMPRESSIBLE LIQUID, NO GAS, LOWER HALF OF STEAM GENERATOR
-#    19     1     8    ITYPCV(9), POOL WITH COVER GAS, DRACS LOOP COVER GAS
-##                  ELEMENTS
-#    49     1     1    ITYPEL(1), CORE SUBASSEMBLIES
-#    50     1     6    ITYPEL(2), IHX SHELL SIDE
-#    51     1     3    ITYPEL(3), PIPE, iHX OUTLET
-#    52     1     5    ITYPEL(4), PUMP IMPELLER, PRIMARY PUMP
-#    53     1     3    ITYPEL(5), PIPE, PUMP TO INLET PLENUM
-#    54     1     3    ITYPEL(6), PIPE, ANNULUS TO DHX INLET
-#    55     1     6    ITYPEL(7), IHX SHELL SIDE, DHX PRIMARY SIDE
-#    56     1     3    ITYPEL(8), PIPE, CONNECTS CV3 AND CV5
-#    57     1     3    ITYPEL(9), PIPE, CONNECTS CV3 AND CV4
-#    58     1     5    ITYPEL(10), PUMP IMPELLER, INTERMEDIATE PUMP
-#    59     1     3    ITYPEL(11), PIPE, PUMP TO IHX, INTERMEDIATE LOOP
-#    60     1     3    ITYPEL(12), PIPE, IHX DOWNCOMMER
-#    61     1     7    ITYPEL(13), IHX TUBE SIDE
-#    62     1     3    ITYPEL(14), PIPE
-#    63     1     3    ITYPEL(15), PIPE
-#    64     1     3    ITYPEL(16), PIPE, STEAM GENERATOR INLET REGION
-#    65     1     8    ITYPEL(17), STEAM GENERATOR
-#    66     1     3    ITYPEL(18), PIPE, STEAM GENERATOR OUTLET REGION
-#    67     1     3    ITYPEL(19), PIPE, INCLUDES STEAM GENERATOR PRESSURE DROP
-#    68     1     3    ITYPEL(20), PIPE
-#    69     1     3    ITYPEL(21), PIPE
-#    70     1    12    ITYPEL(22), AIR DUMP HEAT EXCHANGER IN DRACS LOOP
-#    71     1     3    ITYPEL(23), PIPE
-#    72     1     3    ITYPEL(24), PIPE, DOWNCOMMER IN DHX
-#    73     1     7    ITYPEL(25), IHX TUBE SIDE, DHX INTERMEDIATE SIDE
-#    74     1     3    ITYPEL(26), PIPE
-##                  LIQUID SEGMENTS
-#   189     2     1     2  JCVL(M,1), CVs AT ENDS OF LIQUID SEGMENT
-#   191     2     2     5  JCVL(M,2)
-#   193     2     5     1  JCVL(M,3)
-#   195     2     5     5  JCVL(M,4)
-#   197     2     3     5  JCVL(M,5)
-#   199     2     5     4  JCVL(M,6)
-#   201     2     6     7  JCVL(M,7)
-#   203     2     7     8  JCVL(M,8)
-#   205     2     8     6  JCVL(M,9)
-#   207     2     9     9  JCVL(M,10)
-#   325     1     1        NELML(1), NUMBER OF ELEMENTS IN THE SEGMENT
-#   326     1     2        NELML(2)
-#   327     1     2        NELML(3)
-#   328     1     2        NELML(4)
-#   329     1     1        NELML(5)
-#   330     1     1        NELML(6)
-#   331     1     7        NELML(7)
-#   332     1     1        NELML(8)
-#   333     1     3        NELML(9)
-#   334     1     6        NELEML(10)
-#   365     1     1        JFSELL(1), FIRST ELEMENT IN THE SEGMENT
-#   366     1     2        JFSELL(2)
-#   367     1     4        JFSELL(3)
-#   368     1     6        JFSELL(4)
-#   369     1     8        JFSELL(5)
-#   370     1     9        JFSELL(6)
-#   371     1    10        JFSELL(7)
-#   372     1    17        JFSELL(8)
-#   373     1    18        JFSELL(9)
-#   374     1    21        JFSELL(10)
-##                   PUMPS
-#   405     1     2        NPUMP, NUMBER OF PUMPS
-#   406     1     4        IELPMP(1)
-#   407     1    10        IELPMP(2)
-#   418     1     2        IEMPMP(1), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
-#   419     1     2        IEMPMP(2), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
-##                  IHX
-#   470     1     2        NIHX, NUMBER OF IHXs
-#   473     1     2        IELIHX(1), ELEMENT NUMBER, SHELL SIDE
-#   474     1     7        IELIHX(2), ELEMENT NUMBER, SHELL SIDE  
-#   481     1    13        IELHXS(1), ELEMENT NUMBER, TUBE SIDE
-#   482     1    25        IELHXS(2), ELEMENT NUMBER, TUBE SIDE
-##                  NAK
-#   509     1     3        INAKDR = 3 FOR NAK IN SOME LOOPS, Na IN OTHERS
-#  1377     1    10        ISGLNK, USE NAK IN SEGMENT 10
-#  1378     1     9        ICVNAK, USE NAK IN CV 9
-##                  TEMPERATURE GROUPS
-#   512     1    17        NTGPT, NUMBER OF TEMPERATURE GROUPS
-#   513     1    41        NTNODE(1), NUMBER OF NODES IN THE TEMPERATURE GROUP
-#   514     1    10        NTNODE(2)
-#   515     1    15        NTNODE(3)
-#   516     1     5        NTNODE(4)
-#   517     1    41        NTNODE(5)
-#   518     1     3        NTNODE(6)
-#   519     1     3        NTNODE(7)
-#   520     1    40        NTNODE(8)
-#   521     1    40        NTNODE(9)
-#   522     1    20        NTNODE(10)
-#   523     1     2        NTNODE(11)
-#   524     1    20        NTNODE(12)
-#   525     1    30        NTNODE(13)
-#   526     1     3        NTNODE(14)
-#   527     1     2        NTNODE(15)
-#   528     1    40        NTNODE(16)
-#   529     1    40        NTNODE(17)
-#   613     1     2        IFSTEL(1), FIRST ELEMENT IN TEMPERATURE GROUP
-#   614     1     3        IFSTEL(2)
-#   615     1     4        IFSTEL(3)
-#   616     1     6        IFSTEL(4)
-#   617     1     7        IFSTEL(5)
-#   618     1     8        IFSTEL(6)
-#   619     1     9        IFSTEL(7)
-#   620     1    10        IFSTEL(8)
-#   621     1    14        IFSTEL(9)
-#   622     1    16        IFSTEL(10)
-#   623     1    17        IFSTEL(11)
-#   624     1    18        IFSTEL(12)
-#   625     1    19        IFSTEL(13)
-#   626     1    21        IFSTEL(14)
-#   627     1    22        IFSTEL(15)
-#   628     1    23        IFSTEL(16)
-#   629     1    26        IFSTEL(17)
-#   713     1     2        ILSTEL(1), LAST ELEMENT IN TEMPERATURE GROUP
-#   714     1     3        ILSTEL(2)
-#   715     1     5        ILSTEL(3)
-#   716     1     6        ILSTEL(4)
-#   717     1     7        ILSTEL(5)
-#   718     1     8        ILSTEL(6)
-#   719     1     9        ILSTEL(7)
-#   720     1    12        ILSTEL(8)
-#   721     1    15        ILSTEL(9)
-#   722     1    16        ILSTEL(10)
-#   723     1    17        ILSTEL(11)
-#   724     1    18        ILSTEL(12)
-#   725     1    20        ILSTEL(13)
-#   726     1    21        ILSTEL(14)
-#   727     1    22        ILSTEL(15)
-#   728     1    24        ILSTEL(16)
-#   729     1    26        ILSTEL(17)
-##                   STEAM GENERATOR
-#   839     1     1         NSGN, NUMBER OF STEAM GENERATORS
-#   840     1    17        IELSGN, ELEMENT NUMBER
-#   852     1     1        ISGCLC, TABLE LOOK-UP, TABLE 1
-#   864     1     3        IEVAP, ONCE-THROUGH STEAM GENERATOR
-##                   PRINTS
-#   890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
-#   890     1200000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
-##                   BINARY OUTPUT ON fort.15
-#   891     1    10        NBINOT
-#   892     1     2        IBINST
-#   892     1   200        IBINST
-#   893    10245001     9 15002    10185001     2395001     2770001780001  IBINOT
-##                   AIR DUMP HEAT EXCHANGER
-#   991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
-#   992     1    22        IELDHX, ELEMENT NUMBER
-##                   Control Rod Drive Expansion Reactivity Feedback
-#  1008     1     2        NEXPFB
-#  1008     1     1        NEXPFB
-#  1009     1    -3        IEXPFB(1)
-#  1010     1    -5        IEXPFB(2)
-##                   COMPONENT-COMPONENT HEAT TRANSFER
-#  1052     1    -1        IELHT
-#  1082     1    -4        IELHT2
-#  1052     1     0        IELHT
-#  1082     1     0        IELHT2
-##                   COMMON COVER GAS PRESSURES
-#  1153     1     2        NCCV
-#  1154     1     2        ICCVFS
-##                   NULL TRANSIENT
-#  1288     1   200        ISSCPC
-#  1288     1  2000        ISSCPC
-#  1288     1  1000        ISSCPC
-#  1289     1   100        ISST15
-#  1289     1  1000        ISST15
-#  1289     1   500        ISST15
-##                   STRATIFIED COMPRESSIBLE VOLUMES
-#  1313     1     0        NSTRCV
+XNOTES
+       PRIMAR-4 MODEL
+       POOL DESIGN
+       SMALL DRACS IN COLD POOL
+    -1
+INPCOM     1     1     1
+    27     1     4                              IPRION
+    -1
+OPCIN     11     1     1
+    26     1 1.0                               DTSSCP, NULL TRANS. STEP SIZE
+    27     1 -1.0                              EPSSCP, CONVERGENCE CRITERION
+    -1
+INPMR4     3     1     0
+     1     1     5                                           NCVP
+     2     1     4                                           NCVS
+     4     1     6                                           NSEGLP
+     5     1     4                                           NSEGLS
+    10     1    26                                           NELEMT
+#                  COMPRESSIBLE VOLUMES
+    11     1     1    ITYPCV(1), INLET PLENUM
+    12     1     7    ITYPCV(2), OUTLET PLENUM WITH COVER GAS
+    13     1     8    ITYPCV(3), POOL WITH COVER GAS, UPPER ANNULUS OF COLD POOL
+    14     1     2    ITYPCV(4), COMPRESSIBLE LIQUID, NO GAS, LOWER PART OF COLD POOL
+    15     1     2    ITYPCV(5), COMPRESSIBLE LIQUID, NO GAS, MAIN COLD POOl     
+    16     1     9    ITYPCV(6), PUMP BOWL WITH COVER GAS, INTERMEDIATE PUMP
+    17     1     2    ITYPCV(7), COMPRESSIBLE LIQUID, NO GAS, UPPER HALF OF STEAM GENERATOR
+    18     1     2    ITYPCV(8), COMPRESSIBLE LIQUID, NO GAS, LOWER HALF OF STEAM GENERATOR
+    19     1     8    ITYPCV(9), POOL WITH COVER GAS, DRACS LOOP COVER GAS
+#                  ELEMENTS
+    49     1     1    ITYPEL(1), CORE SUBASSEMBLIES
+    50     1     6    ITYPEL(2), IHX SHELL SIDE
+    51     1     3    ITYPEL(3), PIPE, iHX OUTLET
+    52     1     5    ITYPEL(4), PUMP IMPELLER, PRIMARY PUMP
+    53     1     3    ITYPEL(5), PIPE, PUMP TO INLET PLENUM
+    54     1     3    ITYPEL(6), PIPE, ANNULUS TO DHX INLET
+    55     1     6    ITYPEL(7), IHX SHELL SIDE, DHX PRIMARY SIDE
+    56     1     3    ITYPEL(8), PIPE, CONNECTS CV3 AND CV5
+    57     1     3    ITYPEL(9), PIPE, CONNECTS CV3 AND CV4
+    58     1     5    ITYPEL(10), PUMP IMPELLER, INTERMEDIATE PUMP
+    59     1     3    ITYPEL(11), PIPE, PUMP TO IHX, INTERMEDIATE LOOP
+    60     1     3    ITYPEL(12), PIPE, IHX DOWNCOMMER
+    61     1     7    ITYPEL(13), IHX TUBE SIDE
+    62     1     3    ITYPEL(14), PIPE
+    63     1     3    ITYPEL(15), PIPE
+    64     1     3    ITYPEL(16), PIPE, STEAM GENERATOR INLET REGION
+    65     1     8    ITYPEL(17), STEAM GENERATOR
+    66     1     3    ITYPEL(18), PIPE, STEAM GENERATOR OUTLET REGION
+    67     1     3    ITYPEL(19), PIPE, INCLUDES STEAM GENERATOR PRESSURE DROP
+    68     1     3    ITYPEL(20), PIPE
+    69     1     3    ITYPEL(21), PIPE
+    70     1    12    ITYPEL(22), AIR DUMP HEAT EXCHANGER IN DRACS LOOP
+    71     1     3    ITYPEL(23), PIPE
+    72     1     3    ITYPEL(24), PIPE, DOWNCOMMER IN DHX
+    73     1     7    ITYPEL(25), IHX TUBE SIDE, DHX INTERMEDIATE SIDE
+    74     1     3    ITYPEL(26), PIPE
+#                  LIQUID SEGMENTS
+   189     2     1     2  JCVL(M,1), CVs AT ENDS OF LIQUID SEGMENT
+   191     2     2     5  JCVL(M,2)
+   193     2     5     1  JCVL(M,3)
+   195     2     3     5  JCVL(M,4)
+   197     2     5     3  JCVL(M,5)
+   199     2     5     4  JCVL(M,6)
+   201     2     6     7  JCVL(M,7)
+   203     2     7     8  JCVL(M,8)
+   205     2     8     6  JCVL(M,9)
+   207     2     9     9  JCVL(M,10)
+   325     1     1        NELML(1), NUMBER OF ELEMENTS IN THE SEGMENT
+   326     1     2        NELML(2)
+   327     1     2        NELML(3)
+   328     1     2        NELML(4)
+   329     1     1        NELML(5)
+   330     1     1        NELML(6)
+   331     1     7        NELML(7)
+   332     1     1        NELML(8)
+   333     1     3        NELML(9)
+   334     1     6        NELEML(10)
+   365     1     1        JFSELL(1), FIRST ELEMENT IN THE SEGMENT
+   366     1     2        JFSELL(2)
+   367     1     4        JFSELL(3)
+   368     1     6        JFSELL(4)
+   369     1     8        JFSELL(5)
+   370     1     9        JFSELL(6)
+   371     1    10        JFSELL(7)
+   372     1    17        JFSELL(8)
+   373     1    18        JFSELL(9)
+   374     1    21        JFSELL(10)
+#                   PUMPS
+   405     1     2        NPUMP, NUMBER OF PUMPS
+   406     1     4        IELPMP(1)
+   407     1    10        IELPMP(2)
+   418     1     2        IEMPMP(1), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
+   419     1     2        IEMPMP(2), TYPE OF PUMP, HOMOLOGOUS MODEL, CENTRIFUGAL PUMP
+#                  IHX
+   470     1     2        NIHX, NUMBER OF IHXs
+   473     1     2        IELIHX(1), ELEMENT NUMBER, SHELL SIDE
+   474     1     7        IELIHX(2), ELEMENT NUMBER, SHELL SIDE  
+   481     1    13        IELHXS(1), ELEMENT NUMBER, TUBE SIDE
+   482     1    25        IELHXS(2), ELEMENT NUMBER, TUBE SIDE
+#                  NAK
+   509     1     3        INAKDR = 3 FOR NAK IN SOME LOOPS, Na IN OTHERS
+  1377     1    10        ISGLNK, USE NAK IN SEGMENT 10
+  1378     1     9        ICVNAK, USE NAK IN CV 9
+#                  TEMPERATURE GROUPS
+   512     1    17        NTGPT, NUMBER OF TEMPERATURE GROUPS
+   513     1    41        NTNODE(1), NUMBER OF NODES IN THE TEMPERATURE GROUP
+   514     1    10        NTNODE(2)
+   515     1    15        NTNODE(3)
+   516     1     5        NTNODE(4)
+   517     1    41        NTNODE(5)
+   518     1     3        NTNODE(6)
+   519     1     3        NTNODE(7)
+   520     1    40        NTNODE(8)
+   521     1    40        NTNODE(9)
+   522     1    20        NTNODE(10)
+   523     1     2        NTNODE(11)
+   524     1    20        NTNODE(12)
+   525     1    30        NTNODE(13)
+   526     1     3        NTNODE(14)
+   527     1     2        NTNODE(15)
+   528     1    40        NTNODE(16)
+   529     1    40        NTNODE(17)
+   613     1     2        IFSTEL(1), FIRST ELEMENT IN TEMPERATURE GROUP
+   614     1     3        IFSTEL(2)
+   615     1     4        IFSTEL(3)
+   616     1     6        IFSTEL(4)
+   617     1     7        IFSTEL(5)
+   618     1     8        IFSTEL(6)
+   619     1     9        IFSTEL(7)
+   620     1    10        IFSTEL(8)
+   621     1    14        IFSTEL(9)
+   622     1    16        IFSTEL(10)
+   623     1    17        IFSTEL(11)
+   624     1    18        IFSTEL(12)
+   625     1    19        IFSTEL(13)
+   626     1    21        IFSTEL(14)
+   627     1    22        IFSTEL(15)
+   628     1    23        IFSTEL(16)
+   629     1    26        IFSTEL(17)
+   713     1     2        ILSTEL(1), LAST ELEMENT IN TEMPERATURE GROUP
+   714     1     3        ILSTEL(2)
+   715     1     5        ILSTEL(3)
+   716     1     6        ILSTEL(4)
+   717     1     7        ILSTEL(5)
+   718     1     8        ILSTEL(6)
+   719     1     9        ILSTEL(7)
+   720     1    12        ILSTEL(8)
+   721     1    15        ILSTEL(9)
+   722     1    16        ILSTEL(10)
+   723     1    17        ILSTEL(11)
+   724     1    18        ILSTEL(12)
+   725     1    20        ILSTEL(13)
+   726     1    21        ILSTEL(14)
+   727     1    22        ILSTEL(15)
+   728     1    24        ILSTEL(16)
+   729     1    26        ILSTEL(17)
+#                   STEAM GENERATOR
+   839     1     1         NSGN, NUMBER OF STEAM GENERATORS
+   840     1    17        IELSGN, ELEMENT NUMBER
+   852     1     1        ISGCLC, TABLE LOOK-UP, TABLE 1
+   864     1     3        IEVAP, ONCE-THROUGH STEAM GENERATOR
+#                   PRINTS
+   890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
+#                   BINARY OUTPUT ON fort.15
+   891     1    10        NBINOT
+   892     1     2        IBINST
+   892     1   200        IBINST
+   893    10245001     9 15002    10185001     2395001     2770001780001  IBINOT
+#                   AIR DUMP HEAT EXCHANGER
+   991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
+   992     1    22        IELDHX, ELEMENT NUMBER
+#                   Control Rod Drive Expansion Reactivity Feedback
+  1008     1     2        NEXPFB
+  1008     1     1        NEXPFB
+  1009     1    -3        IEXPFB(1)
+  1010     1    -5        IEXPFB(2)
+#                   COMMON COVER GAS PRESSURES
+  1153     1     2        NCCV
+  1154     1     2        ICCVFS
+#                   STRATIFIED COMPRESSIBLE VOLUMES
+  1313     1     0        NSTRCV
 #  1313     1     2        NSTRCV
 #  1314     2     2     5  ICVSTR
 #  1317     2     1     2  ISTRVT
@@ -1956,528 +1908,526 @@ ENDJOB    -1
 #  1353     2     3     0  ICV2WL
 #  1362     1     0        IDBSTR
 #  1363     1    30        ISTDBS
-##                   DEBUG PRINTS
-#   507     1     0                                                       IDBPR4
-#   508     1     0                                                       IDBP4N
-#    -1
-#PMR4IN    18     1     0
-##                   DEBUG PRINTS
-#     1     1 0.           TMDBP4
-##                   LIQUID SEGMENTS
-#     2     1 5028.        FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
-#     3     1 1257.        FLOSSL(2)
-#     4     1 1257.        FLOSSL(3)
-#     5     1 0.           FLOSSL(4)
-#     6     1 0.           FLOSSL(5)
-#     7     1 0.           FLOSSL(6)
-#     8     1 1290.        FLOSSL(7)
-#     9     1 1290.        FLOSSL(8)
-#    10     1 1290.        FLOSSL(9)
-#    11     1 0.           FLOSSL(10)
-#    42     1 -1.2446      ZINL(1), INLET ELEVATION
-#    43     1 7.31         ZINL(2)
-#    44     1 2.016        ZINL(3)
-#    45     1 2.6          ZINL(4)
-#    46     1 2.75         ZINL(5)
-#    47     1 -1.55        ZINL(6)
-#    48     1 23.58        ZINL(7)
-#    49     1 28.88        ZINL(8)
-#    50     1 15.86        ZINL(9)
-#    51     1 22.0         ZINL(10)
-#    82     2 1.          1.          CVMLT(M,1), MULTIPLICITY FACTORS
-#    84     2 4.          4.          CVMLT(M,2)
-#    86     2 4.          4.          CVMLT(M,3)
-#    88     2 3.          3.          CVMLT(M,4)
-#    88     2 2.          2.          CVMLT(M,4)
-#    90     2 1.          1.          CVMLT(M,5)
-#    92     2 1.          1.          CVMLT(M,6)
-#    94     2 1.          1.          CVMLT(M,7)
-#    96     2 1.          1.          CVMLT(M,8)
-#    98     2 1.          1.          CVMLT(M,9)
-#   100     2 1.          1.          CVMLT(M,10)
-##                 ELEMENTS
-#   162     1 3.175        ZOUTEL(1), OUTLET ELEVATION
-#   163     1 2.53         ZOUTEL(2)
-#   164     1 1.8128       ZOUTEL(3)
-#   165     1 2.016        ZOUTEL(4)
-#   166     1 -1.65        ZOUTEL(5)
-#   167     1 4.763        ZOUTEL(6)
-#   168     1 2.263        ZOUTEL(7)
-#   169     1 2.65         ZOUTEL(8)
-#   170     1 -1.65        ZOUTEL(9)
-#   171     1 23.58        ZOUTEL(10)
-#   172     1 7.31         ZOUTEL(11)
-#   173     1 2.53         ZOUTEL(12)
-#   174     1 7.31         ZOUTEL(13)
-#   175     1 10.0         ZOUTEL(14)
-#   176     1 42.36        ZOUTEL(15)
-#   177     1 39.34        ZOUTEL(16)
-#   178     1 28.78        ZOUTEL(17)
-#   179     1 15.86        ZOUTEL(18)
-#   180     1 15.86        ZOUTEL(19)
-#   181     1 24.88        ZOUTEL(20)
-#   182     1 21.0         ZOUTEL(21)
-#   183     1 20.0         ZOUTEL(22)
-#   184     1 4.763        ZOUTEL(23)
-#   185     1 2.263        ZOUTEL(24)
-#   186     1 4.763        ZOUTEL(25)
-#   187     1 22.0         ZOUTEL(26)
-#   302     1 4.573        XLENEL(1), ELEMENT LENGTH
-#   302     1 4.1496       XLENEL(1), ELEMENT LENGTH
-#   303     1 4.78         XLENEL(2)
-#   304     1 .7172        XLENEL(3)
-#   305     1 .1           XLENEL(4)
-#   306     1 4.0          XLENEL(5)
-#   307     1 2.0          XLENEL(6)
-#   308     1 2.5          XLENEL(7)
-#   309     1 .1           XLENEL(8)
-#   310     1 .1           XLENEL(9)
-#   311     1 .1           XLENEL(10)
-#   312     1 25.          XLENEL(11)
-#   313     1 4.78         XLENEL(12)
-#   314     1 4.78         XLENEL(13)
-#   315     1 6.8          XLENEL(14)
-#   316     1 76.          XLENEL(15)
-#   317     1 3.0          XLENEL(16)
-#   318     1 .1           XLENEL(17)
-#   319     1 3.0          XLENEL(18)
-#   320     1 6.8          XLENEL(19)
-#   321     1 30.          XLENEL(20)
-#   322     1 1.0          XLENEL(21)
-#   323     1 11.3         XLENEL(22)
-#   324     1 27.          XLENEL(23)
-#   325     1 2.50         XLENEL(24)
-#   326     1 2.50         XLENEL(25)
-#   327     1 30.          XLENEL(26)
-#   442     1 1.           AREAEL(1), COOLANT FLOW AREA
-#   443     1 1.044        AREAEL(2)
-#   444     1 .79          AREAEL(3)
-#   445     1 .255         AREAEL(4)
-#   446     1 .255         AREAEL(5)
-#   447     1 .0807        AREAEL(6)
-#   448     1 .0807        AREAEL(7)
-#   449     1 .2           AREAEL(8)
-#   450     1 .2           AREAEL(9)
-#   451     1 .25          AREAEL(10)
-#   452     1 .255         AREAEL(11)
-#   453     1 .255         AREAEL(12)
-#   454     1 .7048        AREAEL(13)
-#   455     1 .255         AREAEL(14)
-#   456     1 .255         AREAEL(15)
-#   457     1 5.2          AREAEL(16)
-#   458     1 .255         AREAEL(17)
-#   459     1 5.2          AREAEL(18)
-#   460     1 .255         AREAEL(19)
-#   461     1 .255         AREAEL(20)
-#   462     1 .255         AREAEL(21)
-#   463     1 .255         AREAEL(22)
-#   464     1 .255         AREAEL(23)
-#   465     1 .255         AREAEL(24)
-#   466     1 .255         AREAEL(25)
-#   467     1 .255         AREAEL(26)
-#   582     1 1.           DHELEM(1), HYDRAULIC DIAMETER
-#   583     1 .01859       DHELEM(2)
-#   584     1 1.0          DHELEM(3)
-#   585     1 .57          DHELEM(4)
-#   586     1 .57          DHELEM(5)
-#   587     1 .13          DHELEM(6)
-#   588     1 .0491        DHELEM(7)
-#   589     1 .2           DHELEM(8)
-#   590     1 .2           DHELEM(9)
-#   591     1 .5           DHELEM(10)
-#   592     1 .57          DHELEM(11)
-#   593     1 .57          DHELEM(12)
-#   594     1 .014122      DHELEM(13)
-#   595     1 .57          DHELEM(14)
-#   596     1 .57          DHELEM(15)
-#   597     1 1.           DHELEM(16)
-#   598     1 1.           DHELEM(17)
-#   599     1 1.           DHELEM(18)
-#   600     1 .57          DHELEM(19)
-#   601     1 .57          DHELEM(20)
-#   602     1 .2           DHELEM(21)
-#   603     1 .035         DHELEM(22)
-#   604     1 .2           DHELEM(23)
-#   605     1 .2           DHELEM(24)
-#   606     1 .0204        DHELEM(25)
-#   607     1 .2           DHELEM(26)
-#   722     1       1.0-5  ROUGHL(1), SURFACE ROUGHNESS
-#   723     1       1.0-5  ROUGHL(2)
-#   724     1       1.0-5  ROUGHL(3)
-#   725     1       1.0-5  ROUGHL(4)
-#   726     1       1.0-5  ROUGHL(5)
-#   727     1       1.0-5  ROUGHL(6)
-#   728     1       1.0-5  ROUGHL(7)
-#   729     1       1.0-5  ROUGHL(8)
-#   730     1       1.0-5  ROUGHL(9)
-#   731     1       1.0-5  ROUGHL(10)
-#   732     1       1.0-5  ROUGHL(11)
-#   733     1       1.0-5  ROUGHL(12)
-#   734     1       1.0-5  ROUGHL(13)
-#   735     1       1.0-5  ROUGHL(14)
-#   736     1       1.0-5  ROUGHL(15)
-#   737     1       1.0-5  ROUGHL(16)
-#   738     1       1.0-5  ROUGHL(17)
-#   739     1       1.0-5  ROUGHL(18)
-#   740     1       1.0-5  ROUGHL(19)
-#   741     1       1.0-5  ROUGHL(20)
-#   742     1       1.0-5  ROUGHL(21)
-#   743     1       1.0-5  ROUGHL(22)
-#   744     1       1.0-5  ROUGHL(23)
-#   745     1       1.0-5  ROUGHL(24)
-#   746     1       1.0-5  ROUGHL(25)
-#   747     1       1.0-5  ROUGHL(26)
-#   862     1 0.           BNDNUM(1), NUMBER OF BENDS
-#   863     1 0.           BNDNUM(2)
-#   864     1 0.0          BNDNUM(3)
-#   865     1 0.           BNDNUM(4)
-#   866     1 1.0          BNDNUM(5)
-#   867     1 2.0          BNDNUM(6)
-#   868     1 0.           BNDNUM(7)
-#   869     1 0.           BNDNUM(8)
-#   870     1 0.           BNDNUM(9)
-#   871     1 0.           BNDNUM(10)
-#   872     1 6.           BNDNUM(11)
-#   873     1 2.           BNDNUM(12)
-#   874     1 0.           BNDNUM(13)
-#   875     1 0.           BNDNUM(14)
-#   876     1 10.          BNDNUM(15)
-#   877     1 0.           BNDNUM(16)
-#   878     1 0.           BNDNUM(17)
-#   879     1 0.           BNDNUM(18)
-#   880     1 2.           BNDNUM(19)
-#   881     1 1.           BNDNUM(20)
-#   882     1 0.           BNDNUM(21)
-#   883     1 0.           BNDNUM(22)
-#   884     1 0.           BNDNUM(23)
-#   885     1 2.           BNDNUM(24)
-#   886     1 0.           BNDNUM(25)
-#   887     1 0.           BNDNUM(26)
-#  1002     1 0.           G2PRDR(1), ORIFICE COEFFICIENT
-#  1003     1 15.9         G2PRDR(2)
-#  1004     1 1.           G2PRDR(3)
-#  1005     1 0.           G2PRDR(4)
-#  1006     1 1.6          G2PRDR(5)
-#  1007     1 1.6          G2PRDR(6)
-#  1008     1 0.           G2PRDR(7)
-#  1009     1 0.           G2PRDR(8)
-#  1010     1 0.           G2PRDR(9)
-#  1011     1 0.           G2PRDR(10)
-#  1012     1 0.           G2PRDR(11)
-#  1013     1 0.           G2PRDR(12)
-#  1014     1 0.           G2PRDR(13)
-#  1015     1 0.           G2PRDR(14)
-#  1016     1 0.           G2PRDR(15)
-#  1017     1 0.           G2PRDR(16)
-#  1018     1 1.29         G2PRDR(17), SG pressure drop
-#  1019     1 0.           G2PRDR(18)
-#  1020     1 0.           G2PRDR(19)
-#  1021     1 0.0          G2PRDR(20)
-#  1022     1 0.           G2PRDR(21)
-#  1023     1 0.           G2PRDR(22)
-#  1024     1 0.           G2PRDR(23)
-#  1025     1 0.           G2PRDR(24)
-#  1026     1 0.           G2PRDR(25)
-#  1027     1 1.5          G2PRDR(26)
-#  1142     1 31.          BNDLOD, EFFECTIVE L/D PER BEND
-#  1143     1 1.           WALLMC, PIPE WALL MASS X HEAT CAPACITY / LENGTH
-#  1144     1 1.           WALLMC(2)
-#  1145     1 50000.       WALLMC(3)
-#  1146     1 95000.       WALLMC(4)
-#  1147     1 95000.       WALLMC(5)
-#  1148     1 40000.       WALLMC(6)
-#  1149     1 1.           WALLMC(7)
-#  1150     1 1.           WALLMC(8)
-#  1151     1 1.           WALLMC(9)
-#  1152     1 95000.       WALLMC(10)
-#  1153     1 95000.       WALLMC(11)
-#  1154     1 95000.       WALLMC(12)
-#  1155     1 1.           WALLMC(13)
-#  1156     1 95000.       WALLMC(14)
-#  1157     1 95000.       WALLMC(15)
-#  1158     1 100000.      WALLMC(16)
-#  1159     1 1.           WALLMC(17)
-#  1160     1 100000.      WALLMC(18)
-#  1161     1 95000.       WALLMC(19)
-#  1162     1 95000.       WALLMC(20)
-#  1163     1 40000.       WALLMC(21)
-#  1164     1 1.           WALLMC(22)
-#  1165     1 40000.       WALLMC(23)
-#  1166     1 40000.       WALLMC(24)
-#  1167     1 1.           WALLMC(25)
-#  1168     1 40000.       WALLMC(26)
-#  1283     1 1.           WALLH(1), PIPE WALL HEAT TRANSFER COEF.
-#  1284     1 1.           WALLH(2)
-#  1285     1 6000.        WALLH(3)
-#  1286     1 4700.        WALLH(4)
-#  1287     1 4700.        WALLH(5)
-#  1288     1 6000.        WALLH(6)
-#  1289     1 1.           WALLH(7)
-#  1290     1 1.           WALLH(8)
-#  1291     1 1.           WALLH(9)
-#  1292     1 4700.        WALLH(10)
-#  1293     1 4700.        WALLH(11)
-#  1294     1 4700.        WALLH(12)
-#  1295     1 1.           WALLH(13)
-#  1296     1 4700.        WALLH(14)
-#  1297     1 4700.        WALLH(15)
-#  1298     1 4000.        WALLH(16)
-#  1299     1 1.           WALLH(17)
-#  1300     1 4000.        WALLH(18)
-#  1301     1 4700.        WALLH(19)
-#  1302     1 4700.        WALLH(20)
-#  1303     1 8000.        WALLH(21)
-#  1304     1 1.           WALLH(22)
-#  1305     1 8000.        WALLH(23)
-#  1306     1 8000.        WALLH(24)
-#  1307     1 1.           WALLH(25)
-#  1308     1 8000.        WALLH(26)
-##                COMPRESSIBLE VOLUMES
-#  1423     1 7.7          VOLLGC(1), TOTAL VOLUME, LIQUID + GAS
-#  1424     1 895.9        VOLLGC(2)
-#  1425     1 76.4         VOLLGC(3)
-#  1426     1 1.64         VOLLGC(4)
-#  1427     1 581.8        VOLLGC(5)
-#  1428     1 20.          VOLLGC(6)
-#  1429     1 38.          VOLLGC(7)
-#  1430     1 38.          VOLLGC(8)
-#  1431     1 4.0          VOLLGC(9)
-#  3612     1 0.           VOLGS0(1), INITIAL COVER GAS VOLUME
-#  3613     1 140.         VOLGS0(2)
-#  3614     1 26.7         VOLGS0(3)
-#  3615     1 0.           VOLGS0(4)
-#  3616     1 0.           VOLGS0(5)
-#  3617     1 10.          VOLGS0(6)
-#  3618     1 0.           VOLGS0(7)
-#  3619     1 0.           VOLGS0(8)
-#  3620     1 2.           VOLGS0(9)
-#  1461     1 0.           PRESG0(1), INITIAL GAS PRESSURE
-#  1462     1 100000.      PRESG0(2)
-#  1463     1 100000.      PRESG0(3)
-#  1464     1 0.           PRESG0(4)
-#  1465     1 0.           PRESG0(5)
-#  1466     1 400000.      PRESG0(6)
-#  1467     1 0.           PRESG0(7)
-#  1468     1 0.           PRESG0(8)
-#  1469     1 100000.      PRESG0(9)
-#  1499     1      1.0-08  ALPHAP(1), VOLUME PRESSURE EXPANSION COEFFICIENT
-#  1500     1      1.0-10  ALPHAP(2)
-#  1501     1      1.0-10  ALPHAP(3)
-#  1502     1      1.0-08  ALPHAP(4)
-#  1503     1      1.0-08  ALPHAP(5)
-#  1504     1      1.0-10  ALPHAP(6)
-#  1505     1      1.0-08  ALPHAP(7)
-#  1506     1      1.0-08  ALPHAP(8)
-#  1507     1      1.0-10  ALPHAP(9)
-#  1575     1 -1.6         ZCVL(1), REFERENCE ELEVATION
-#  1576     1 2.973        ZCVL(2)
-#  1577     1 6.0          ZCVL(3)
-#  1578     1 -2.8         ZCVL(4)
-#  1579     1 -1.6         ZCVL(5)
-#  1580     1 26.          ZCVL(6)
-#  1581     1 39.          ZCVL(7)
-#  1582     1 19.          ZCVL(8)
-#  1583     1 22.5         ZCVL(9)
-#  1613     1 11.          AREAIN(1), LIQUID-GAS INTERFACE AREA
-#  1614     1 125.4        AREAIN(2)
-#  1615     1 6.2          AREAIN(3)
-#  1616     1 150.         AREAIN(4)
-#  1617     1 135.3        AREAIN(5)
-#  1618     1 3.           AREAIN(6)
-#  1619     1 2.           AREAIN(7)
-#  1620     1 2.           AREAIN(8)
-#  1621     1 1.           AREAIN(9)
-#  1689     1 .66          GAMGSC
-#  1690     1 208.1        RGASC
-#  1691     1      2.22-5  U0CVGS
-#  1692     1 293.         TRFU
-#  1861     1 1.           TAUGAS(1), COVER GAS TIME CONSTANT
-#  1862     1 2.           TAUGAS(2)
-#  1863     1 2.           TAUGAS(3)
-#  1864     1 2.           TAUGAS(4)
-#  1865     1 2.           TAUGAS(5)
-#  1866     1 2.           TAUGAS(6)
-#  1867     1 2.           TAUGAS(7)
-#  1868     1 2.           TAUGAS(8)
-#  1869     1 2.           TAUGAS(9)
-#  2464     1     2.13-10  BTAPNA(1), Na ISOTHERMAL COMPRESIBILITY
-#  2465     1     2.13-10  BTAPNA(2)
-#  2466     1     2.13-10  BTAPNA(2)
-#  2467     1     2.13-10  BTAPNA(2)
-#  2468     1     2.13-10  BTAPNA(2)
-#  2469     1     2.13-10  BTAPNA(4)
-#  2470     1     2.13-10  BTAPNA(5)
-#  2471     1     2.13-10  BTAPNA(6)
-#  2472     1     2.13-10  BTAPNA(7)
-#  2473     1     2.13-10  BTAPNA(8)
-#  2474     1     2.13-10  BTAPNA(9)
-#  2578     1 3300.        HWALL(1), WALL-COOLANT HEAT TRANSFER COEF.
-#  2579     1 1.           HWALL(2)
-#  2580     1 800.         HWALL(3)
-#  2581     1 800.         HWALL(4)
-#  2582     1 250.         HWALL(5)
-#  2583     1 1.           HWALL(6)
-#  2584     1 1.           HWALL(7)
-#  2585     1 1.           HWALL(8)
-#  2586     1 1.           HWALL(9)
-#  2616     1 11.          AWALL(1), WALL SURFACE AREA
-#  2617     1 1.           AWALL(2)
-#  2618     1 125.         AWALL(3)
-#  2619     1 154.         AWALL(4)
-#  2620     1 .1           AWALL(5)
-#  2621     1 1.           AWALL(6)
-#  2622     1 1.           AWALL(7)
-#  2623     1 1.           AWALL(8)
-#  2624     1 1.           AWALL(9)
-#  2654     1      5.0+05  CMWALL(1), MASS X SPECIFIC HEAT OF WALL
-#  2655     1 10.          CMWALL(2)
-#  2656     1      2.3+07  CMWALL(3)
-#  2657     1      2.8+07  CMWALL(4)
-#  2658     1 18000.       CMWALL(5)
-#  2659     1 10.          CMWALL(6)
-#  2660     1 10.          CMWALL(7)
-#  2661     1 10.          CMWALL(8)
-#  2662     1 10.          CMWALL(9)
-##                PUMPS
-#  1899     2 900.        500.             PMPINR
-#  1899     2 920.        80.              PMPINR
-#  1899     2 930.        160.             PMPINR
-#  1899     2 930.        250.             PMPINR
-#  1899     2 930.        270.             PMPINR
-#  1899     2 930.        275.             PMPINR
-#  1899     2 225.        275.             PMPINR
-#  1899     2 500.        275.             PMPINR
-#  1899     2 400.        200.             PMPINR
-#  1899     2 200.        100.             PMPINR
-#  1899     2 220.        50.              PMPINR
-#  1899     2 218.        25.              PMPINR
-#  1899     2 218.        15.              PMPINR
-#  1899     2 218.        10.              PMPINR
-#  1899     2 218.        9.               PMPINR
-#  1911     2 370000.     160000.          HEADR
-#  1923     2 125.7       125.7            PMPSPR
-#  1935     2 1257.       1290.            PMPFLR
-#  1947     2 .84         .84              PMPEFR
-#  1959     2 0.          0.               TRKLSC
-#  1983     3 0.01        0.0        -73.13       APMPHD(1-3,1), LOW RANGE TORQUE LOSS COEF.
-#  1986     3 0.00268     0.0         0.07        APMPHD(4-6,1), MIDDLE RANGE
-#  1989     3 0.00383     0.01071     0.01406     APMPHD(7-9,1), HIGH RANGE
-#  1992     2 0.01        0.268                   APMPHD(10-11,1), LIMITS OF RANGES
-#  1994     1 2.5                                 APMPHD(12,1), LOCKED ROTOR COEF.
-#  1995     1 0.                                  APMPHD(13,1), TRANSITION WB
-#  1996     1 2.5                                 APMPHD(14,1), REVERSED FLOW LOCKED ROTOR COEF.
-#  2000     1 1.0                                 APMPHD(18,1), PUMP CURVE NUMBER
-#  2001     1 .02                                 APMPHD(19,1), WB FOR LOCKED ROTOR
-#  2002     1 .02                                 APMPHD(20,1), SB FOR LOCKED ROTOR
-#  2003     3 0.01        0.0        -73.13       APMPHD(1-3,2), LOW RANGE TORQUE LOSS COEF.
-#  2006     3 0.00268     0.0         0.07        APMPHD(4-6,2), MIDDLE RANGE
-#  2009     3 0.00383     0.01071     0.01406     APMPHD(7-9,2), HIGH RANGE
-#  2012     2 0.01        0.268                   APMPHD(10-11,2), LIMITS OF RANGES
-#  2014     1 2.5                                 APMPHD(12,2), LOCKED ROTOR COEF.
-#  2015     1 0.                                  APMPHD(13,2), TRANSITION WB
-#  2016     1 2.5                                 APMPHD(14,2), REVERSED FLOW LOCKED ROTOR COEF.
-#  2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
-#  2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
-#  2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
-#  2223     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,1)
-#  2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
-#  2243     4 1.0         0.0         0.0         0.0         AMOTTK(1-4,2)
-#  2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
-#  2463     1 9.8                                             GRAVTY
-##                 steam generator table
-#  2937     4 1.0         1.0         0.          0.          DTMPTB, TEMP. DROP
-#  3105     4 28.83       28.83       28.83       28.83                   ZCENTR
-#  3273     4 0.          10.         11.         9999999.                TMPMTB
-#  3441     2 .99999      .99999                                          DTEVPF
-##                 IHX, DRACS
-#  3445     2 815992.     218000.                                         PRSIHX
-#  3445     2 706348.     243000.                                         PRSIHX
-#  3455     5 .125        .25         .5          1.0         1.0         DZSHPX
-#  3460     5 1.          1.          1.          1.          1.
-#  3465     5 1.          1.          1.          1.          1.
-#  3470     5 1.          1.          1.          1.          1.
-#  3475     5 1.          1.          1.          1.          1.
-#  3480     5 1.          1.          1.          1.          1.
-#  3485     5 1.          1.          1.          1.          1.
-#  3490     5 1.          1.          1.          .5          .25
-#  3495     1 .125
-#  3516     2 5.29        1.32                                            PERSPX
-#  3524     2 225.        6.97                                            PERPTX
-#  3532     2 200.        6.41                                            PERTIX
-#  3540     2 .019        .019                                            DSHIHX
-#  3548     2 .000889     .0009                                           DTUIHX
-#  3556     2       4.6+6       4.6+6                                     RCSHHX
-#  3564     2       4.6+6       4.6+6                                     RCTUHX
-#  3572     2 20.         20.                                             XKSHHX
-#  3580     2 20.         20.                                             XKTUHX
-#  3588     2       1.0+6       1.0+6                                     HFPIHX
-#  3596     2       1.0+6       1.0+6                                     HFIIHX
-#  3604     2 1.          1.                                              SLANTX
-#  3650     3 .025        .8          4.8                 C1PIPE, C2PIPE, C3PIPE
-#  3653     3 .025        .8          4.8                   C1IHX, C2IHX, C3IHX 
-##                 AIR DUMP HEAT EXCHANGER
-#  3801     1 .017525                                                     RITB
-#  3805     1 .02108                                                      ROTB
-#  3809     1 9.7                                                         XKTB
-#  3813     1 15.6                                                        HOTB
-#  3813     1 31.8                                                        HOTB
-#  3813     1 25.8                                                        HOTB
-#  3813     1 20.0                                                        HOTB
-#  3813     1 23.7                                                        HOTB
-#  3813     1 24.0                                                        HOTB
-#  3813     1 24.00                                                       HOTB
-#  3817     1 5200.                                                       HITB
-#  3821     1 170.                                                        AHT
-#  3821     1 255.5                                                       AHT
-#  3821     1 1000.                                                       AHT
-#  3821     1 450.                                                        AHT
-#  3821     1 400.                                                        AHT
-#  3821     1 437.                                                        AHT
-#  3821     1 500.                                                        AHT
-#  3821     1 480.                                                        AHT
-#  3821     1 486.                                                        AHT
-#  3821     1 474.                                                        AHT
-#  3825     1 5.                                                          SRLEN
-#  3825     1 15.                                                         SRLEN
-#  3825     1 18.                                                         SRLEN
-#  3825     1 20.                                                         SRLEN
-#  3825     1 22.                                                         SRLEN
-#  3825     1 25.                                                         SRLEN
-#  3825     1 10.                                                         SRLEN
-#  3825     1 11.                                                         SRLEN
-#  3825     1 5.                                                          SRLEN
-#  3829     1 1.16                                                        XKHXLS
-#  3829     1 2.22                                                        XKHXLS
-#  3829     1 1.306                                                       XKHXLS
-#  3833     1 1.0                                                         XKRLS
-#  3837     1 .2                                                          XKSOLS
-#  3841     1 4.69                                                        AHX
-#  3841     1 7.038                                                       AHX
-#  3841     1 28.                                                         AHX
-#  3841     1 15.                                                         AHX
-#  3845     1 15.                                                         AR
-#  3845     1 60.                                                         AR
-#  3845     1 30.                                                         AR
-#  3849     1 11.61                                                       ASI
-#  3849     1 17.42                                                       ASI
-#  3849     1 50.                                                         ASI
-#  3853     4 10000.      10000.      0.5         0.5                     XKSILS
-#  3893     4 0.          2.          3.          9999999.                XKSILS
-#  3933     1 300.                                                        AIRTMP
-##              CONTROL ROD DIRVE REACTIVITY FEEDBACK
-#  4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
-#  4175     1 2.7     -05   VSLEXP(2), DZ = 2.7, EXP. COEF. = 1.0-5
-#  4174     1 8.7     -05   VSLEXP(1), DZ = 8.7, EXP. COEF. = 1.0-5
-##              COMPONENT-TO-COMPONENT HEAT TRANSFER
-#  4216     1 120000.                                                     HAELHT
-##              TIME STEP CONTROLS
-#  4282     1 .2                                                          EPSF
-#  4283     1 .1                                                          EPSFC
-##              IHX HEAT TRANSFER CORRELATION, TUBE SIDE
-#  4309     3 .025        .8          4.8                  C1IHXT, C2IHXT,C3IHXT
-##              DEGREE OF IMPLICITNESS
-#  4679     1 .75                                                         THT2CV
-##              STRATIFIED COMPRESSIBLE VOLUMES, CV2 AND CV5
+#                   DEBUG PRINTS
+   507     1     0                                                       IDBPR4
+   508     1     0                                                       IDBP4N
+    -1
+PMR4IN    18     1     0
+#                   DEBUG PRINTS
+     1     1 0.           TMDBP4
+#                   LIQUID SEGMENTS
+     2     1 17598.       FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
+     3     1 4620.45      FLOSSL(2)
+     4     1 4620.45      FLOSSL(3)
+     5     1 0.           FLOSSL(4)
+     6     1 0.           FLOSSL(5)
+     7     1 0.           FLOSSL(6)
+     8     1 4515.        FLOSSL(7)
+     9     1 4515.        FLOSSL(8)
+    10     1 4515.        FLOSSL(9)
+    11     1 0.           FLOSSL(10)
+    42     1 -0.05        ZINL(1), INLET ELEVATION
+    43     1 6.44         ZINL(2)
+    44     1 1.916        ZINL(3)
+    45     1 7.3          ZINL(4)
+    46     1 6.           ZINL(5)
+    47     1 -0.05        ZINL(6)
+    48     1 23.58        ZINL(7)
+    49     1 28.88        ZINL(8)
+    50     1 18.86        ZINL(9)
+    51     1 33.3         ZINL(10)
+    82     2 1.          1.          CVLMLT(M,1), MULTIPLICITY FACTORS
+    84     2 4.          4.          CVLMLT(M,2)
+    86     2 4.          4.          CVLMLT(M,3)
+    88     2 2.          2.          CVLMLT(M,4)
+    90     2 1.          1.          CVLMLT(M,5)
+    92     2 1.          1.          CVLMLT(M,6)
+    94     2 1.          1.          CVLMLT(M,7)
+    96     2 1.          1.          CVLMLT(M,8)
+    98     2 1.          1.          CVLMLT(M,9)
+   100     2 1.          1.          CVLMLT(M,10)
+#                 ELEMENTS
+   162     1 3.2          ZOUTEL(1), OUTLET ELEVATION
+   163     1 1.66         ZOUTEL(2)
+   164     1 0.9428       ZOUTEL(3)
+   165     1 2.016        ZOUTEL(4)
+   166     1 -0.05        ZOUTEL(5)
+   167     1 5.3          ZOUTEL(6)
+   168     1 2.8          ZOUTEL(7)
+   169     1 5.9          ZOUTEL(8)
+   170     1 -0.15        ZOUTEL(9)
+   171     1 23.48        ZOUTEL(10)
+   172     1 6.44         ZOUTEL(11)
+   173     1 1.66         ZOUTEL(12)
+   174     1 6.44         ZOUTEL(13)
+   175     1 39.34        ZOUTEL(14)
+   176     1 39.34        ZOUTEL(15)
+   177     1 36.34        ZOUTEL(16)
+   178     1 28.78        ZOUTEL(17)
+   179     1 15.86        ZOUTEL(18)
+   180     1 25.13        ZOUTEL(19)
+   181     1 25.13        ZOUTEL(20)
+   182     1 32.3         ZOUTEL(21)
+   183     1 20.          ZOUTEL(22)
+   184     1 5.3          ZOUTEL(23)
+   185     1 2.8          ZOUTEL(24)
+   186     1 5.3          ZOUTEL(25)
+   187     1 32.3         ZOUTEL(26)
+   302     1 3.25         XLENEL(1), ELEMENT LENGTH
+   303     1 4.78         XLENEL(2)
+   304     1 0.7172       XLENEL(3)
+   305     1 0.1          XLENEL(4)
+   306     1 2.066        XLENEL(5)
+   307     1 2.           XLENEL(6)
+   308     1 2.5          XLENEL(7)
+   309     1 0.1          XLENEL(8)
+   310     1 0.1          XLENEL(9)
+   311     1 0.1          XLENEL(10)
+   312     1 25.          XLENEL(11)
+   313     1 4.78         XLENEL(12)
+   314     1 4.78         XLENEL(13)
+   315     1 32.9         XLENEL(14)
+   316     1 76.          XLENEL(15)
+   317     1 3.           XLENEL(16)
+   318     1 0.1          XLENEL(17)
+   319     1 3.           XLENEL(18)
+   320     1 9.27         XLENEL(19)
+   321     1 30.          XLENEL(20)
+   322     1 1.           XLENEL(21)
+   323     1 11.3         XLENEL(22)
+   324     1 14.7         XLENEL(23)
+   325     1 2.5          XLENEL(24)
+   326     1 2.5          XLENEL(25)
+   327     1 27.          XLENEL(26)
+   442     1 3.500        AREAEL(1), COOLANT FLOW AREA
+   443     1 3.654        AREAEL(2)
+   444     1 2.765        AREAEL(3)
+   445     1 0.893        AREAEL(4)
+   446     1 0.893        AREAEL(5)
+   447     1 0.282        AREAEL(6)
+   448     1 0.282        AREAEL(7)
+   449     1 0.700        AREAEL(8)
+   450     1 0.700        AREAEL(9)
+   451     1 0.875        AREAEL(10)
+   452     1 0.893        AREAEL(11)
+   453     1 0.893        AREAEL(12)
+   454     1 2.467        AREAEL(13)
+   455     1 0.893        AREAEL(14)
+   456     1 0.893        AREAEL(15)
+   457     1 18.20        AREAEL(16)
+   458     1 0.893        AREAEL(17)
+   459     1 18.20        AREAEL(18)
+   460     1 0.893        AREAEL(19)
+   461     1 0.893        AREAEL(20)
+   462     1 0.893        AREAEL(21)
+   463     1 0.893        AREAEL(22)
+   464     1 0.893        AREAEL(23)
+   465     1 0.893        AREAEL(24)
+   466     1 0.893        AREAEL(25)
+   467     1 0.893        AREAEL(26)
+   582     1 1.0000       DHELEM(1), HYDRAULIC DIAMETER
+   583     1 0.0651       DHELEM(2)
+   584     1 1.8708       DHELEM(3)
+   585     1 1.0664       DHELEM(4)
+   586     1 1.0664       DHELEM(5)
+   587     1 0.2432       DHELEM(6)
+   588     1 0.1719       DHELEM(7)
+   589     1 0.3742       DHELEM(8)
+   590     1 0.3742       DHELEM(9)
+   591     1 0.9354       DHELEM(10)
+   592     1 1.0664       DHELEM(11)
+   593     1 1.0664       DHELEM(12)
+   594     1 0.0494       DHELEM(13)
+   595     1 1.0664       DHELEM(14)
+   596     1 1.0664       DHELEM(15)
+   597     1 1.8708       DHELEM(16)
+   598     1 3.5000       DHELEM(17)
+   599     1 1.8708       DHELEM(18)
+   600     1 1.0664       DHELEM(19)
+   601     1 1.0664       DHELEM(20)
+   602     1 0.3742       DHELEM(21)
+   603     1 0.1225       DHELEM(22)
+   604     1 0.3742       DHELEM(23)
+   605     1 0.3742       DHELEM(24)
+   606     1 0.0714       DHELEM(25)
+   607     1 0.3742       DHELEM(26)
+   722     1       1.0-5  ROUGHL(1), SURFACE ROUGHNESS
+   723     1       1.0-5  ROUGHL(2)
+   724     1       1.0-5  ROUGHL(3)
+   725     1       1.0-5  ROUGHL(4)
+   726     1       1.0-5  ROUGHL(5)
+   727     1       1.0-5  ROUGHL(6)
+   728     1       1.0-5  ROUGHL(7)
+   729     1       1.0-5  ROUGHL(8)
+   730     1       1.0-5  ROUGHL(9)
+   731     1       1.0-5  ROUGHL(10)
+   732     1       1.0-5  ROUGHL(11)
+   733     1       1.0-5  ROUGHL(12)
+   734     1       1.0-5  ROUGHL(13)
+   735     1       1.0-5  ROUGHL(14)
+   736     1       1.0-5  ROUGHL(15)
+   737     1       1.0-5  ROUGHL(16)
+   738     1       1.0-5  ROUGHL(17)
+   739     1       1.0-5  ROUGHL(18)
+   740     1       1.0-5  ROUGHL(19)
+   741     1       1.0-5  ROUGHL(20)
+   742     1       1.0-5  ROUGHL(21)
+   743     1       1.0-5  ROUGHL(22)
+   744     1       1.0-5  ROUGHL(23)
+   745     1       1.0-5  ROUGHL(24)
+   746     1       1.0-5  ROUGHL(25)
+   747     1       1.0-5  ROUGHL(26)
+   862     1 0.           BNDNUM(1), NUMBER OF BENDS
+   863     1 0.           BNDNUM(2)
+   864     1 0.0          BNDNUM(3)
+   865     1 0.           BNDNUM(4)
+   866     1 1.0          BNDNUM(5)
+   867     1 2.0          BNDNUM(6)
+   868     1 0.           BNDNUM(7)
+   869     1 0.           BNDNUM(8)
+   870     1 0.           BNDNUM(9)
+   871     1 0.           BNDNUM(10)
+   872     1 6.           BNDNUM(11)
+   873     1 2.           BNDNUM(12)
+   874     1 0.           BNDNUM(13)
+   875     1 0.           BNDNUM(14)
+   876     1 10.          BNDNUM(15)
+   877     1 0.           BNDNUM(16)
+   878     1 0.           BNDNUM(17)
+   879     1 0.           BNDNUM(18)
+   880     1 2.           BNDNUM(19)
+   881     1 1.           BNDNUM(20)
+   882     1 0.           BNDNUM(21)
+   883     1 0.           BNDNUM(22)
+   884     1 0.           BNDNUM(23)
+   885     1 2.           BNDNUM(24)
+   886     1 0.           BNDNUM(25)
+   887     1 0.           BNDNUM(26)
+  1002     1 0.           G2PRDR(1), ORIFICE COEFFICIENT
+  1003     1 15.9         G2PRDR(2)
+  1004     1 1.           G2PRDR(3)
+  1005     1 0.           G2PRDR(4)
+  1006     1 1.6          G2PRDR(5)
+  1007     1 1.6          G2PRDR(6)
+  1008     1 0.           G2PRDR(7)
+  1009     1 0.           G2PRDR(8)
+  1010     1 0.           G2PRDR(9)
+  1011     1 0.           G2PRDR(10)
+  1012     1 0.           G2PRDR(11)
+  1013     1 0.           G2PRDR(12)
+  1014     1 0.           G2PRDR(13)
+  1015     1 0.           G2PRDR(14)
+  1016     1 0.           G2PRDR(15)
+  1017     1 0.           G2PRDR(16)
+  1018     1 1.29         G2PRDR(17), SG pressure drop
+  1019     1 0.           G2PRDR(18)
+  1020     1 0.           G2PRDR(19)
+  1021     1 0.0          G2PRDR(20)
+  1022     1 0.           G2PRDR(21)
+  1023     1 0.           G2PRDR(22)
+  1024     1 0.           G2PRDR(23)
+  1025     1 0.           G2PRDR(24)
+  1026     1 0.           G2PRDR(25)
+  1027     1 1.5          G2PRDR(26)
+  1142     1 31.          BNDLOD, EFFECTIVE L/D PER BEND
+  1143     1 3.5          WALLMC, PIPE WALL MASS X HEAT CAPACITY / LENGTH
+  1144     1 3.5          WALLMC(2)
+  1145     1 175000.      WALLMC(3)
+  1146     1 332500.      WALLMC(4)
+  1147     1 332500.      WALLMC(5)
+  1148     1 140000.      WALLMC(6)
+  1149     1 3.5          WALLMC(7)
+  1150     1 3.5          WALLMC(8)
+  1151     1 3.5          WALLMC(9)
+  1152     1 332500.      WALLMC(10)
+  1153     1 332500.      WALLMC(11)
+  1154     1 332500.      WALLMC(12)
+  1155     1 3.5          WALLMC(13)
+  1156     1 332500.      WALLMC(14)
+  1157     1 332500.      WALLMC(15)
+  1158     1 350000.      WALLMC(16)
+  1159     1 3.5          WALLMC(17)
+  1160     1 350000.      WALLMC(18)
+  1161     1 332500.      WALLMC(19)
+  1162     1 332500.      WALLMC(20)
+  1163     1 140000.      WALLMC(21)
+  1164     1 3.5          WALLMC(22)
+  1165     1 140000.      WALLMC(23)
+  1166     1 140000.      WALLMC(24)
+  1167     1 3.5          WALLMC(25)
+  1168     1 140000.      WALLMC(26)
+  1283     1 1.           WALLH(1), PIPE WALL HEAT TRANSFER COEF.
+  1284     1 1.           WALLH(2)
+  1285     1 6000.        WALLH(3)
+  1286     1 4700.        WALLH(4)
+  1287     1 4700.        WALLH(5)
+  1288     1 6000.        WALLH(6)
+  1289     1 1.           WALLH(7)
+  1290     1 1.           WALLH(8)
+  1291     1 1.           WALLH(9)
+  1292     1 4700.        WALLH(10)
+  1293     1 4700.        WALLH(11)
+  1294     1 4700.        WALLH(12)
+  1295     1 1.           WALLH(13)
+  1296     1 4700.        WALLH(14)
+  1297     1 4700.        WALLH(15)
+  1298     1 4000.        WALLH(16)
+  1299     1 1.           WALLH(17)
+  1300     1 4000.        WALLH(18)
+  1301     1 4700.        WALLH(19)
+  1302     1 4700.        WALLH(20)
+  1303     1 8000.        WALLH(21)
+  1304     1 1.           WALLH(22)
+  1305     1 8000.        WALLH(23)
+  1306     1 8000.        WALLH(24)
+  1307     1 1.           WALLH(25)
+  1308     1 8000.        WALLH(26)
+#                COMPRESSIBLE VOLUMES
+  1423     1 26.95        VOLLGC(1), TOTAL VOLUME, LIQUID + GAS
+  1424     1 3135.65      VOLLGC(2)
+  1425     1 267.40       VOLLGC(3)
+  1426     1 5.74         VOLLGC(4)
+  1427     1 2036.30      VOLLGC(5)
+  1428     1 70.00        VOLLGC(6)
+  1429     1 133.00       VOLLGC(7)
+  1430     1 133.00       VOLLGC(8)
+  1431     1 14.00        VOLLGC(9)
+  3612     1 0.00         VOLGS0(1), INITIAL COVER GAS VOLUME
+  3613     1 490.00       VOLGS0(2)
+  3614     1 93.45        VOLGS0(3)
+  3615     1 0.00         VOLGS0(4)
+  3616     1 0.00         VOLGS0(5)
+  3617     1 35.00        VOLGS0(6)
+  3618     1 0.00         VOLGS0(7)
+  3619     1 0.00         VOLGS0(8)
+  3620     1 7.00         VOLGS0(9)
+  1461     1 0.           PRESG0(1), INITIAL GAS PRESSURE
+  1462     1 100000.      PRESG0(2)
+  1463     1 100000.      PRESG0(3)
+  1464     1 0.           PRESG0(4)
+  1465     1 0.           PRESG0(5)
+  1466     1 400000.      PRESG0(6)
+  1467     1 0.           PRESG0(7)
+  1468     1 0.           PRESG0(8)
+  1469     1 100000.      PRESG0(9)
+  1499     1      1.0-08  ALPHAP(1), VOLUME PRESSURE EXPANSION COEFFICIENT
+  1500     1      1.0-10  ALPHAP(2)
+  1501     1      1.0-10  ALPHAP(3)
+  1502     1      1.0-08  ALPHAP(4)
+  1503     1      1.0-08  ALPHAP(5)
+  1504     1      1.0-10  ALPHAP(6)
+  1505     1      1.0-08  ALPHAP(7)
+  1506     1      1.0-08  ALPHAP(8)
+  1507     1      1.0-10  ALPHAP(9)
+  1575     1 -0.05        ZCVL(1), REFERENCE ELEVATION
+  1576     1 3.2          ZCVL(2)
+  1577     1 6.0          ZCVL(3)
+  1578     1 -1.25        ZCVL(4)
+  1579     1 -0.05        ZCVL(5)
+  1580     1 25.13        ZCVL(6)
+  1581     1 38.13        ZCVL(7)
+  1582     1 18.13        ZCVL(8)
+  1583     1 32.3         ZCVL(9)
+  1613     1 25.36        AREAIN(1), LIQUID-GAS INTERFACE AREA
+  1614     1 289.07       AREAIN(2)
+  1615     1 14.29        AREAIN(3)
+  1616     1 345.78       AREAIN(4)
+  1617     1 311.90       AREAIN(5)
+  1618     1 6.92         AREAIN(6)
+  1619     1 4.61         AREAIN(7)
+  1620     1 4.61         AREAIN(8)
+  1621     1 2.31         AREAIN(9)
+  1689     1 .66          GAMGSC
+  1690     1 208.1        RGASC
+  1691     1      2.22-5  U0CVGS
+  1692     1 293.         TRFU
+  1861     1 1.           TAUGAS(1), COVER GAS TIME CONSTANT
+  1862     1 2.           TAUGAS(2)
+  1863     1 2.           TAUGAS(3)
+  1864     1 2.           TAUGAS(4)
+  1865     1 2.           TAUGAS(5)
+  1866     1 2.           TAUGAS(6)
+  1867     1 2.           TAUGAS(7)
+  1868     1 2.           TAUGAS(8)
+  1869     1 2.           TAUGAS(9)
+  2464     1     2.13-10  BTAPNA(1), Na ISOTHERMAL COMPRESIBILITY
+  2465     1     2.13-10  BTAPNA(2)
+  2466     1     2.13-10  BTAPNA(2)
+  2467     1     2.13-10  BTAPNA(2)
+  2468     1     2.13-10  BTAPNA(2)
+  2469     1     2.13-10  BTAPNA(4)
+  2470     1     2.13-10  BTAPNA(5)
+  2471     1     2.13-10  BTAPNA(6)
+  2472     1     2.13-10  BTAPNA(7)
+  2473     1     2.13-10  BTAPNA(8)
+  2474     1     2.13-10  BTAPNA(9)
+  2578     1 3300.        HWALL(1), WALL-COOLANT HEAT TRANSFER COEF.
+  2579     1 1.           HWALL(2)
+  2580     1 800.         HWALL(3)
+  2581     1 800.         HWALL(4)
+  2582     1 250.         HWALL(5)
+  2583     1 1.           HWALL(6)
+  2584     1 1.           HWALL(7)
+  2585     1 1.           HWALL(8)
+  2586     1 1.           HWALL(9)
+  2616     1 25.36        AWALL(1), WALL SURFACE AREA
+  2617     1 2.31         AWALL(2)
+  2618     1 288.15       AWALL(3)
+  2619     1 355.00       AWALL(4)
+  2620     1 0.23         AWALL(5)
+  2621     1 2.31         AWALL(6)
+  2622     1 2.31         AWALL(7)
+  2623     1 2.31         AWALL(8)
+  2624     1 2.31         AWALL(9)
+  2654     1 1.153E+06    CMWALL(1), MASS X SPECIFIC HEAT OF WALL
+  2655     1 2.305E+01    CMWALL(2)
+  2656     1 5.302E+07    CMWALL(3)
+  2657     1 6.455E+07    CMWALL(4)
+  2658     1 4.149E+04    CMWALL(5)
+  2659     1 2.305E+01    CMWALL(6)
+  2660     1 2.305E+01    CMWALL(7)
+  2661     1 2.305E+01    CMWALL(8)
+  2662     1 2.305E+01    CMWALL(9)
+#                PUMPS
+  1899     2 900.        500.             PMPINR
+  1899     2 920.        80.              PMPINR
+  1899     2 930.        160.             PMPINR
+  1899     2 930.        250.             PMPINR
+  1899     2 930.        270.             PMPINR
+  1899     2 930.        275.             PMPINR
+  1899     2 225.        275.             PMPINR
+  1899     2 500.        275.             PMPINR
+  1899     2 400.        200.             PMPINR
+  1899     2 200.        100.             PMPINR
+  1899     2 220.        50.              PMPINR
+  1899     2 218.        25.              PMPINR
+  1899     2 218.        15.              PMPINR
+  1899     2 218.        10.              PMPINR
+  1899     2 218.        9.               PMPINR
+  1911     2 370000.     160000.          HEADR
+  1923     2 125.7       125.7            PMPSPR
+  1935     2 1257.       1290.            PMPFLR
+  1947     2 .84         .84              PMPEFR
+  1959     2 0.          0.               TRKLSC
+  1983     3 0.01        0.0        -73.13       APMPHD(1-3,1), LOW RANGE TORQUE LOSS COEF.
+  1986     3 0.00268     0.0         0.07        APMPHD(4-6,1), MIDDLE RANGE
+  1989     3 0.00383     0.01071     0.01406     APMPHD(7-9,1), HIGH RANGE
+  1992     2 0.01        0.268                   APMPHD(10-11,1), LIMITS OF RANGES
+  1994     1 2.5                                 APMPHD(12,1), LOCKED ROTOR COEF.
+  1995     1 0.                                  APMPHD(13,1), TRANSITION WB
+  1996     1 2.5                                 APMPHD(14,1), REVERSED FLOW LOCKED ROTOR COEF.
+  2000     1 1.0                                 APMPHD(18,1), PUMP CURVE NUMBER
+  2001     1 .02                                 APMPHD(19,1), WB FOR LOCKED ROTOR
+  2002     1 .02                                 APMPHD(20,1), SB FOR LOCKED ROTOR
+  2003     3 0.01        0.0        -73.13       APMPHD(1-3,2), LOW RANGE TORQUE LOSS COEF.
+  2006     3 0.00268     0.0         0.07        APMPHD(4-6,2), MIDDLE RANGE
+  2009     3 0.00383     0.01071     0.01406     APMPHD(7-9,2), HIGH RANGE
+  2012     2 0.01        0.268                   APMPHD(10-11,2), LIMITS OF RANGES
+  2014     1 2.5                                 APMPHD(12,2), LOCKED ROTOR COEF.
+  2015     1 0.                                  APMPHD(13,2), TRANSITION WB
+  2016     1 2.5                                 APMPHD(14,2), REVERSED FLOW LOCKED ROTOR COEF.
+  2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
+  2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
+  2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
+  2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
+  2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
+  2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
+  2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
+  2463     1 9.8                                             GRAVTY
+#                 steam generator table
+  2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
+  3105     4 28.83       28.83       28.83       28.83                   ZCENTR
+  3273     4 0.          10.         11.         9999999.                TMPMTB
+  3441     2 .99999      .99999                                          DTEVPF
+#                 IHX, DRACS
+  3445     2 815992.     218000.                                         PRSIHX
+  3445     2 706348.     243000.                                         PRSIHX
+  3455     5 .125        .25         .5          1.0         1.0         DZSHPX
+  3460     5 1.          1.          1.          1.          1.
+  3465     5 1.          1.          1.          1.          1.
+  3470     5 1.          1.          1.          1.          1.
+  3475     5 1.          1.          1.          1.          1.
+  3480     5 1.          1.          1.          1.          1.
+  3485     5 1.          1.          1.          1.          1.
+  3490     5 1.          1.          1.          .5          .25
+  3495     1 .125
+  3516     2 5.29        1.32                                            PERSPX
+  3524     2 225.        6.97                                            PERPTX
+  3532     2 200.        6.41                                            PERTIX
+  3540     2 .019        .019                                            DSHIHX
+  3548     2 .000889     .0009                                           DTUIHX
+  3556     2       4.6+6       4.6+6                                     RCSHHX
+  3564     2       4.6+6       4.6+6                                     RCTUHX
+  3572     2 20.         20.                                             XKSHHX
+  3580     2 20.         20.                                             XKTUHX
+  3588     2       1.0+6       1.0+6                                     HFPIHX
+  3596     2       1.0+6       1.0+6                                     HFIIHX
+  3604     2 1.          1.                                              SLANTX
+  3650     3 .025        .8          4.8                 C1PIPE, C2PIPE, C3PIPE
+  3653     3 .025        .8          4.8                   C1IHX, C2IHX, C3IHX 
+#                 AIR DUMP HEAT EXCHANGER
+  3801     1 .017525                                                     RITB
+  3805     1 .02108                                                      ROTB
+  3809     1 9.7                                                         XKTB
+  3813     1 15.6                                                        HOTB
+  3813     1 31.8                                                        HOTB
+  3813     1 25.8                                                        HOTB
+  3813     1 20.0                                                        HOTB
+  3813     1 23.7                                                        HOTB
+  3813     1 24.0                                                        HOTB
+  3813     1 24.00                                                       HOTB
+  3817     1 5200.                                                       HITB
+  3821     1 170.                                                        AHT
+  3821     1 255.5                                                       AHT
+  3821     1 1000.                                                       AHT
+  3821     1 450.                                                        AHT
+  3821     1 400.                                                        AHT
+  3821     1 437.                                                        AHT
+  3821     1 500.                                                        AHT
+  3821     1 480.                                                        AHT
+  3821     1 486.                                                        AHT
+  3821     1 474.                                                        AHT
+  3825     1 5.                                                          SRLEN
+  3825     1 15.                                                         SRLEN
+  3825     1 18.                                                         SRLEN
+  3825     1 20.                                                         SRLEN
+  3825     1 22.                                                         SRLEN
+  3825     1 25.                                                         SRLEN
+  3825     1 10.                                                         SRLEN
+  3825     1 11.                                                         SRLEN
+  3825     1 5.                                                          SRLEN
+  3829     1 1.16                                                        XKHXLS
+  3829     1 2.22                                                        XKHXLS
+  3829     1 1.306                                                       XKHXLS
+  3833     1 1.0                                                         XKRLS
+  3837     1 .2                                                          XKSOLS
+  3841     1 4.69                                                        AHX
+  3841     1 7.038                                                       AHX
+  3841     1 28.                                                         AHX
+  3841     1 15.                                                         AHX
+  3845     1 15.                                                         AR
+  3845     1 60.                                                         AR
+  3845     1 30.                                                         AR
+  3849     1 11.61                                                       ASI
+  3849     1 17.42                                                       ASI
+  3849     1 50.                                                         ASI
+  3853     4 10000.      10000.      0.5         0.5                     XKSILS
+  3893     4 0.          2.          3.          9999999.                XKSILS
+  3933     1 300.                                                        AIRTMP
+#              CONTROL ROD DIRVE REACTIVITY FEEDBACK
+  4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
+  4175     1 2.7     -05   VSLEXP(2), DZ = 2.7, EXP. COEF. = 1.0-5
+  4174     1 8.7     -05   VSLEXP(1), DZ = 8.7, EXP. COEF. = 1.0-5
+#              COMPONENT-TO-COMPONENT HEAT TRANSFER
+  4216     1 120000.                                                     HAELHT
+#              TIME STEP CONTROLS
+  4282     1 .2                                                          EPSF
+  4283     1 .1                                                          EPSFC
+#              IHX HEAT TRANSFER CORRELATION, TUBE SIDE
+  4309     3 .025        .8          4.8                  C1IHXT, C2IHXT,C3IHXT
+#              DEGREE OF IMPLICITNESS
+  4679     1 .75                                                         THT2CV
+#              STRATIFIED COMPRESSIBLE VOLUMES, CV2 AND CV5
 #  5008     1 1.2                                                         RCORE
 #  5009     2 250.        250.                                            HCSTWL
 #  5018     2 250.        0.                                              HCSTW2
@@ -2492,72 +2442,64 @@ ENDJOB    -1
 #  5186     2 2.0         2.0                                             EPSTST  
 #  5189     1 20.                                                         XLENTR
 #  5189     2 100.        100.                                            XLENTR
-#    -1
-#XNOTES
-#     fort.15 output from PRIMAR-4                         07/05 FED
-#     each record contains:  ISTEP, IPRSTP, NBNTOT, (ARRAY(I),I=1,NBNTOT)
-#        ISTEP = main time step
-#        IPRSTP = primar time step
-#
-#     I     ARRAY(I)
-#     1     TIMEP2 = time at the end of the PRIMAR time step
-#   2-10    TLQCV2(ICV = 1-9) = liquid temperature in compressible volume
-#  11-19    FLOSL2(ISGL=2-10) = coolant flow rate
-#  20-21    HEADP2(IPMP=1-2) = pump head, primary pump
-#  22-23    PSPED2(IPMP=1-2) = pump speed, primary pump
-#    24     QQ(1) = heat removal from air dump heat exchanger connected to DRACS
-#    25     WAIR(1) = air flow rate through the air dump heat exchanger
-#
-#
-#        NBNTOT = 25
-#        ICV = COMPRESSIBLE VOLUME
-#        ISGL = LIQUID SEGMENT
-#        IPMP = PUMP
-#    -1
-#XNOTES
-#     PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
-#    -1
-#INPCOM     1     1     1
-#    41     1     0            NOREAC
-#     8     1     0            IPOWER
-#    11     1     0            MAXSTP
-#    11     1 10000            MAXSTP
-#    11     1 70000            MAXSTP
-#    12     1    10            IPO
-#    18     1     3            NPREAT
-#    18     1    20            NPREAT
-#    15     1   100            NSTEP
-#    41     1   100            NOREAC        
-#    12     1  1000            IPO    
-#    15     1   100            NSTEP
-#   107     1   700            MSTPLA    
-#   108     1 10000            MSTPLB
-#   108     1 15000            MSTPLB
-#   109     1     1            MSTPL1
-#   110     1    20            MSTPL2
-#   111     1    40            MSTPL3 
-#    -1
-#OPCIN     11     1     1
-#     5     1 .5               DT0     
-#     7     1 500.             TIMAX
-#     7     1 1000.            TIMAX
-#     7     1 50000.           TIMAX
-#    13     1 .5               DTP0
-#    14     1 1.               DTPMAX
-#    95     4 .5          1.          1.          1.          DTMIN
-#   105     4 20.         200.        5000.       10000.      TDTMIN
-#    -1
-#POWINA    12     1     1
-#    29     5 0.          -18.0       -18.0       -18.0       -18.0       PREATB
-#    34     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-#    39     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-#    44     5 -18.0       -18.0       -18.0       -18.0       -18.0 
-#    49     5 0.          2.          3.          4.          6.          PREATM
-#    54     5 12.         22.         42.         102.        202.
-#    59     5 402.        1002.       2002.       4002.       10002.      
-#    64     5 20002.      40002.      100002.     200002.     400002.    
-#    -1
-##---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
-######### ####### ####### ####### ####### ####### ####### ####### ####### #######
-#ENDJOB    -1
-######### ####### ####### ####### ####### ####### ####### ####### ####### #######
+    -1
+XNOTES
+     fort.15 output from PRIMAR-4                         07/05 FED
+     each record contains:  ISTEP, IPRSTP, NBNTOT, (ARRAY(I),I=1,NBNTOT)
+        ISTEP = main time step
+        IPRSTP = primar time step
+
+     I     ARRAY(I)
+     1     TIMEP2 = time at the end of the PRIMAR time step
+   2-10    TLQCV2(ICV = 1-9) = liquid temperature in compressible volume
+  11-19    FLOSL2(ISGL=2-10) = coolant flow rate
+  20-21    HEADP2(IPMP=1-2) = pump head, primary pump
+  22-23    PSPED2(IPMP=1-2) = pump speed, primary pump
+    24     QQ(1) = heat removal from air dump heat exchanger connected to DRACS
+    25     WAIR(1) = air flow rate through the air dump heat exchanger
+
+
+        NBNTOT = 25
+        ICV = COMPRESSIBLE VOLUME
+        ISGL = LIQUID SEGMENT
+        IPMP = PUMP
+    -1
+XNOTES
+     PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
+    -1
+INPCOM     1     1     1
+    41     1     0            NOREAC
+    18     1     3            NPREAT
+    18     1    20            NPREAT
+    15     1   100            NSTEP
+    41     1   100            NOREAC        
+    15     1   100            NSTEP
+   107     1   700            MSTPLA    
+   108     1 10000            MSTPLB
+   108     1 15000            MSTPLB
+   109     1     1            MSTPL1
+   110     1    20            MSTPL2
+   111     1    40            MSTPL3 
+    -1
+OPCIN     11     1     1
+     5     1 .5               DT0
+     7     1 50000.           TIMAX
+    13     1 .5               DTP0
+    14     1 1.               DTPMAX
+    95     4 .5          .5          .5          .5          DTMIN
+   105     4 20.         200.        5000.       10000.      TDTMIN
+    -1
+POWINA    12     1     1
+    29     5 0.          0.0         0.0         0.0         0.0         PREATB
+    34     5 0.0         0.0         0.0         0.0         0.0 
+    39     5 0.0         0.0         0.0         0.0         0.0 
+    44     5 0.0         0.0         0.0         0.0         0.0 
+    49     5 0.          2.          3.          4.          6.          PREATM
+    54     5 12.         22.         42.         102.        202.
+    59     5 402.        1002.       2002.       4002.       10002.      
+    64     5 20002.      40002.      100002.     200002.     400002.    
+    -1
+#---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
+ENDJOB    -1
+######## ####### ####### ####### ####### ####### ####### ####### ####### #######
