@@ -54,17 +54,13 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1  1000                                           MAXSTP
+    11     1 10000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
     12     2    10  1000                                     IPO,IPOBOI
-#
-#                NOREAC: Main Time Step Intevals between PSHORT Print
-#                |
-    41     1  1000
 #
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
@@ -1048,17 +1044,13 @@ INPCOM     1     1     1
 #                |
      8     1     0
 #
-#                NPREAT: Number of Entries in PREA vs. Time Table
-#                |       (Power or Reactivity vs Time)
-    18     1     4                                           NPREAT
-#
 #                NPRES: Number of entries in coolant pressure vs. time table
 #                |
     19     1     4                                           NPRES    
 #
 #                NOREAC: Main Time Step Intevals between PSHORT Print
 #                |
-    41     1   500
+    41     1   100
 #
 #                IFIT(K): Input Table Lookup Options (K=1: Power/Reac vs. Time)
 #                |     IFIT(K): Input Table Lookup Options (K=2: PRIMAR-1 pump head or channel flow vs. Time)
@@ -1880,10 +1872,9 @@ INPMR4     3     1     0
 #                   PRINTS
    890     1  2000        IP4PRT, PRINT PRIMAR-4 RESULTS EVERY IP4PRT STEPS
 #                   BINARY OUTPUT ON fort.15
-   891     1    10        NBINOT
-   892     1     2        IBINST
-   892     1   200        IBINST
-   893    10245001     9 15002    10185001     2395001     2770001780001  IBINOT
+   891     1     2        NBINOT
+   892     1     1        IBINST
+   893     2 10001 10007  IBINOT
 #                   AIR DUMP HEAT EXCHANGER
    991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
    992     1    22        IELDHX, ELEMENT NUMBER
@@ -2289,24 +2280,10 @@ PMR4IN    18     1     0
   2661     1 2.305E+01    CMWALL(8)
   2662     1 2.305E+01    CMWALL(9)
 #                PUMPS
-  1899     2 900.        500.             PMPINR
-  1899     2 920.        80.              PMPINR
-  1899     2 930.        160.             PMPINR
-  1899     2 930.        250.             PMPINR
-  1899     2 930.        270.             PMPINR
-  1899     2 930.        275.             PMPINR
-  1899     2 225.        275.             PMPINR
-  1899     2 500.        275.             PMPINR
-  1899     2 400.        200.             PMPINR
-  1899     2 200.        100.             PMPINR
-  1899     2 220.        50.              PMPINR
-  1899     2 218.        25.              PMPINR
-  1899     2 218.        15.              PMPINR
-  1899     2 218.        10.              PMPINR
-  1899     2 218.        9.               PMPINR
-  1911     2 370000.     160000.          HEADR
+  1899     2 92.         9.               PMPINR
+  1911     2 45000.      120000.          HEADR
   1923     2 125.7       125.7            PMPSPR
-  1935     2 1257.       1290.            PMPFLR
+  1935     2 1930.       4530.            PMPFLR
   1947     2 .84         .84              PMPEFR
   1959     2 0.          0.               TRKLSC
   1983     3 0.01        0.0        -73.13       APMPHD(1-3,1), LOW RANGE TORQUE LOSS COEF.
@@ -2330,9 +2307,9 @@ PMR4IN    18     1     0
   2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
   2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
   2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
-  2233     4 0.          0.1         2.          100000.     AMOTTK(11-14,1)
+  2233     4 0.          1.99        2.          100000.     AMOTTK(11-14,1)
   2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
-  2253     4 0.          0.1         2.          100000.     AMOTTK(11-14,2)
+  2253     4 0.          1.99        2.          100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
   2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
@@ -2411,8 +2388,8 @@ PMR4IN    18     1     0
   3849     1 11.61                                                       ASI
   3849     1 17.42                                                       ASI
   3849     1 50.                                                         ASI
-  3853     4 10000.      10000.      0.5         0.5                     XKSILS
-  3893     4 0.          2.          3.          9999999.                XKSILS
+  3853     4 1.0E10      1.0E10      1.0E10      1.0E10                  XKSILS
+  3893     4 0.          20.         21.         9999999.                XKSILS
   3933     1 300.                                                        AIRTMP
 #              CONTROL ROD DIRVE REACTIVITY FEEDBACK
   4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
@@ -2468,14 +2445,9 @@ XNOTES
      PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
     -1
 INPCOM     1     1     1
-    41     1     0            NOREAC
-    18     1     3            NPREAT
     18     1    20            NPREAT
     15     1   100            NSTEP
-    41     1   100            NOREAC        
-    15     1   100            NSTEP
    107     1   700            MSTPLA    
-   108     1 10000            MSTPLB
    108     1 15000            MSTPLB
    109     1     1            MSTPL1
    110     1    20            MSTPL2
