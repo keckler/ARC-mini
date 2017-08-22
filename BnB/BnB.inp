@@ -590,7 +590,7 @@ GEOMIN    61     1     0
 #
 #            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
 #                      |           |           |           |
-     1     3 1.02579E-04 1.02579E-04 1.02579E-04             ACCZ
+     1     3  7.2969E-05  7.2969E-05  7.2969E-05             ACCZ
 #
 #            AXHI(J): Length of Axial Segment J in Core and Blanket
 #                      |           |           |           |
@@ -603,7 +603,7 @@ GEOMIN    61     1     0
 #
 #            DHZ(KZ): Hydraulic Diameter for Zone KZ
 #                      |           |           |           |
-    32     3 9.53120E-03 9.53120E-03 9.53120E-02             DHZ
+    32     3 6.78001E-03 6.78001E-03 6.78001E-02             DHZ
 # DH in upper reflector is increased by 10x compared to that in core
 # to reduce the pressure drop through the upper structure of the assembly
 #
@@ -650,7 +650,7 @@ GEOMIN    61     1     0
 #
 #            AREAPC: Coolant Plus Pin Area per Pin
 #                      |
-   166     1 2.21325E-04                                     AREAPC
+   166     1 1.91716E-04                                     AREAPC
 #
 #                      RBR0: Nominal Cladding Inner Radius
 #                      |           RER0: Nominal Cladding Outer Radius
@@ -1366,11 +1366,11 @@ GEOMIN    61     5     1
 #
 #            ACCZ(KZ): Coolant Flow Area per Fuel Pin in Zone KZ
 #                      |           |           |           |
-     1     3 6.56259E-04 6.56259E-04 6.56259E-04             ACCZ
+     1     3 5.21016E-04 5.21016E-04 5.21016E-04             ACCZ
 #
 #            DHZ(KZ): Hydraulic Diameter for Zone KZ
 #                      |           |           |           |
-    32     3 2.46250E-02 2.46250E-02 2.46250E-01             DHZ
+    32     3 1.95489E-02 1.95489E-02 1.95489E-01             DHZ
 # DH in upper reflector is increased by 10x compared to that in core
 # to reduce the pressure drop through the upper structure of the assembly
 #
@@ -1400,7 +1400,7 @@ GEOMIN    61     5     1
 #
 #            AREAPC: Coolant Plus Pin Area per Pin
 #                      |
-   166     1 1.01092E-03                                     AREAPC
+   166     1 8.75676E-04                                     AREAPC
 #
 #                      RBR0: Nominal Cladding Inner Radius
 #                      |           RER0: Nominal Cladding Outer Radius
