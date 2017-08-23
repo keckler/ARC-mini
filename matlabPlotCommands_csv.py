@@ -17,7 +17,7 @@ def matlabPlotCommands_csv(channelCSV, matlabExe):
                       "ax=gca;"
                       "grid(ax,'on');"
                       "legend('saturation','fuelPeak','cladPeak','coolantPeak','coolantOutlet','coolantInlet');"
-                      "savefig('tempPlot.fig');"
+                      "savefig('tempPlot"+channelCSV[-5:-4]+".fig');"
                       "rhoPlot=plot(wholeCore(:,3),wholeCore(:,9),wholeCore(:,3),wholeCore(:,10),'--',wholeCore(:,3),wholeCore(:,9)-wholeCore(:,10)-wholeCore(:,11)-wholeCore(:,12)-wholeCore(:,13)-wholeCore(:,14)-wholeCore(:,15)-wholeCore(:,16)-wholeCore(:,17),'--',wholeCore(:,3),wholeCore(:,11),'-.',wholeCore(:,3),wholeCore(:,14),'-.',wholeCore(:,3),wholeCore(:,15),'-.',wholeCore(:,3),wholeCore(:,12),'-.',wholeCore(:,3),wholeCore(:,13),'-.',wholeCore(:,3),wholeCore(:,16),'-.',wholeCore(:,3),wholeCore(:,17),'-.');"
                       "xlabel('time,(s)');"
                       "ylabel('reactivity,($)');"
