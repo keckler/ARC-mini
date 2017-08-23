@@ -18,7 +18,7 @@ from subprocess import Popen
 #variables
 #####
 
-channelCSVs = ['Channel000004.csv'] #list of channel csv filenames to be plotted
+channelCSVs = ['Channel000001.csv','Channel000002.csv','Channel000003.csv','Channel000004.csv','Channel000005.csv','Channel000006.csv','Channel000007.csv'] #list of channel csv filenames to be plotted
 channelScript = '/global/home/users/ckeckler/codes/mini-5.1/plot/CHANNELtoCSV-Linux.x' #full path of script to convert CHANNEL.dat to .csv files
 primarScript = '/global/home/users/ckeckler/codes/mini-5.1/plot/PRIMAR4toCSV-Linux.x' #full path of script to convert PRIMAR4.dat to .csv file
 matlabExe = 'matlab' #for running on Savio
