@@ -1874,7 +1874,7 @@ INPMR4     3     1     0
 #                   BINARY OUTPUT ON fort.15
    891     1     2        NBINOT
    892     1     1        IBINST
-   893     2 10001 10007  IBINOT
+   893     3 10001 10007240003  IBINOT
 #                   AIR DUMP HEAT EXCHANGER
    991     1     1        NDHX, NUMBER OF AIR DUMP HEAT EXCHANGERS
    992     1    22        IELDHX, ELEMENT NUMBER
