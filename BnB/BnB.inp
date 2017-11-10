@@ -564,7 +564,7 @@ INPCHN    51     1     0
 #                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
 #                |     |     |     JNSN: Axial Coolant Node of Structure
 #                |     |     |     |     Output for Plotting
-    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
+#    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
 #
 #                IRHOK: Fuel Properties Correlation Selection Flag
 #                |      (>0=Use IFUELM Flag when IMETAL=2/3)
@@ -1348,7 +1348,7 @@ INPCHN    51     5     1
 #                |     |     JNCN: Axial Coolant Node of Coolant Output for Plotting
 #                |     |     |     JNSN: Axial Coolant Node of Structure
 #                |     |     |     |     Output for Plotting
-    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
+#    90     4    20    20    26    26                         JCLN,JNEN,JNCN,JNSN
 #
 #                IRHOK: Fuel Properties Correlation Selection Flag
 #                |      (0=Use Tabular Input)
