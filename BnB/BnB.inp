@@ -705,7 +705,7 @@ POWINC    62     1     0
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1      6.7474                                     PRSHAP
+   256     1      5.7661                                     PRSHAP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1178,7 +1178,7 @@ POWINC    62     1     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     5.51242                                     PRSHAP
+   256     1     6.62171                                     PRSHAP
     -1
 POWINC    62     2     1                                                
 #
@@ -1194,7 +1194,7 @@ POWINC    62     2     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1    18.20722                                     PRSHAP
+   256     1    16.61287                                     PRSHAP
     -1
 POWINC    62     3     1                                                
 #
@@ -1210,7 +1210,7 @@ POWINC    62     3     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1    12.47571                                     PRSHAP
+   256     1    15.91531                                     PRSHAP
     -1
 POWINC    62     4     1                                                
 #
@@ -1226,7 +1226,7 @@ POWINC    62     4     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     0.77497                                     PRSHAP
+   256     1     3.10008                                     PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     1     1                                                
@@ -1455,7 +1455,7 @@ POWINC    62     5     0
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1   0.0013446                                     PRSHAP
+   256     1   0.0129791                                     PRSHAP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1593,14 +1593,14 @@ POWINC    62     1     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     5.57020                                     PRSHAP
+   256     1     6.62171                                     PRSHAP
     -1
 POWINC    62     6     1                                                
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1       3.220                                     PRSHAP
+   256     1     4.40446                                     PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     1     1                                                
@@ -1646,14 +1646,14 @@ POWINC    62     2     2
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     18.1802                                       PRSHAP
+   256     1     16.5797                                       PRSHAP
     -1
 POWINC    62     7     2                                                
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1       20.45                                       PRSHAP
+   256     1     19.3657                                       PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     2     2                                                
