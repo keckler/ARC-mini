@@ -223,19 +223,19 @@ POWINA    12     1     1
 #                      GENTIM: Prompt Neutron Lifetime
 #                      |
 #          value taken from ADJ_IFP_LIFETIME from Serpent 2 results
-     2     1  1.91407E-7                                     GENTIM
+     2     1  1.98877E-7                                     GENTIM
 #
 #                      BETADN(L): Effective Delayed Neutron Fract. for Family L
 #                      |           |           |           |
 #          value taken from ADJ_IFP_ANA_BETA_EFF from Serpent 2 results
-     4     4  6.4926E-05  6.4715E-04  5.3395E-04  1.5638E-03 BETADN
-     8     2  6.6112E-04  1.6731E-04
+     4     4  6.8626E-05  6.5412E-04  5.2785E-04  1.5378E-03 BETADN
+     8     2  6.4828E-04  1.6257E-04
 #
 #                      DECCON(L): Decay Constant for Precursor Family L
 #                      |           |           |           |
 #          value taken from ADJ_IFP_ANA_LAMBDA from Serpent 2 results
-    10     4  1.2527E-02  3.0099E-02  1.1189E-01  3.3211E-01   DECCON
-    14     2  1.3103E+00  9.7948E+00
+    10     4  1.2545E-02  3.0092E-02  1.1193E-01  3.3197E-01   DECCON
+    14     2  1.3071E+00  9.7166E+00
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -277,7 +277,7 @@ POWINA    12     1     1
 #                      ACRDEX: Control-Rod Reactivity Feedback Parameter
 #                      |           BCRDEX: (Quadratic Term)
 #                      |           |
-    73     2      -53.22      -59.50                         ACRDEX,BCRDEX
+    73     2      -12.49      -3.823                         ACRDEX,BCRDEX
 #
 #                      CRDMC: Control-Rod Drive Mass x Specific Heat
 #                      |           CRDHA: Control-Rod Drive Surface Area x
@@ -557,7 +557,7 @@ INPCHN    51     1     0
 #                NPIN: Number of Pins per Assembly
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
-    25     2   169   504                                      NPIN,NSUBAS
+    25     2   169   607                                      NPIN,NSUBAS
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
@@ -689,12 +689,12 @@ POWINC    62     1     0
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4     0.00649     0.01638     0.03562     0.07243 PSHAPE
-    10     4     0.13348     0.26960     0.50097     0.79063 PSHAPE
-    14     4     1.36426     1.80187     2.24694     2.59415 PSHAPE
-    18     4     2.74110     2.68246     2.45773     2.12385 PSHAPE
-    22     4     1.59417     1.18999     0.75226     0.33500 PSHAPE
-    26     4     0.16743     0.07079     0.02859     0.02387 PSHAPE
+     6     4     0.00107     0.00293     0.00731     0.01665 PSHAPE
+    10     4     0.03377     0.07494     0.14912     0.25106 PSHAPE
+    14     4     0.45405     0.62277     0.80826     0.95494 PSHAPE
+    18     4     1.00000     0.94417     0.81634     0.65779 PSHAPE
+    22     4     0.42153     0.27892     0.15302     0.07368 PSHAPE
+    26     4     0.03867     0.01779     0.00803     0.00593 PSHAPE
 #
 #            PSHAPR(I): Radial Power Shape within Pin
 #                      |           |           |           |
@@ -705,7 +705,7 @@ POWINC    62     1     0
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1      6.7474                                     PRSHAP
+   256     1      5.7661                                     PRSHAP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1168,65 +1168,65 @@ POWINC    62     1     1
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4     0.00180     0.00500     0.01260     0.02930 PSHAPE
-    10     4     0.06260     0.14860     0.31790     0.57930 PSHAPE
-    14     4     1.17490     1.71560     2.36420     2.92860 PSHAPE
-    18     4     3.16420     3.07700     2.72200     2.20630 PSHAPE
-    22     4     1.42320     0.93500     0.50230     0.28860 PSHAPE
-    26     4     0.17370     0.09080     0.04480     0.03180 PSHAPE
+     6     4     0.00107     0.00293     0.00731     0.01665 PSHAPE
+    10     4     0.03377     0.07494     0.14912     0.25106 PSHAPE
+    14     4     0.45405     0.62277     0.80826     0.95494 PSHAPE
+    18     4     1.00000     0.94417     0.81634     0.65779 PSHAPE
+    22     4     0.42153     0.27892     0.15302     0.07368 PSHAPE
+    26     4     0.03867     0.01779     0.00803     0.00593 PSHAPE
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     5.51242                                     PRSHAP
+   256     1     6.62171                                     PRSHAP
     -1
 POWINC    62     2     1                                                
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4     0.00125     0.00375     0.01165     0.03135 PSHAPE
-    10     4     0.06960     0.19270     0.43290     0.73455 PSHAPE
-    14     4     1.39220     1.85205     2.29210     2.61435 PSHAPE
-    18     4     2.74780     2.71280     2.51970     2.19235 PSHAPE
-    22     4     1.61305     1.17130     0.66580     0.36855 PSHAPE
-    26     4     0.22145     0.10045     0.03760     0.02080 PSHAPE
+     6     4     0.00157     0.00434     0.01306     0.03259 PSHAPE
+    10     4     0.06380     0.14883     0.28659     0.42345 PSHAPE
+    14     4     0.65031     0.79268     0.90572     0.97596 PSHAPE
+    18     4     1.00000     0.97876     0.91214     0.80537 PSHAPE
+    22     4     0.62232     0.47179     0.28610     0.14759 PSHAPE
+    26     4     0.08401     0.03644     0.01327     0.00748 PSHAPE
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1    18.20722                                     PRSHAP
+   256     1    16.61287                                     PRSHAP
     -1
 POWINC    62     3     1                                                
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4     0.00247     0.00673     0.02003     0.05120 PSHAPE
-    10     4     0.10360     0.26697     0.55983     0.87037 PSHAPE
-    14     4     1.47913     1.87223     2.20160     2.42767 PSHAPE
-    18     4     2.52897     2.50890     2.36857     2.11807 PSHAPE
-    22     4     1.69737     1.31463     0.81677     0.41343 PSHAPE
-    26     4     0.22933     0.09300     0.03113     0.01803 PSHAPE
+     6     4     0.00178     0.00501     0.01646     0.04285 PSHAPE
+    10     4     0.08255     0.18987     0.35910     0.50965 PSHAPE
+    14     4     0.71315     0.84619     0.93355     0.98017 PSHAPE
+    18     4     0.99983     0.98744     0.93624     0.84252 PSHAPE
+    22     4     0.70583     0.55399     0.35053     0.19135 PSHAPE
+    26     4     0.11238     0.04788     0.01650     0.00927 PSHAPE
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1    12.47571                                     PRSHAP
+   256     1    15.91531                                     PRSHAP
     -1
 POWINC    62     4     1                                                
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4     0.01103     0.02730     0.05523     0.10393 PSHAPE
-    10     4     0.18152     0.31672     0.52473     0.80468 PSHAPE
-    14     4     1.32907     1.76433     2.23502     2.61492 PSHAPE
-    18     4     2.77442     2.69337     2.43760     2.09017 PSHAPE
-    22     4     1.56477     1.17640     0.79048     0.29233 PSHAPE
-    26     4     0.11743     0.04647     0.02162     0.02648 PSHAPE
+     6     4     0.00458     0.01132     0.02352     0.04528 PSHAPE
+    10     4     0.07983     0.13981     0.22984     0.34488 PSHAPE
+    14     4     0.52686     0.67799     0.83866     0.96276 PSHAPE
+    18     4     1.00000     0.94300     0.83117     0.69784 PSHAPE
+    22     4     0.50053     0.36096     0.23106     0.13738 PSHAPE
+    26     4     0.08239     0.04686     0.02902     0.03350 PSHAPE
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     0.77497                                     PRSHAP
+   256     1     3.10008                                     PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     1     1                                                
@@ -1242,25 +1242,25 @@ COOLIN    64     1     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.140351                                     W0
+    47     1    0.157282                                     W0
     -1
 COOLIN    64     2     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.528778                                     W0
+    47     1    0.512188                                     W0
     -1
 COOLIN    64     3     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.417818                                     W0
+    47     1    0.406214                                     W0
     -1
 COOLIN    64     4     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.025620                                     W0
+    47     1    0.033921                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -1341,7 +1341,7 @@ INPCHN    51     5     1
 #                NPIN: Number of Pins per Assembly
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
-    25     2    37   108                                     NPIN,NSUBAS
+    25     2    37   103                                     NPIN,NSUBAS
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
@@ -1439,12 +1439,12 @@ POWINC    62     5     0
 #
 #            PSHAPE(J): Ratio of Pin Power in Axial Segment J to Peak
 #                      |           |           |           |
-     6     4      0.0416      0.0814      0.1447      0.2388 PSHAPE
-    10     4      0.3836      0.5768      0.7901      1.0783 PSHAPE
-    14     4      1.4077      1.7169      2.0167      2.2002 PSHAPE
-    18     4      2.2863      2.2957      2.1395      1.9108 PSHAPE
-    22     4      1.6341      1.3314      1.0284      0.3957 PSHAPE
-    26     4      0.1413      0.0590      0.0506      0.0502 PSHAPE
+     6     4      0.01920     0.03526     0.06749     0.11255 PSHAPE
+    10     4      0.17435     0.26283     0.36374     0.49699 PSHAPE
+    14     4      0.64481     0.78357     0.89273     0.97285 PSHAPE
+    18     4      1.00000     0.96782     0.89641     0.79597 PSHAPE
+    22     4      0.64547     0.51985     0.38573     0.27200 PSHAPE
+    26     4      0.19066     0.12870     0.10719     0.14897 PSHAPE
 #
 #            PSHAPR(I): Radial Power Shape within Pin
 #                      |           |           |           |
@@ -1455,7 +1455,7 @@ POWINC    62     5     0
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1   0.0013446                                     PRSHAP
+   256     1   0.0129791                                     PRSHAP
     -1                                                                  
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
@@ -1593,14 +1593,14 @@ POWINC    62     1     1
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     5.57020                                     PRSHAP
+   256     1     6.62171                                     PRSHAP
     -1
 POWINC    62     6     1                                                
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1       3.220                                     PRSHAP
+   256     1     4.40446                                     PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     1     1                                                
@@ -1612,13 +1612,13 @@ COOLIN    64     1     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.141949                                     W0
+    47     1    0.158619                                     W0
     -1
 COOLIN    64     6     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.074852                                     W0
+    47     1    0.102447                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 # PEAK POWER CHANNEL
@@ -1646,14 +1646,14 @@ POWINC    62     2     2
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1     18.1802                                       PRSHAP
+   256     1     16.5797                                       PRSHAP
     -1
 POWINC    62     7     2                                                
 #
 #            PRSHAP: Ratio of Average Power per Subassembly to Average Power
 #                    Over All Subassemblies
 #                      |
-   256     1       20.45                                       PRSHAP
+   256     1     19.3657                                       PRSHAP
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 PMATCH    63     2     2                                                
@@ -1665,13 +1665,13 @@ COOLIN    64     2     2
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.528329                                     W0
+    47     1    0.511992                                     W0
     -1
 COOLIN    64     7     2                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.565976                                     W0
+    47     1    0.528461                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
