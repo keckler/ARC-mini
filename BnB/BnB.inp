@@ -557,7 +557,7 @@ INPCHN    51     1     0
 #                NPIN: Number of Pins per Assembly
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
-    25     2   169   504                                      NPIN,NSUBAS
+    25     2   169   607                                      NPIN,NSUBAS
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
@@ -1341,7 +1341,7 @@ INPCHN    51     5     1
 #                NPIN: Number of Pins per Assembly
 #                |     NSUBAS: Number of Subassemblies in Channel
 #                |     |
-    25     2    37   108                                     NPIN,NSUBAS
+    25     2    37   103                                     NPIN,NSUBAS
 #
 #                JCLN: Axial Heat Transfer Segment of Fuel Output for Plotting
 #                |     JNEN: Axial Node of Cladding Output for Plotting
