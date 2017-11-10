@@ -1242,25 +1242,25 @@ COOLIN    64     1     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.140351                                     W0
+    47     1    0.157282                                     W0
     -1
 COOLIN    64     2     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.528778                                     W0
+    47     1    0.512188                                     W0
     -1
 COOLIN    64     3     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.417818                                     W0
+    47     1    0.406214                                     W0
     -1
 COOLIN    64     4     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.025620                                     W0
+    47     1    0.033921                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -1612,13 +1612,13 @@ COOLIN    64     1     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.141949                                     W0
+    47     1    0.158619                                     W0
     -1
 COOLIN    64     6     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.074852                                     W0
+    47     1    0.102447                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 # PEAK POWER CHANNEL
@@ -1665,13 +1665,13 @@ COOLIN    64     2     2
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.528329                                     W0
+    47     1    0.511992                                     W0
     -1
 COOLIN    64     7     2                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-    47     1    0.565976                                     W0
+    47     1    0.528461                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
