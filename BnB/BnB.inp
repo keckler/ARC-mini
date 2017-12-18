@@ -2249,14 +2249,14 @@ PMR4IN    18     1     0
      1     1 0.           TMDBP4
 #                   LIQUID SEGMENTS
      2     1 17598.       FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
-     3     1 4620.45      FLOSSL(2)
-     4     1 4620.45      FLOSSL(3)
+     3     1 4426.00      FLOSSL(2)
+     4     1 4426.00      FLOSSL(3)
      5     1 0.           FLOSSL(4)
      6     1 0.           FLOSSL(5)
      7     1 0.           FLOSSL(6)
-     8     1 4515.        FLOSSL(7)
-     9     1 4515.        FLOSSL(8)
-    10     1 4515.        FLOSSL(9)
+     8     1 4526.        FLOSSL(7)
+     9     1 4526.        FLOSSL(8)
+    10     1 4526.        FLOSSL(9)
     11     1 0.           FLOSSL(10)
     42     1 -0.05        ZINL(1), INLET ELEVATION
     43     1 6.44         ZINL(2)
@@ -2760,30 +2760,6 @@ PMR4IN    18     1     0
 #  5186     2 2.0         2.0                                             EPSTST  
 #  5189     1 20.                                                         XLENTR
 #  5189     2 100.        100.                                            XLENTR
-    -1
-XNOTES
-     fort.15 output from PRIMAR-4                         07/05 FED
-     each record contains:  ISTEP, IPRSTP, NBNTOT, (ARRAY(I),I=1,NBNTOT)
-        ISTEP = main time step
-        IPRSTP = primar time step
-
-     I     ARRAY(I)
-     1     TIMEP2 = time at the end of the PRIMAR time step
-   2-10    TLQCV2(ICV = 1-9) = liquid temperature in compressible volume
-  11-19    FLOSL2(ISGL=2-10) = coolant flow rate
-  20-21    HEADP2(IPMP=1-2) = pump head, primary pump
-  22-23    PSPED2(IPMP=1-2) = pump speed, primary pump
-    24     QQ(1) = heat removal from air dump heat exchanger connected to DRACS
-    25     WAIR(1) = air flow rate through the air dump heat exchanger
-
-
-        NBNTOT = 25
-        ICV = COMPRESSIBLE VOLUME
-        ISGL = LIQUID SEGMENT
-        IPMP = PUMP
-    -1
-XNOTES
-     PLOF, ADJUST PUMPS FOR A 5 S COAST-DOWN                          
     -1
 INPCOM     1     1     1
     18     1    20            NPREAT
