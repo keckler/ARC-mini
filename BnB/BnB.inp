@@ -60,7 +60,7 @@ INPCOM     1     0     0
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
-    12     2    10  1000                                     IPO,IPOBOI
+    12     2   100  1000                                     IPO,IPOBOI
 #
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
@@ -2248,15 +2248,15 @@ PMR4IN    18     1     0
 #                   DEBUG PRINTS
      1     1 0.           TMDBP4
 #                   LIQUID SEGMENTS
-     2     1 17632.       FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
-     3     1 4426.00      FLOSSL(2)
-     4     1 4426.00      FLOSSL(3)
+     2     1 17598.       FLOSSL(1), COOLANT FLOW RATE FOR THE SEGMENT
+     3     1 4620.45      FLOSSL(2)
+     4     1 4620.45      FLOSSL(3)
      5     1 0.           FLOSSL(4)
      6     1 0.           FLOSSL(5)
      7     1 0.           FLOSSL(6)
-     8     1 4526.        FLOSSL(7)
-     9     1 4526.        FLOSSL(8)
-    10     1 4526.        FLOSSL(9)
+     8     1 4515.        FLOSSL(7)
+     9     1 4515.        FLOSSL(8)
+    10     1 4515.        FLOSSL(9)
     11     1 0.           FLOSSL(10)
     42     1 -0.05        ZINL(1), INLET ELEVATION
     43     1 6.44         ZINL(2)
