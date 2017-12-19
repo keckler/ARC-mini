@@ -2655,7 +2655,7 @@ PMR4IN    18     1     0
 #                 steam generator table
   2937     4 1.0         1.0         0.          0.          DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
-  3273     4 0.          10.         11.         9999999.                TMPMTB
+  3273     4 0.          10.99       11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
 #                 IHX, DRACS
   3445     2 815992.     218000.                                         PRSIHX
@@ -2705,6 +2705,7 @@ PMR4IN    18     1     0
   3821     1 480.                                                        AHT
   3821     1 486.                                                        AHT
   3821     1 474.                                                        AHT
+  3821     1 1480.                                                       AHT
   3825     1 5.                                                          SRLEN
   3825     1 15.                                                         SRLEN
   3825     1 18.                                                         SRLEN
@@ -2729,8 +2730,8 @@ PMR4IN    18     1     0
   3849     1 11.61                                                       ASI
   3849     1 17.42                                                       ASI
   3849     1 50.                                                         ASI
-  3853     4 1.0E10      1.0E10      1.0E10      1.0E10                  XKSILS
-  3893     4 0.          20.         21.         9999999.                XKSILS
+  3853     4 1.0E10      1.0E10      0.5         0.5                     XKSILS
+  3893     4 0.          10.99       11.         9999999.                XKSILS
   3933     1 300.                                                        AIRTMP
 #              CONTROL ROD DIRVE REACTIVITY FEEDBACK
   4174     1 6.0     -05   VSLEXP(1), DZ = 6.0, EXP. COEF. = 1.0-5
@@ -2775,7 +2776,7 @@ OPCIN     11     1     1
      7     1 50000.           TIMAX
     13     1 .5               DTP0
     14     1 1.               DTPMAX
-    95     4 .5          .5          .5          .5          DTMIN
+    95     4 .1          .1          .1          .1          DTMIN
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
 POWINA    12     1     1
