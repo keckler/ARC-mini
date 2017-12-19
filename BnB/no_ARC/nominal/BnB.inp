@@ -277,7 +277,7 @@ POWINA    12     1     1
 #                      ACRDEX: Control-Rod Reactivity Feedback Parameter
 #                      |           BCRDEX: (Quadratic Term)
 #                      |           |
-    73     2      -12.49      -3.823                         ACRDEX,BCRDEX
+    73     2      -12.49         0.0                         ACRDEX,BCRDEX
 #
 #                      CRDMC: Control-Rod Drive Mass x Specific Heat
 #                      |           CRDHA: Control-Rod Drive Surface Area x
