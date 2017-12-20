@@ -54,7 +54,7 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1 10000                                           MAXSTP
+    11     1100000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
