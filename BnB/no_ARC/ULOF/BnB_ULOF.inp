@@ -54,7 +54,7 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1 10000                                           MAXSTP
+    11     1100000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
@@ -2607,7 +2607,7 @@ PMR4IN    18     1     0
   2661     1 2.305E+01    CMWALL(8)
   2662     1 2.305E+01    CMWALL(9)
 #                PUMPS
-  1899     2 92.         9.               PMPINR
+  1899     2 600.        9.               PMPINR
   1911     2 45000.      120000.          HEADR
   1923     2 125.7       125.7            PMPSPR
   1935     2 1930.       4530.            PMPFLR
@@ -2762,7 +2762,7 @@ OPCIN     11     1     1
      7     1 50000.           TIMAX
     13     1 .5               DTP0
     14     1 1.               DTPMAX
-    95     4 .5          .5          .5          .5          DTMIN
+    95     4 .1          .1          .1          .1          DTMIN
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
 POWINA    12     1     1
