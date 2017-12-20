@@ -2214,18 +2214,18 @@ INPMR4     3     1     0
   1153     1     2        NCCV
   1154     1     2        ICCVFS
 #                   STRATIFIED COMPRESSIBLE VOLUMES
-  1313     1     0        NSTRCV
-#  1313     1     2        NSTRCV
-#  1314     2     2     5  ICVSTR
-#  1317     2     1     2  ISTRVT
-#  1320     2     1     1  NUMWAL
-#  1323     2     1     2  IFSTWL
-#  1326     2     0     0  IWLHRZ
-#  1335     2    10    10  NVDWL
-#  1344     2     5     5  NLNDWL
-#  1353     2     3     0  ICV2WL
-#  1362     1     0        IDBSTR
-#  1363     1    30        ISTDBS
+#  1313     1     0        NSTRCV
+  1313     1     2        NSTRCV
+  1314     2     2     5  ICVSTR
+  1317     2     1     2  ISTRVT
+  1320     2     1     1  NUMWAL
+  1323     2     1     2  IFSTWL
+  1326     2     0     0  IWLHRZ
+  1335     2    10    10  NVDWL
+  1344     2     5     5  NLNDWL
+  1353     2     3     0  ICV2WL
+  1362     1     0        IDBSTR
+  1363     1    30        ISTDBS
 #                   DEBUG PRINTS
    507     1     0                                                       IDBPR4
    508     1     0                                                       IDBP4N
@@ -2733,20 +2733,20 @@ PMR4IN    18     1     0
 #              DEGREE OF IMPLICITNESS
   4679     1 .75                                                         THT2CV
 #              STRATIFIED COMPRESSIBLE VOLUMES, CV2 AND CV5
-#  5008     1 1.2                                                         RCORE
-#  5009     2 250.        250.                                            HCSTWL
-#  5018     2 250.        0.                                              HCSTW2
-#  5027     2 250.        190.                                            ASTWL
-#  5036     5 .000127     .000127     .000127     .000127     .000127     HINVWL
-#  5044     5 .000508     .000508     .000508     .000508     .000508     
-#  5108     5      1.50+7      1.50+7      1.50+7      1.50+7      1.50+7 XMCSTW
-#  5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
-#  5180     1 2.973                                                       ZINST(1)
-#  5181     1 -1.6                                                        ZINST(2)
-#  5186     1 10.                                                         EPSTST
-#  5186     2 2.0         2.0                                             EPSTST  
-#  5189     1 20.                                                         XLENTR
-#  5189     2 100.        100.                                            XLENTR
+  5008     1 1.2                                                         RCORE
+  5009     2 250.        250.                                            HCSTWL
+  5018     2 250.        0.                                              HCSTW2
+  5027     2 250.        190.                                            ASTWL
+  5036     5 .000127     .000127     .000127     .000127     .000127     HINVWL
+  5044     5 .000508     .000508     .000508     .000508     .000508     
+  5108     5      1.50+7      1.50+7      1.50+7      1.50+7      1.50+7 XMCSTW
+  5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
+  5180     1 2.973                                                       ZINST(1)
+  5181     1 -1.6                                                        ZINST(2)
+  5186     1 10.                                                         EPSTST
+  5186     2 2.0         2.0                                             EPSTST  
+  5189     1 20.                                                         XLENTR
+  5189     2 100.        100.                                            XLENTR
     -1
 INPCOM     1     1     1
     18     1    20            NPREAT
