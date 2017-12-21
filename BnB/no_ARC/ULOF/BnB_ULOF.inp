@@ -65,6 +65,10 @@ INPCOM     1     0     0
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
     24     1     1                                           ICLCMP
+#
+#                HKDBK: Flag to print messages if extrapolation from the IFR handbook is used
+#                |
+    92     1     1                                           KHDBK
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
