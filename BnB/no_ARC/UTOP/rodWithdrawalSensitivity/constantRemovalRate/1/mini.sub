@@ -45,3 +45,5 @@
 # -----------------------------------------------------------------------------                                                                                                   
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
+~/bin/mini-5.2/mini-5.x-Linux-2742M.x < /global/home/users/ckeckler/docs/mini/ARC-mini/BnB/no_ARC/UTOP/BnB_UTOP.inp > mini.out
+/global/home/users/ckeckler/docs/mini/ARC-mini/csvPlot.py 
