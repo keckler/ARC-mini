@@ -116,7 +116,7 @@ for span in actuationSpans:
                     except OSError:
                         sleep(10)
                 
-                sleep(120) #give time for the other channels to be printed before moving on to next job
+                sleep(80) #give time for the other channels to be printed before moving on to next job
                 remove('./RESTART.dat')
                 remove('./PRIMAR4.dat')
                 remove('./CHANNEL.dat')
