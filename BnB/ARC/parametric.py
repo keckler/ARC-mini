@@ -19,7 +19,7 @@ worths = [0.12, 0.25, 0.37, 0.50, 0.62, 0.75, 0.87, 1.00] #total worths of ARC s
 actuationTemps = [10, 15, 20, 25, 30, 35, 40, 45, 50] #temperature above SS of actuation of ARC system, C
 actuationSpans = [50.0, 75.0, 100.0]
 
-miniExe = '~/bin/mini-5.2/mini-5.x-2522-Linux.x'
+miniExe = '~/bin/mini-5.2/mini-5.x-Linux-2742M.x'
 
 #####
 #imports
@@ -77,7 +77,7 @@ for span in actuationSpans:
                 chdir('./'+str(span)+'/'+transient+'/'+str(worth)+'/'+str(temp)) #move into directory
     
                 #make new mini input from respective template
-                inpPath = runDir+str(argv[i])
+                inpPath = str(argv[i])
                 newPath = './'+transient+'_'+str(worth)+'_'+str(temp)+'.inp'
                 fi = open(inpPath, 'r')
                 fin = open(newPath, 'w')
