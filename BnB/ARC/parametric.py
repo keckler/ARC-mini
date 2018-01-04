@@ -109,13 +109,14 @@ for span in actuationSpans:
     
                 #remove excess files to preserve memory
                 completedFlag = 0
-                while completedFlag == 0: #if /flag.txt is available to be deleted, the job is done -- delete things and move on
+                while completedFlag == 0: #if /flag.txt is available to be deleted, the first channel has been plotted -- move on
                     try:
                         remove('./flag.txt')
                         completedFlag = 1
                     except OSError:
-                        sleep(30)
+                        sleep(10)
                 
+                sleep(120) #give time for the other channels to be printed before moving on to next job
                 remove('./RESTART.dat')
                 remove('./PRIMAR4.dat')
                 remove('./CHANNEL.dat')
