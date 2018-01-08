@@ -15,9 +15,9 @@
 #####
 
 transients = ['ULOHS', 'UTOP', 'ULOF'] #names of transients to run
-worths = [0.12, 0.25, 0.37, 0.50, 0.62, 0.75, 0.87, 1.00] #total worths of ARC systems, $
+worths = [0.12, 0.25, 0.37, 0.50, 0.62, 0.75, 0.87, 1.00, 1.12, 1.25, 1.37, 1.50] #total worths of ARC systems, $
 actuationTemps = [10, 15, 20, 25, 30, 35, 40, 45, 50] #temperature above SS of actuation of ARC system, C
-actuationSpans = [50.0, 75.0, 100.0]
+actuationSpans = [50.0, 75.0, 100.0, 125.0, 150.0, 175.0, 200.0]
 
 miniExe = '~/bin/mini-5.2/mini-5.x-Linux-2742M.x'
 
