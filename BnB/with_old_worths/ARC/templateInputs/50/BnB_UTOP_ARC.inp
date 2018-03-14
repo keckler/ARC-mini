@@ -54,13 +54,13 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1100000                                           MAXSTP
+    11     1 50000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
-    12     2  1000  1000                                     IPO,IPOBOI
+    12     2100000  1000                                     IPO,IPOBOI
 #
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
@@ -665,8 +665,8 @@ GEOMIN    61     1     0
 #        size to the pins in the core region:
 #
 #            SER(KZ): Reflector/Pin Perimeter
-#                      |           |           |           |            |
-   182     5 3.83808E-02 3.83808E-02  4.5421E-04  3.12267E-03 3.83808E-02    SER
+#                      |           |           |           |           |
+   182     5 3.83808E-02 3.83808E-02  4.5421E-04  3.1226E-03 3.83808E-02    SER
 #
 #            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
 #                      |           |           |           |           |
@@ -1201,14 +1201,14 @@ COOLIN    64     3     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-#		       lowered to increase the mixed outlet temp
+#               lowered to increase the mixed outlet temp
     47     1    0.376214                                     W0
     -1
 COOLIN    64     4     1                                                
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-#		       lowered to increase the mixed outlet temp
+#               lowered to increase the mixed outlet temp
     47     1    0.030921                                     W0
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
@@ -1728,9 +1728,9 @@ COOLIN    64     5     1
 #
 #                      W0: Steady-State Coolant Flow Rate per Pin
 #                      |
-#		       value increased over that from the orificing analysis
-#		       to obtain a reasonable outlet temp when reflector
-#		       assemblies are included
+#               value increased over that from the orificing analysis
+#               to obtain a reasonable outlet temp when reflector
+#               assemblies are included
     47     115.81842E-04                                     W0
     -1                                                                  
 ######## ####### ####### ####### ####### ####### ####### ####### ####### #######
@@ -2226,18 +2226,18 @@ INPMR4     3     1     0
   1153     1     2        NCCV
   1154     1     2        ICCVFS
 #                   STRATIFIED COMPRESSIBLE VOLUMES
-#  1313     1     0        NSTRCV
-  1313     1     2        NSTRCV
-  1314     2     2     5  ICVSTR
-  1317     2     1     2  ISTRVT
-  1320     2     1     1  NUMWAL
-  1323     2     1     2  IFSTWL
-  1326     2     0     0  IWLHRZ
-  1335     2    10    10  NVDWL
-  1344     2     5     5  NLNDWL
-  1353     2     3     0  ICV2WL
-  1362     1     0        IDBSTR
-  1363     1    30        ISTDBS
+  1313     1     0        NSTRCV
+#  1313     1     2        NSTRCV
+#  1314     2     2     5  ICVSTR
+#  1317     2     1     2  ISTRVT
+#  1320     2     1     1  NUMWAL
+#  1323     2     1     2  IFSTWL
+#  1326     2     0     0  IWLHRZ
+#  1335     2    10    10  NVDWL
+#  1344     2     5     5  NLNDWL
+#  1353     2     3     0  ICV2WL
+#  1362     1     0        IDBSTR
+#  1363     1    30        ISTDBS
 #                   DEBUG PRINTS
    507     1     0                                                       IDBPR4
    508     1     0                                                       IDBP4N
@@ -2645,15 +2645,15 @@ PMR4IN    18     1     0
   2020     1 1.0                                 APMPHD(18,2), PUMP CURVE NUMBER
   2021     1 .02                                 APMPHD(19,2), WB FOR LOCKED ROTOR
   2022     1 .02                                 APMPHD(20,2), SB FOR LOCKED ROTOR
-  2223     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,1)
+  2223     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,1)
   2233     4 0.          10.99       11.         100000.     AMOTTK(11-14,1)
-  2243     4 1.0         1.0         0.0         0.0         AMOTTK(1-4,2)
+  2243     4 1.0         1.0         1.0         1.0         AMOTTK(1-4,2)
   2253     4 0.          10.99       11.         100000.     AMOTTK(11-14,2)
   2463     1 9.8                                             GRAVTY
 #                 steam generator table
   2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP
   3105     4 28.83       28.83       28.83       28.83                   ZCENTR
-  3273     4 0.          10.         11.         9999999.                TMPMTB
+  3273     4 0.          10.99       11.         9999999.                TMPMTB
   3441     2 .99999      .99999                                          DTEVPF
 #                 IHX, DRACS
   3445     2 815992.     218000.                                         PRSIHX
@@ -2745,20 +2745,20 @@ PMR4IN    18     1     0
 #              DEGREE OF IMPLICITNESS
   4679     1 .75                                                         THT2CV
 #              STRATIFIED COMPRESSIBLE VOLUMES, CV2 AND CV5
-  5008     1 1.2                                                         RCORE
-  5009     2 250.        250.                                            HCSTWL
-  5018     2 250.        0.                                              HCSTW2
-  5027     2 250.        190.                                            ASTWL
-  5036     5 .000127     .000127     .000127     .000127     .000127     HINVWL
-  5044     5 .000508     .000508     .000508     .000508     .000508     
-  5108     5      1.50+7      1.50+7      1.50+7      1.50+7      1.50+7 XMCSTW
-  5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
-  5180     1 2.973                                                       ZINST(1)
-  5181     1 -1.6                                                        ZINST(2)
-  5186     1 10.                                                         EPSTST
-  5186     2 2.0         2.0                                             EPSTST  
-  5189     1 20.                                                         XLENTR
-  5189     2 100.        100.                                            XLENTR
+#  5008     1 1.2                                                         RCORE
+#  5009     2 250.        250.                                            HCSTWL
+#  5018     2 250.        0.                                              HCSTW2
+#  5027     2 250.        190.                                            ASTWL
+#  5036     5 .000127     .000127     .000127     .000127     .000127     HINVWL
+#  5044     5 .000508     .000508     .000508     .000508     .000508     
+#  5108     5      1.50+7      1.50+7      1.50+7      1.50+7      1.50+7 XMCSTW
+#  5116     5       4.4+7       4.4+7       4.4+7       4.4+7       4.4+7 
+#  5180     1 2.973                                                       ZINST(1)
+#  5181     1 -1.6                                                        ZINST(2)
+#  5186     1 10.                                                         EPSTST
+#  5186     2 2.0         2.0                                             EPSTST  
+#  5189     1 20.                                                         XLENTR
+#  5189     2 100.        100.                                            XLENTR
     -1
 INPCOM     1     1     1
     18     1    20            NPREAT
@@ -2770,7 +2770,7 @@ INPCOM     1     1     1
    111     1    40            MSTPL3 
     -1
 OPCIN     11     1     1
-     5     1 .5               DT0
+     5     1 .1               DT0
      7     1 50000.           TIMAX
     13     1 .5               DTP0
     14     1 1.               DTPMAX
@@ -2778,14 +2778,8 @@ OPCIN     11     1     1
    105     4 20.         200.        5000.       10000.      TDTMIN
     -1
 POWINA    12     1     1
-    29     5 0.          0.0         0.0         0.0         0.0         PREATB
-    34     5 0.0         0.0         0.0         0.0         0.0 
-    39     5 0.0         0.0         0.0         0.0         0.0 
-    44     5 0.0         0.0         0.0         0.0         0.0 
-    49     5 0.          2.          3.          4.          6.          PREATM
-    54     5 12.         22.         42.         102.        202.
-    59     5 402.        1002.       2002.       4002.       10002.      
-    64     5 20002.      40002.      100002.     200002.     400002.    
+    29     5 0.          0.0         0.0         1.66        1.66        PREATB
+    49     5 0.          2.          11.         343.        9999999.    PREATM
     -1
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #===============================================================================
@@ -2877,7 +2871,7 @@ INCONT     5     1     0
 #        |                   |
 #---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
 #
-    6   21    0    0       1.3
+    6   21    0    0      50.0
 #
 #
 # gets flowrate at SS for use in normalizing the flowrate

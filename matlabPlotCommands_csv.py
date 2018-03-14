@@ -1,9 +1,11 @@
 def matlabPlotCommands_csv(channelCSV, matlabExe):
     #runs matlab for plotting data extracted to .csv format
 
-    matlabCommands = ["channel=csvread('"+channelCSV+"',1,0);" #import channel csv output
+    matlabCommands = ["fprintf('startedMatlab');"
+                      "channel=csvread('"+channelCSV+"',1,0);" #import channel csv output
                       "wholeCore=csvread('WholeCore.csv',1,0);" #import whole core csv output
                       "primar=csvread('primar4.csv',1,0);" #import primar4 csv output
+                      "fprintf('readComplete,firstPlot');"
                       "powerPlot=semilogy(wholeCore(:,3),wholeCore(:,5),'-',wholeCore(:,3),wholeCore(:,5)-wholeCore(:,8),'--',wholeCore(:,3),wholeCore(:,8),'--',primar(:,4),primar(:,5)./primar(1,5),'-.',primar(:,4),primar(:,6)./primar(1,6),'-.');" #power/flow plot
                       "legend('totalPower','fissionPower','decayPower','coreFlow','intermediateFlow');"
                       "xlabel('time,(s)');"

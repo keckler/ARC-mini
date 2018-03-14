@@ -11,7 +11,7 @@
 #SBATCH --output=parametric.log                                                                                                                                                      
 
 # wall time, in minutes                                                                                                                                                           
-#SBATCH --time=20000                                                                                                                                                             
+#SBATCH --time=10                                                                                                                                                             
 
 # -----------------------------------------------------------------------------                                                                                                   
 # SLURM options                                                                                                                                                                   
@@ -46,4 +46,4 @@
 # job execution                                                                                                                                                                   
 # -----------------------------------------------------------------------------                                                                                                   
 
-./parametric.py ~/docs/mini/ARC-mini/BnB/ARC/templateInputs/BnB_ULOHS_ARC.inp ~/docs/mini/ARC-mini/BnB/ARC/templateInputs/BnB_UTOP_ARC.inp ~/docs/mini/ARC-mini/BnB/ARC/templateInputs/BnB_ULOF_ARC.inp
+./parametric.py ~/docs/ARC-mini/BnB/ARC/templateInputs/250/BnB_ULOF_ARC.inp

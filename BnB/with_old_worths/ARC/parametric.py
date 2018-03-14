@@ -14,10 +14,10 @@
 #inputs
 #####
 
-transients = ['ULOHS', 'UTOP', 'ULOF'] #names of transients to run
-worths = [0.12, 0.25, 0.37, 0.50, 0.62, 0.75, 0.87, 1.00, 1.12, 1.25, 1.37, 1.50, 1.62, 1.75, 1.87, 2.00] #total worths of ARC systems, $
-actuationTemps = [10, 15, 20, 25, 30, 35, 40, 45, 50] #temperature above SS of actuation of ARC system, C
-actuationSpans = [50.0, 75.0, 100.0, 125.0, 150.0, 175.0, 200.0]
+transients = ['ULOF'] #names of transients to run
+worths = [2.00] #total worths of ARC systems, $
+actuationTemps = [0] #temperature above SS of actuation of ARC system, C
+actuationSpans = [12.5]
 
 miniExe = '~/bin/mini-5.2/mini-5.x-Linux-2742M.x'
 
@@ -98,10 +98,10 @@ for span in actuationSpans:
                 fin.close()
     
                 #copy over slurm script and add commands at end
-                copyfile('/global/home/users/ckeckler/docs/mini/ARC-mini/mini_tmp.sub', './mini.sub')
+                copyfile('/global/home/users/ckeckler/docs/ARC-mini/mini_tmp.sub', './mini.sub')
                 fb = open('./mini.sub', 'a')
                 fb.write(miniExe+' < '+newPath+' > mini.out\n')
-                fb.write('/global/home/users/ckeckler/docs/mini/ARC-mini/csvPlot.py')
+                fb.write('/global/home/users/ckeckler/docs/ARC-mini/csvPlot.py')
                 fb.close()
     
                 #run it

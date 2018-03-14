@@ -23,8 +23,8 @@ from sys import argv
 #####
 
 runDir = getcwd() #directory that mini is being run from
-miniDir = '/global/home/users/ckeckler/docs/mini/ARC-mini' #directory that all mini shit is stored
-miniExe = '~/bin/mini-5.2/mini-5.x-Linux-2742M.x'
+miniDir = '/global/home/users/ckeckler/docs/ARC-mini' #directory that all mini shit is stored
+miniExe = '~/bin/mini-5.3/mini-5.3b2894-10-Linux-x86_64.x'
 input = str(argv[-1])
 output = 'mini.out'
 

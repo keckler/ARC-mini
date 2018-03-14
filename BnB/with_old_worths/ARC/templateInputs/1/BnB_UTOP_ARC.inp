@@ -54,13 +54,13 @@ INPCOM     1     0     0
 #
 #                MAXSTP: Maxiumum Number of Main (Power and Reactivity)
 #                |       Time Steps
-    11     1100000                                           MAXSTP
+    11     1 50000                                           MAXSTP
 #
 #                IPO: Number of Steps between Prints before IBLPRT or Boiling
 #                |     IPOBOI: Number of Steps between Prints after IBLPRT
 #                |     |       or Start of Boiling
 #                |     |
-    12     2  1000  1000                                     IPO,IPOBOI
+    12     2100000  1000                                     IPO,IPOBOI
 #
 #                ICLCMP: Flag to Save Plot Data for Transients to Unit 11
 #                |
@@ -665,8 +665,8 @@ GEOMIN    61     1     0
 #        size to the pins in the core region:
 #
 #            SER(KZ): Reflector/Pin Perimeter
-#                      |           |           |           |            |
-   182     5 3.83808E-02 3.83808E-02  4.5421E-04  3.12267E-03 3.83808E-02    SER
+#                      |           |           |           |           |
+   182     5 3.83808E-02 3.83808E-02  4.5421E-04  3.1226E-03 3.83808E-02    SER
 #
 #            DRFO(KZ): Thickness of Outer Reflector Node/Cladding
 #                      |           |           |           |           |
@@ -2770,7 +2770,7 @@ INPCOM     1     1     1
    111     1    40            MSTPL3 
     -1
 OPCIN     11     1     1
-     5     1 .5               DT0
+     5     1 .1               DT0
      7     1 50000.           TIMAX
     13     1 .5               DTP0
     14     1 1.               DTPMAX
