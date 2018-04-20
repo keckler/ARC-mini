@@ -2218,18 +2218,18 @@
     2218:     1153     1     2        NCCV                                                      
     2219:     1154     1     2        ICCVFS                                                    
     2220:   #                   STRATIFIED COMPRESSIBLE VOLUMES                                 
-    2221:   #  1313     1     0        NSTRCV                                                   
-    2222:     1313     1     2        NSTRCV                                                    
-    2223:     1314     2     2     5  ICVSTR                                                    
-    2224:     1317     2     1     2  ISTRVT                                                    
-    2225:     1320     2     1     1  NUMWAL                                                    
-    2226:     1323     2     1     2  IFSTWL                                                    
-    2227:     1326     2     0     0  IWLHRZ                                                    
-    2228:     1335     2    10    10  NVDWL                                                     
-    2229:     1344     2     5     5  NLNDWL                                                    
-    2230:     1353     2     3     0  ICV2WL                                                    
-    2231:     1362     1     0        IDBSTR                                                    
-    2232:     1363     1    30        ISTDBS                                                    
+    2221:     1313     1     0        NSTRCV                                                    
+    2222:   #  1313     1     2        NSTRCV                                                   
+    2223:   #  1314     2     2     5  ICVSTR                                                   
+    2224:   #  1317     2     1     2  ISTRVT                                                   
+    2225:   #  1320     2     1     1  NUMWAL                                                   
+    2226:   #  1323     2     1     2  IFSTWL                                                   
+    2227:   #  1326     2     0     0  IWLHRZ                                                   
+    2228:   #  1335     2    10    10  NVDWL                                                    
+    2229:   #  1344     2     5     5  NLNDWL                                                   
+    2230:   #  1353     2     3     0  ICV2WL                                                   
+    2231:   #  1362     1     0        IDBSTR                                                   
+    2232:   #  1363     1    30        ISTDBS                                                   
     2233:   #                   DEBUG PRINTS                                                    
     2234:      507     1     0                                                       IDBPR4     
     2235:      508     1     0                                                       IDBP4N     
@@ -2386,8 +2386,8 @@
     2386:      732     1       1.0-5  ROUGHL(11)                                                
     2387:      733     1       1.0-5  ROUGHL(12)                                                
     2388:      734     1       1.0-5  ROUGHL(13)                                                
-    2389:      735     1       1.0-5  ROUGHL(14)                                                
-    2390:      736     1       1.0-5  ROUGHL(15)                                                
+    2389:      735     1       1.0-1  ROUGHL(14)                                                
+    2390:      736     1       1.0-1  ROUGHL(15)                                                
     2391:      737     1       1.0-5  ROUGHL(16)                                                
     2392:      738     1       1.0-5  ROUGHL(17)                                                
     2393:      739     1       1.0-5  ROUGHL(18)                                                
@@ -2611,11 +2611,11 @@
     2611:     2661     1 2.305E+01    CMWALL(8)                                                 
     2612:     2662     1 2.305E+01    CMWALL(9)                                                 
     2613:   #                PUMPS                                                              
-    2614:     1899     2 600.        9.               PMPINR                                    
-    2615:     1911     2 45000.      120000.          HEADR                                     
-    2616:     1923     2 125.7       125.7            PMPSPR                                    
-    2617:     1935     2 1930.       4530.            PMPFLR                                    
-    2618:     1947     2 .84         .84              PMPEFR                                    
+    2614:     1899     2 600.        600.             PMPINR                                    
+    2615:     1911     2 350000.     520000.          HEADR                                     
+    2616:     1923     2 340.        345.             PMPSPR                                    
+    2617:     1935     2 4500.       4530.            PMPFLR                                    
+    2618:     1947     2 .90         .90              PMPEFR                                    
     2619:     1959     2 0.          0.               TRKLSC                                    
     2620:     1983     3 0.01        0.0        -73.13       APMPHD(1-3,1), LOW RANGE TORQUE ...
     2621:     1986     3 0.00268     0.0         0.07        APMPHD(4-6,1), MIDDLE RANGE        
@@ -2644,7 +2644,7 @@
     2644:     2463     1 9.8                                             GRAVTY                 
     2645:   #                 steam generator table                                             
     2646:     2937     4 1.0         1.0         1.          1.          DTMPTB, TEMP. DROP     
-    2647:     3105     4 28.83       28.83       28.83       28.83                   ZCENTR     
+    2647:     3105     4 28.83       28.83       0.83        0.83                    ZCENTR     
     2648:     3273     4 0.          10.         11.         9999999.                TMPMTB     
     2649:     3441     2 .99999      .99999                                          DTEVPF     
     2650:   #                 IHX, DRACS                                                        
@@ -2905,21 +2905,7 @@
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12000
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12100
  RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12200
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12300
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12400
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12500
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12600
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12700
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12800
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 12900
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13000
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13100
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13200
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13300
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13400
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13500
-0****** SWITCH TO BOILING MODULE IN CHANNEL    7 AT STEP  13600 AT TIME    1376.0000
- RESTART NUMBER 1 HAS BEEN WRITTEN ON LOGICAL UNIT 112 ON MAIN TIME STEP 13600
+0****** SWITCH TO BOILING MODULE IN CHANNEL    7 AT STEP  12253 AT TIME    1241.2851
 ====> ERROR (TSTHRM.F90:424) <====
 ====================================================================================================================================
 
